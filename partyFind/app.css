@@ -1,0 +1,151 @@
+html{
+	background-color:#f1c232
+}
+
+#all{
+	top: 50%; 
+ 	margin-top: 0%;
+
+	left: 50%; 
+	margin-left: 0px
+}
+
+#logoAdd{
+	height: 90px;
+	width: 600px;
+	margin-left: 10px;
+}
+
+#logoImg{
+	height: 90px;
+	width: 198px;
+}
+
+#table{
+	margin-top: 0px;
+	margin-bottom: 5px;
+
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+
+	width: 680px;
+	background-color:#ffd966;
+
+	float:right;
+}
+
+
+#posts{
+	height:380px;
+	width: 680px;
+	overflow-y: scroll;
+	background-color:#ffe599
+}
+
+#fiesta{
+	margin-top: 5px;
+
+	float:left;
+
+	width: 660px;
+	background-color: #fff2cc;
+}
+
+#datosFiesta{
+	float:left;
+	height: 100px;
+	width: 200px;
+	resize: none;
+
+	margin-left: 4px;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #fff2cc;
+}
+
+#nombreFiesta{
+	float:left;
+	height: 100px;
+	width: 200px;
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #fff2cc;
+}
+
+#stuff{
+	width: 900px;
+}
+
+#buttons{
+    	position: relative;
+	top: 10px;
+
+	width: 200px;
+	float:left;
+}
+
+Button{
+	height: 40px;
+	width: 200px;
+
+	resize: none;
+	margin-left: -4px;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: top;
+	font-size: 150%;
+
+	background-color: #ff9900;
+}
+
+#search{
+	width: 900px;
+	background-color: #ffe599;	
+}
+
+#Find{
+    	position: relative;
+	top: 1px;
+
+	float:right;
+	height: 40px;
+	width: 100px;
+}
+
+#searchBar {
+	float:right;
+	height: 40px;
+	width: 595px;
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #ffe599;	
+}

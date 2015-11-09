@@ -1,0 +1,52 @@
+html{
+	background-color:#f1c232
+}
+
+#all{
+	top: 50%; 
+ 	margin-top: 10%;
+
+	left: 50%; 
+	margin-left: 0px
+}
+
+textarea {
+	height: 35px;
+	width: 171px;
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #ffe599;	
+}
+
+#logoImg{
+	height: 156px;
+	width: 341px;
+}
+
+button{
+	height: 35px;
+	width: 171px;
+	align: center;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: center;
+	font-size: 150%;
+
+	background-color: #ff9900;
+}
+
+#pass{
+	margin-left: 20px;
+}

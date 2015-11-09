@@ -1,0 +1,117 @@
+html{
+	background-color:#f1c232
+}
+
+#all{
+	top: 50%; 
+ 	margin-top: 0%;
+
+	left: 50%; 
+	margin-left: 0px
+}
+
+#logoAdd{
+	height: 90px;
+	width: 600px;
+	margin-left: 10px;
+}
+
+#logoImg{
+	height: 90px;
+	width: 198px;
+}
+
+#table{
+	margin-top: 5px;
+
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+
+	width: 910px;
+	background-color:#ffd966;
+}
+
+#postImg{
+	height: 50px;
+	width: 50px;
+	margin-right: 0px;
+
+    	position: relative;
+	top: 3px;
+
+ 	margin-top: 5px;
+}
+
+#postText{
+	width: 800px;
+	height: 50px;
+
+ 	margin-top: 5px;
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: left;
+	font-size: 100%;
+
+	background-color: #fff2cc;
+}
+
+#posts{
+	height:380px;
+	width: 900px;
+	overflow-y: scroll;
+	background-color: #ffe599;
+}
+
+#imputPosts{
+	width: 900px;
+	height: 35px;
+	margin-top: 5px;
+	background-color: #ffd966;
+}
+
+#postButton{
+    float: right;
+
+	height: 35px;
+	width: 60px;
+
+	resize: none;
+	margin-left: -4px;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: top;
+	font-size: 150%;
+
+	background-color: #ff9900;
+}
+
+#chatImput{
+	float: left;
+
+	height: 35px;
+	width: 840px;
+
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #ffe599;	
+}
+

@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>PreGo</title>
+		<link rel="stylesheet" type="text/css" href="app.css">
+
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+		<script type="text/javascript">
+			function start(){
+            			console.log("starting...\n");
+			}
+
+			function login() {
+            			console.log("\nbutton pressed:\n");
+
+				var name = document.getElementById("name").value;
+				var pass = document.getElementById("pass").value;
+				console.log("name: " + name);
+				console.log("pass: " + pass);
+			}
+
+			function register() {
+            			console.log("\nregister not implemented...\n");
+			}
+	
+		</script>
+	</head>
+
+	<body onload="start();">
+		<center>
+			<div id="all">
+				<img id="logoImg" src="../prego-logo.png"></img><br>
+
+				<textarea id="name">name</textarea>
+				<textarea id="pass">pass</textarea><br><br>
+
+				<button id="login" onclick="login();" >login</button><br><br>
+				<button id="register" onclick="register();">register</button>
+			</div>
+		</center>
+	</body>
+</html>

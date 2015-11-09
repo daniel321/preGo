@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>PreGo</title>
+		<link rel="stylesheet" type="text/css" href="app.css">
+
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+		<script type="text/javascript">
+			var imgPath = "../user.jpg";
+			var name = "Pepe";
+
+			var partysCloseBy = [["fClose1","datosfc1"],["fClose2","datosfc2"]];
+			var partysBRated = [["fRated1","datosfr1"],["fRated2","datosfr2"],["fRated3","datosfr3"]];
+			var partysWithFriends = [["fFriends1","datosff1"]];
+			var partysPrivate = [["fPriv1","datosfp1"],["fPriv2","datosfp2"]];
+			var partysBig = [["fBig1","datosfb1"],["fBig2","datosfb2"],["fBig3","datosfb3"]];
+			var partysRec = [["fRec1","datosfrec1"],["fPriv2","datosfrec2"],["fRec3","datosfrec3"],["fPriv4","datosfrec4"]];
+
+			function start(){
+            			console.log("starting...\n");
+			}
+
+			function show(partys){
+
+				var container = document.getElementById("posts");
+				container.innerHTML = "";
+
+				for (i = 0; i < partys.length; i++) {
+					console.log("nombre: " + partys[i][0] + " datos: " + partys[i][1]);
+
+    					var listContainer = document.createElement("div");
+
+					// TODO llenar div con lo que queramos mostrar de la fiesta
+					var nombreFiesta = document.createElement("textarea");
+	    				nombreFiesta.setAttribute("id", "nombreFiesta");
+					nombreFiesta.innerHTML = partys[i][0];
+					nombreFiesta.readOnly = true;
+
+					var datosFiesta = document.createElement("textarea");
+	    				datosFiesta.setAttribute("id", "datosFiesta");
+					datosFiesta.innerHTML = partys[i][1];
+					datosFiesta.readOnly = true;
+
+					listContainer.appendChild(nombreFiesta);	
+					listContainer.appendChild(datosFiesta);
+
+					container.appendChild(listContainer);	
+				}
+
+			}
+
+			function Find() {
+            			console.log("finding...\n");
+
+				var searchText = document.getElementById("searchBar").value;
+
+				var partySearched = [];
+				// TODO obtener lista de fiestas resultado de la busqueda
+
+				show(partySearched);
+			}
+
+			function CloseBy() {
+            			console.log("showing close by...\n");
+				show(partysCloseBy);
+			}
+
+			function BestRated() {
+            			console.log("showing best rated...\n");
+				show(partysBRated);
+			}
+
+			function WithFriends() {
+            			console.log("showing w/friends...\n");
+				show(partysWithFriends);
+			}
+
+			function Private() {
+            			console.log("showing private...\n");
+				show(partysPrivate);
+			}
+
+			function Big() {
+            			console.log("showing big...\n");
+				show(partysBig);
+			}
+
+			function Recommended() {
+            			console.log("showing recommended...\n");
+				show(partysRec);
+			}
+
+	
+		</script>
+	</head>
+
+	<body onload="start();">
+		<center>
+			<div id="all">
+				<div id="head">
+					<img id="logoImg" src="../prego-logo.png"></img>
+					<img id="logoAdd" src="../ad.gif"></img><br>
+				</div>
+				
+				</br>
+				<div id="search">
+					<button id="Find" onclick="Find();">Search</button>
+					<textarea id="searchBar"> </textarea>
+				</div>
+			
+				</br></br></br>
+
+				<div id="stuff">
+					<div id="buttons">
+						<button id="CloseBy" onclick="CloseBy();">CloseBy</button> </br></br>
+						<button id="BestRated" onclick="BestRated();">BestRated</button> </br></br>
+						<button id="WithFriends" onclick="WithFriends();">WithFriends</button> </br></br>
+						<button id="Private" onclick="Private();">Private</button> </br></br>
+						<button id="Big" onclick="Big();">Big</button> </br></br>
+						<button id="Recommended" onclick="Recommended();">Recommended</button>
+					</div>
+
+					<div id="table">
+						<div id="posts"></div>
+					</div>
+				</div>
+			</div>
+		</center>
+	</body>
+</html>

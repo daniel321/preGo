@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>PreGo</title>
+		<link rel="stylesheet" type="text/css" href="app.css">
+
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+		<script type="text/javascript">
+			var imgPath = "../user.jpg";
+			var name = "Pepe";
+
+			function start(){
+            			console.log("starting...\n");
+			}
+
+			function post() {
+				var message = document.getElementById("chatImput").value;
+            			console.log("\nposting..." + message + "\n");
+			
+				var container = document.getElementById("posts");
+                                var listContainer = document.createElement("div");
+    				listContainer.setAttribute("id", "post");
+
+				var mens = document.createElement("textarea");
+    				mens.setAttribute("id", "postText");
+				mens.innerHTML = name + ": " + message;
+				mens.readOnly = true;
+
+				var img = document.createElement("img");
+    				img.setAttribute("id", "postImg");
+    				img.setAttribute("src", imgPath);
+
+				listContainer.appendChild(img);
+				listContainer.appendChild(mens);
+
+				container.appendChild(listContainer);
+			}
+	
+		</script>
+	</head>
+
+	<body onload="start();">
+		<center>
+			<div id="all">
+				<div id="head">
+					<img id="logoImg" src="../prego-logo.png"></img>
+					<img id="logoAdd" src="../ad.gif"></img><br>
+				</div>
+
+				<div id="table">
+					<div id="posts"></div>
+	
+					<div id="imputPosts">
+						<textarea id="chatImput">Message</textarea>
+						<button id="postButton" onclick="post();">post</button>
+					</div>
+				</div>
+			</div>
+		</center>
+	</body>
+</html>

@@ -1,0 +1,315 @@
+html{
+	background-color:#f1c232
+}
+
+#all{
+	top: 50%; 
+ 	margin-top: 0%;
+
+	left: 50%; 
+	margin-left: 0px
+}
+
+#logoAdd{
+	height: 90px;
+	width: 600px;
+	margin-left: 10px;
+}
+
+#logoImg{
+	height: 90px;
+	width: 198px;
+}
+
+#table{
+	margin-top: 0px;
+	margin-bottom: 5px;
+
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+
+	width: 800px;
+	height: 450px;
+	background-color:#ffd966;
+
+	float:right;
+}
+
+#PartyName{
+	margin-top: 5px;
+	margin-left: 30px;
+
+	height:30px;
+	width: 380px;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	resize: none;
+	float:center;
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #ffe599;
+}
+
+#postedImg{
+	margin-top: 5px;
+	margin-left: 5px;
+	height: 140px;
+	width: 150px;
+	
+	float:left;
+}
+
+#pictures{
+	margin-top: 5px;
+	margin-left: 30px;
+
+	height:150px;
+	width: 650px;
+	align:center;
+
+	overflow-y: scroll;
+
+	background-color:#ffe599;
+}
+
+#pictureUpload{
+	background-color:#ffd966;
+}
+
+#selectPictureBox{
+	margin-top: 15px;
+	margin-left: 23px;
+
+	height: 40px;
+	width: 548px;
+
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	align:center;
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #ffe599;	
+}
+
+#Upload{
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+	float: right;
+	height: 60px;
+	width: 100px;
+}
+
+#Select{
+	margin-top: 5px;
+	float: right;
+	height: 60px;
+	width: 100px;
+}
+
+#posts{
+	margin-top: 20px;
+	margin-left: 30px;
+
+	height:300px;
+	width: 760px;
+	align:center;
+
+	overflow-y: scroll;
+	background-color:#ffe599;
+}
+
+#postText{
+	width: 690px;
+	height: 50px;
+
+ 	margin-top: 5px;
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: left;
+	font-size: 100%;
+
+	background-color: #fff2cc;
+}
+
+#postImg{
+	height: 50px;
+	width: 50px;
+	margin-right: 0px;
+
+    	position: relative;
+	top: 3px;
+
+ 	margin-top: 5px;
+}
+
+#postBck{
+	height:300px;
+	width: 800px;
+	background-color:#ffd966;
+}
+
+#chat{
+	background-color:#ffd966;
+	width: 805px;
+
+}
+
+#partyInfo{
+	margin-top: 10px;
+	margin-left: 30px;
+
+	height: 90px;
+	width: 760px;
+
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	align:center;
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #ffe599;	
+}
+
+#chatImputBox{
+	margin-top: 10px;
+	margin-left: 30px;
+
+	height: 90px;
+	width: 760px;
+
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	align:center;
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #ffe599;	
+}
+
+#Comment{
+	margin-top: 4px;
+	margin-left: 20px;
+	padding-top: 5px;
+	float:center;
+}
+
+#buttons{
+    	padding-top: 1px;
+    	padding-left: 5px;
+    	padding-right: 5px;
+    	padding-bottom: 5px;
+
+	width: 795px;
+	background-color:#ffd966;
+}
+
+#imGoing{
+	float:center;
+}
+
+#buyTicket{
+	margin-left: 20px;
+	float:left;
+}
+
+#meetPeople{
+	float:right;
+}
+
+#fiesta{
+	margin-top: 5px;
+
+	float:left;
+
+	width: 660px;
+	background-color: #fff2cc;
+}
+
+#datosFiesta{
+	float:left;
+	height: 100px;
+	width: 200px;
+	resize: none;
+
+	margin-left: 4px;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #fff2cc;
+}
+
+#nombreFiesta{
+	float:left;
+	height: 100px;
+	width: 200px;
+	resize: none;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: center;
+	font-size: 200%;
+
+	background-color: #fff2cc;
+}
+
+#stuff{
+	overflow-y: scroll;
+	width: 800px;
+
+}
+
+Button{
+	height: 40px;
+	width: 200px;
+
+	resize: none;
+	margin-left: -4px;
+
+	border-style: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+
+	text-align: top;
+	font-size: 150%;
+
+	background-color: #ff9900;
+}

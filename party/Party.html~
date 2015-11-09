@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>PreGo</title>
+		<link rel="stylesheet" type="text/css" href="app.css">
+
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+		<script type="text/javascript">
+
+			var imgPath = "../user.jpg";
+			var name = "Pepe";
+
+			function start(){
+            			console.log("starting...\n");
+			}
+
+			function addPicture(){
+				var path = document.getElementById("selectPictureBox").value;
+				var container = document.getElementById("pictures");
+
+				var img = document.createElement("img");
+    				img.setAttribute("id", "postedImg");
+    				img.setAttribute("src", path);
+
+				container.appendChild(img);
+			}
+
+			function selPicture(){
+				//TODO
+			}
+
+			function Comment() {
+				var message = document.getElementById("chatImput").value;
+            			console.log("\nposting..." + message + "\n");
+			
+				var container = document.getElementById("posts");
+                                var listContainer = document.createElement("div");
+    				listContainer.setAttribute("id", "post");
+
+				var mens = document.createElement("textarea");
+    				mens.setAttribute("id", "postText");
+				mens.innerHTML = name + ": " + message;
+				mens.readOnly = true;
+
+				var img = document.createElement("img");
+    				img.setAttribute("id", "postImg");
+    				img.setAttribute("src", imgPath);
+
+				listContainer.appendChild(img);
+				listContainer.appendChild(mens);
+
+				container.appendChild(listContainer);
+			}
+
+			function buyTicket(){
+				//TODO
+			}
+
+			function meetPeople(){
+				//TODO
+			}
+
+			function imGoing(){
+				// TODO
+			}
+	
+		</script>
+	</head>
+
+	<body onload="start();">
+		<center>
+			<div id="all">
+				<div id="head">
+					<img id="logoImg" src="../prego-logo.png"></img>
+					<img id="logoAdd" src="../ad.gif"></img><br>
+				</div>
+				
+				</br>
+				<div id="stuff">
+					<div id="table">
+						<textarea id="PartyName" readOnly="true"> Party Name </textarea>
+
+						<div id="pictureUpload">
+							<div id="pictures"></div>
+
+							<textarea id="selectPictureBox"> </textarea>				
+							<button id="Upload" onclick="addPicture();">Upload Picture</button>
+							<button id="Select" onclick="selPicture();">Select Picture</button>	
+						</div>
+
+
+						<textarea id="partyInfo" readOnly="true"> Party info</textarea>	
+
+						<div id="chat">
+							<div id="posts"></div>
+
+							<textarea id="chatImputBox"> </textarea>					
+							<button id="Comment" onclick="Comment();">Comment</button>	
+						</div>
+						
+						<div id="buttons">
+							</br>
+							<button id="imGoing" onclick="imGoing();">i'm Going!</button>
+							<button id="buyTicket" onclick="buyTicket();">buyTicket</button>
+							<button id="meetPeople" onclick="meetPeople();">meetPeople</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</center>
+	</body>
+</html>

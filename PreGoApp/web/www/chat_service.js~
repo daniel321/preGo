@@ -1,0 +1,14 @@
+app.factory('ChatService', function ($http, $q) {
+    return {
+        getChat: function () {
+            return simpleHttpGet($http, '/api/Chat', $q.reject);
+        },
+
+        sendMessage: function (message) {
+            return $http.post(
+                '/api/Chat/',
+                { message: message }
+            );
+        }
+    };
+});

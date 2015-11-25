@@ -1,0 +1,13 @@
+app.factory('holaService', function ($http, $q) {
+    return {
+        getMessages: function () {
+            return simpleHttpGet($http, '/api/msgs', $q.reject);
+        },
+
+        sendMessage: function (message) {
+            return $http.post(
+                '/api/msgs/', { message: message }
+            );
+        }
+    };
+});

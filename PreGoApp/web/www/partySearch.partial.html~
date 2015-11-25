@@ -1,0 +1,247 @@
+
+<style>
+
+	#all{
+		background-color: black;
+	}
+
+	#Logo{
+		height:50px;
+		margin-top:auto;
+		margin-bottom:auto;
+
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border:none;		
+
+		-o-background-size: cover;
+		-moz-background-size: cover;
+		-webkit-background-size: cover;
+		background-size: cover;
+		background-repeat:no-repeat;
+
+	}
+
+	#promParty{
+		height:175px;
+		margin-top:0px;
+		margin-bottom:-18px;
+
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border:none;		
+
+		-o-background-size: cover;
+		-moz-background-size: cover;
+		-webkit-background-size: cover;
+		background-size: cover;
+		background-repeat:no-repeat;
+	}
+
+	#commonParty{
+		height:125px;
+		margin-top:0px;
+		margin-bottom:-18px;
+
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border:none;		
+
+		-o-background-size: cover;
+		-moz-background-size: cover;
+		-webkit-background-size: cover;
+		background-size: cover;
+		background-repeat:no-repeat;
+
+	}
+
+	#ptys{
+		min-height:600px;		
+	}
+
+	#partyStuff{
+		max-height:100px;		
+		max-width:200px;		
+		float:right;
+
+
+/*		border-top-right-radius: 3px;
+		border-top-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+		border-bottom-left-radius: 3px;
+
+		background-color:black;
+*/		margin-right:10px;
+	}
+
+	#icon{
+		float:left;
+		min-height:20px;
+		min-width:20px;		
+
+		max-height:25px;
+		max-width:25px;		
+
+	}
+
+	#fireIcon{
+		height:35px;
+		width:15px;	
+
+		-o-background-size: 20px 35px;
+		-moz-background-size: 20px 35px;
+		-webkit-background-size: 20px 35px;
+		background-size: 20px 35px;	
+		background-repeat:no-repeat;
+		background-position:center;
+	}
+
+	#menuOption{
+		height:40px;
+		max-width:100px;
+
+		margin-left:auto;
+		margin-right:auto;
+	}
+
+	#btn{
+		float:left;
+		max-height:40px;
+		max-width:35px;		
+
+		color:transparent;
+		background-color:transparent;
+
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border-color:transparent;
+		border:none;		
+
+		cursor:default;		
+	}
+
+	#text{
+		color:white;
+		margin-top:auto;
+		margin-bottom:auto;
+		text-align:center;
+	}
+
+	#searchBar{
+		max-height:40px;
+
+		margin-top:auto;
+		margin-left:auto;
+		margin-right:auto;
+		margin-bottom:13px;
+	}
+
+	#secc{
+		padding-left:10px;
+		padding-top:10px;
+
+		border:0px;
+		border-right:1px;
+		border-top:1px;
+		border-bottom:1px;
+
+		border-style:solid;
+		border-color:#C0C0C0;
+	}
+
+	#secc3{
+		padding-left:10px;
+		padding-top:10px;
+
+		border:0px;
+		border-top:1px;
+		border-bottom:1px;
+
+		border-style:solid;
+		border-color:#C0C0C0;
+	}
+
+
+</style>
+
+<div id="all">
+	<img id="Logo" src="/dist/img/icons/Logo.png" href="#" class="img-responsive" alt="Cinque Terre"></img>
+
+	<div id="searchBar" class="row"> 
+		<div id="secc" class="col-xs-4">
+			<div id="menuOption">
+				<button id="btn" ng-click="findTodayPartys()" class="btn btn-success">
+					<img id="icon" src="/dist/img/icons/calendarIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>
+				</button>
+	
+				<div id="text"> Hoy </div>
+			</div>
+		</div>
+
+		<div id="secc" class="col-xs-4">			
+			<div id="menuOption">
+				<button id="btn" ng-click="findCloseByPartys()" class="btn btn-success">
+					<img id="icon" src="/dist/img/icons/mpIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>		
+				</button>
+
+				<div id="text"> cerca </div>
+			</div>
+		</div>
+
+		<div id="secc3" class="col-xs-4">		
+			<div id="menuOption">
+				<button id="btn" ng-click="getAllPartys()" class="btn btn-success">
+					<img id="icon" src="/dist/img/icons/partyIcon.png" class="img-responsive" alt="Cinque Terre"></img>		
+				</button>
+				
+				<div id="text"> todas </div>
+			</div>
+		</div>
+	</div>
+
+	<div id="ptys">
+		<div class="list-group" ng-repeat="pty in promoted_partys">
+			<a id="promParty" href="#" class="list-group-item" ng-style="{'background-image':'url({{pty[1][2]}})'}">	
+				<div id="partyStuff" class="row">
+					<div id="dist" class="col-xs-4">
+						<img id="icon" src="/dist/img/icons/mpIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
+						<div id="text"> {{distance}} </div>
+					</div>				
+
+					<div id="people" class="col-xs-4">
+						<img id="icon" src="/dist/img/icons/pplIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
+						<div id="text"> {{pty[1][7]}} </div>
+					</div>
+
+					<div id="fireIcon" class="col-xs-4" ng-style="{'background-image':'url({{pty[2]}})'}"></div>
+				</div>
+			</a>
+		</div>
+
+		<div class="list-group" ng-repeat="pty in common_partys">
+			<a id="commonParty" href="#" class="list-group-item" ng-style="{'background-image':'url({{pty[1][2]}})', 'background-size':'cover'}">	
+
+				<div id="partyStuff" class="row">
+					<div id="dist" class="col-xs-4">
+						<img id="icon" src="/dist/img/icons/mpIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
+						<div id="text"> {{distance}} </div>
+					</div>				
+					<div id="people" class="col-xs-4">
+						<img id="icon" src="/dist/img/icons/pplIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
+						<div id="text"> {{pty[1][7]}} </div>
+					</div>
+
+					<div id="fireIcon" class="col-xs-4" ng-style="{'background-image':'url({{pty[2]}})'}"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+</all>	

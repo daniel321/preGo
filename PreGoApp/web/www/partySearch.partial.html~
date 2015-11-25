@@ -172,6 +172,8 @@
 
 </style>
 
+<script src="/plugins/geoLocation/geo-min.js" type="text/javascript" charset="utf-8"></script>
+
 <div id="all">
 	<img id="Logo" src="/dist/img/icons/Logo.png" href="#" class="img-responsive" alt="Cinque Terre"></img>
 
@@ -207,13 +209,18 @@
 		</div>
 	</div>
 
+	{{$scope.getPosition()}}
+
 	<div id="ptys">
 		<div class="list-group" ng-repeat="pty in promoted_partys">
 			<a id="promParty" href="#" class="list-group-item" ng-style="{'background-image':'url({{pty[1][2]}})'}">	
+
+				{{getDistance(pty[1][5])}}
+
 				<div id="partyStuff" class="row">
 					<div id="dist" class="col-xs-4">
 						<img id="icon" src="/dist/img/icons/mpIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
-						<div id="text"> {{distance}} </div>
+						<div id="text"> {{distance}} km</div>
 					</div>				
 
 					<div id="people" class="col-xs-4">
@@ -229,10 +236,12 @@
 		<div class="list-group" ng-repeat="pty in common_partys">
 			<a id="commonParty" href="#" class="list-group-item" ng-style="{'background-image':'url({{pty[1][2]}})', 'background-size':'cover'}">	
 
+				{{getDistance(pty[1][5])}}
+
 				<div id="partyStuff" class="row">
 					<div id="dist" class="col-xs-4">
 						<img id="icon" src="/dist/img/icons/mpIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
-						<div id="text"> {{distance}} </div>
+						<div id="text"> {{distance}}km</div>
 					</div>				
 					<div id="people" class="col-xs-4">
 						<img id="icon" src="/dist/img/icons/pplIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	

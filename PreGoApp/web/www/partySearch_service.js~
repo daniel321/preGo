@@ -9,6 +9,6 @@ app.factory('partySearchService', function ($http, $q) {
         getCommonPartys: function () {
 	    console.log("service getting promoted partys");
             return simpleHttpGet($http, '/api/commonPartys', $q.reject);
-        }
+        },
     };
 });

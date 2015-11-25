@@ -140,14 +140,14 @@ var getFlame = function(rates,people){
 
 var partys = {};
 
-/*esSugerida, fondo, barra, [imagen], descripcion, direccion, fecha, #gente, [rate], [[autor,comentario]] */
+/*esSugerida, fondo, barra, [imagen], descripcion, [latitud,longitud], fecha, #gente, [rate], [[autor,comentario]] */
 partys["Ink"] = [
 		 true,
 		 "/dist/img/clubs/ink.jpg",
 		 "/dist/img/clubs/ink_BAR.jpg",
 		 [["otras imagenes"]],
 		 "descripcion Ink",
-		 "direccion Ink",
+		 [-34.5865587,-58.4395189],
 		 "fecha Ink",
 		 325,
 		 [10,7,9,9,6],
@@ -161,7 +161,7 @@ partys["Hiio"] = [
 		 "/dist/img/clubs/Hiio_BAR.jpg",
 		 [["otras imagenes"]],
 		 "descripcion Hiio",
-		 "direccion Hiio",
+		 [-34.4961641,-58.5549297],
 		 "fecha Hiio",
 		 202,
 		 [8,9,7,9,6,4,7],
@@ -174,7 +174,7 @@ partys["Moscow"] = [
 		 "/dist/img/clubs/Moscow_BAR.jpg",
 		 [["otras imagenes"]],
 		 "descripcion Moscow",
-		 "direccion Moscow",
+		 [-34.4513129,-58.5561985],
 		 "fecha Moscow",
 		 235,
 		 [6,8,10,7,4],
@@ -187,7 +187,7 @@ partys["Bosque"] = [
 		 "/dist/img/clubs/bosque_BAR.jpg",
 		 [["otras imagenes"]],
 		 "descripcion bosque",
-		 "direccion bosque",
+		 [-34.8304372,-58.5712683],
 		 "fecha bosque",
 		 135,
 		 [8,10,7],
@@ -200,7 +200,7 @@ partys["Sunset"] = [
 		 "/dist/img/clubs/sunset_BAR.jpg",
 		 [["otras imagenes"]],
 		 "descripcion sunset",
-		 "direccion sunset",
+		 [-34.5876237,-58.4660913],
 		 "fecha sunset",
 		 632,
 		 [9,10,8,10,7,9],
@@ -216,7 +216,7 @@ partys["BsAsEnFoco"] = [
 		 "/dist/img/clubs/Buenos-Aires-En-Foco_BAR.jpg",
 		 [["otras imagenes"]],
 		 "descripcion Buenos-Aires-En-Foco",
-		 "direccion Buenos-Aires-En-Foco",
+		 [-34.6324812,-58.4184982],
 		 "fecha Buenos-Aires-En-Foco",
 		 35,
 		 [6],
@@ -229,7 +229,7 @@ partys["PoolParty"] = [
 		 "/dist/img/clubs/Pool-Party_BAR.jpg",
 		 [["otras imagenes"]],
 		 "descripcion Pool-Party",
-		 "direccion Pool-Party",
+		 [-34.5739245,-58.3923359],
 		 "fecha Pool-Party",
 		 302,
 		 [8,8,8,5,7,10],
@@ -263,39 +263,6 @@ app.get('/api/commonPartys', function (req,res) {
 		ret.push([name,party,flame]);
 	}
     }
-
-    res.send(ret);
-})
-
-app.get('/api/promotedPartysCloseBy', function (req,res) {
-    var ret = [];
-  
-    // TODO
-
-    res.send(ret);
-})
-
-app.get('/api/commonPartysCloseBy', function (req,res) {
-    var ret = [];
-  
-    // TODO
-
-    res.send(ret);
-
-})
-
-app.get('/api/promotedPartysToday', function (req,res) {
-    var ret = [];
-  
-    // TODO
-
-    res.send(ret);
-})
-
-app.get('/api/commonPartysToday', function (req,res) {
-    var ret = [];
-  
-    // TODO
 
     res.send(ret);
 })

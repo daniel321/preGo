@@ -44,6 +44,8 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	$scope.findCloseByPartys = function (){
 		//console.log("finding partys close by");
 
+		$scope.getAllPartys();
+
 		var tolerance = 10;  // dist max para mostrarlo
 
 		for (var i=0; i<$scope.promoted_partys.length; i++){

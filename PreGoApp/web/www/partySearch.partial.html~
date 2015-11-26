@@ -220,12 +220,12 @@
 				<div id="partyStuff" class="row">
 					<div id="dist" class="col-xs-4">
 						<img id="icon" src="/dist/img/icons/mpIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
-						<div id="text"> {{distance}} km</div>
+						<div id="text"> {{distance}}km</div>
 					</div>				
 
 					<div id="people" class="col-xs-4">
 						<img id="icon" src="/dist/img/icons/pplIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
-						<div id="text"> {{pty[1][7]}} </div>
+						<div id="text"> {{pty[1][8]}} </div>
 					</div>
 
 					<div id="fireIcon" class="col-xs-4" ng-style="{'background-image':'url({{pty[2]}})'}"></div>
@@ -245,7 +245,7 @@
 					</div>				
 					<div id="people" class="col-xs-4">
 						<img id="icon" src="/dist/img/icons/pplIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
-						<div id="text"> {{pty[1][7]}} </div>
+						<div id="text"> {{pty[1][8]}} </div>
 					</div>
 
 					<div id="fireIcon" class="col-xs-4" ng-style="{'background-image':'url({{pty[2]}})'}"></div>

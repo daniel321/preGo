@@ -1,4 +1,5 @@
 app.controller('partySearchController', function ($scope, $routeParams, partySearchService) {
+    $scope.navBar.src = 'www/partySearchNavBar.html';
 	$scope.common_partys = [];
 	$scope.promoted_partys = [];
 

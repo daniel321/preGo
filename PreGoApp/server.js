@@ -333,6 +333,20 @@ app.post('/api/partys', function (req, res) {
     res.send(true);
 })
 
+//var services = {};
+
+/* #publicados */
+//services["DJ"] = [ 339 ];
+//services["Bebidas"] = [ 1349 ];
+//services["Salon"] = [ 819 ];
+//services["Sonido"] = [ 529 ];
+//services["Animacion"] = [ 3219 ];
+
+app.get('/api/services', function (req, res) {    
+//	res.send(services);
+	res.send("Sarlanga");
+})
+
 var server = app.listen(3000, function () {
 
     var host = server.address().address

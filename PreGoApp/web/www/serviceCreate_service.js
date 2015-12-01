@@ -1,14 +1,9 @@
-app.factory('ChatService', function ($http, $q) {
-    return {
-        getChat: function (contactNickname) {
-            return simpleHttpGet($http, '/api/Chat/' + contactNickname, $q.reject);
-        },
+app.factory('PartyServicesService', function($http, $q) {
+	return {
 
-        sendMessage: function (contactNickname, message) {
-            return $http.post(
-                '/api/Chat/' + contactNickname,
-                { message: message }
-            );
-        }
-    };
+		getPublishedServices : function() {
+//			return simpleHttpGet($http, '/api/services', $q.reject);
+			return "Garompa";
+		},
+	};
 });

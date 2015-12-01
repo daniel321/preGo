@@ -1,5 +1,3 @@
-
-
 <!-- Main row -->
 <div class="row">
 	<!-- Left col -->
@@ -25,12 +23,13 @@
 				<h2>Seccion Fotos. Work in progress.</h2>
 								
 				<div class="box box-warning">
-					<form role="form">
+					<form role="form" id="publicarServicio" method="post">
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="nombre">Nombre del Servicio</label> <input
 									type="text" class="form-control" id="nombre"
-									placeholder="¿Quien eres? ¿Como se llama el servicio que ofreces?">
+									placeholder="¿Quien eres? ¿Como se llama el servicio que ofreces?"
+									required>
 							</div>
 						</div>
 						<div class="col-md-12">
@@ -47,7 +46,8 @@
 								<span class="input-group-addon"> <i class="fa fa-dollar"></i>
 
 								</span> <input type="text" class="form-control" id="precio"
-									placeholder="¿Cual es el precio de tu servicio? ¿Por hora? ¿Por noche?">
+									placeholder="¿Cual es el precio de tu servicio? ¿Por hora? ¿Por noche?"
+									required>
 							</div>
 						</div>
 						<div class="col-md-12">
@@ -74,7 +74,7 @@
 
 							<ul class="list-group list-group-unbordered">
 								<li class="list-group-item"><b>Publicados</b> <a
-									class="pull-right">342</a></li>
+									class="pull-right">{{publishedDJ()}}</a></li>
 							</ul>
 							<a href="#" class="btn btn-primary btn-block"><b>Publicar
 									Servicio</b></a>
@@ -89,7 +89,7 @@
 					<div class="box box-primary">
 						<div class="box-body box-profile">
 							<img class="profile-user-img img-responsive img-circle"
-								src="dist/img/drinks.png" alt="DJ">
+								src="dist/img/drinks.png" alt="Drinks">
 							<h3 class="profile-username text-center">Bebidas</h3>
 							<p class="text-muted text-center">Servicio de Barman</p>
 
@@ -110,7 +110,7 @@
 					<div class="box box-primary">
 						<div class="box-body box-profile">
 							<img class="profile-user-img img-responsive img-circle"
-								src="dist/img/salon.png" alt="DJ">
+								src="dist/img/salon.png" alt="Salon">
 							<h3 class="profile-username text-center">Salon</h3>
 							<p class="text-muted text-center">Reserva de salon</p>
 
@@ -131,7 +131,7 @@
 					<div class="box box-primary">
 						<div class="box-body box-profile">
 							<img class="profile-user-img img-responsive img-circle"
-								src="dist/img/sound.png" alt="DJ">
+								src="dist/img/sound.png" alt="Sound">
 							<h3 class="profile-username text-center">Sonido</h3>
 							<p class="text-muted text-center">Equipos de sonido</p>
 
@@ -152,7 +152,7 @@
 					<div class="box box-primary">
 						<div class="box-body box-profile">
 							<img class="profile-user-img img-responsive img-circle"
-								src="dist/img/animacion.png" alt="DJ">
+								src="dist/img/animacion.png" alt="Animacion">
 							<h3 class="profile-username text-center">Animacion</h3>
 							<p class="text-muted text-center">Animador de fiestas</p>
 

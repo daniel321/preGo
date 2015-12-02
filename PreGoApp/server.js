@@ -333,7 +333,6 @@ app.post('/api/partys', function (req, res) {
     res.send(true);
 })
 
-//var services = {};
 
 /* #publicados */
 services = 
@@ -344,17 +343,34 @@ services =
 		Sonido: '529',
 		Animacion: '3219'
 	};
-//services["Bebidas"] = [ 1349 ];
-//services["Salon"] = [ 819 ];
-//services["Sonido"] = [ 529 ];
-//services["Animacion"] = [ 3219 ];
 
 app.get('/api/services', function (req, res) {    
-//	res.send(services);
-//	res.send("Sarlanga");
-	
 	res.send(services);
 })
+
+//app.post('/api/services', function (req, res) {
+//    console.log(req.body);
+//
+////    if (chats[req.params.nickname] == null) {
+////        chats[req.params.nickname] = [];
+////    }
+////    console.log(req.body);
+////    chats[req.params.nickname].push({
+////        avatar_url: '/dist/img/user3-128x128.jpg',
+////        nickname: req.cookies.nickname,
+////        message: req.body.message,
+////        time: new Date().toString("HH:mm"),
+////        is_you: true
+////    });
+//
+//    res.send(true);
+//    /*
+//    if (chats[req.params.nickname] == null) {
+//        chats[req.params.nickname] = [];
+//    }
+//
+//    res.send(chats[req.params.nickname]);*/
+//})
 
 var server = app.listen(3000, function () {
 

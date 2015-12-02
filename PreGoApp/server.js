@@ -336,7 +336,14 @@ app.post('/api/partys', function (req, res) {
 //var services = {};
 
 /* #publicados */
-//services["DJ"] = [ 339 ];
+services = 
+	{
+		DJ: '339',
+		Bebidas: '1349',
+		Salon: '819',
+		Sonido: '529',
+		Animacion: '3219'
+	};
 //services["Bebidas"] = [ 1349 ];
 //services["Salon"] = [ 819 ];
 //services["Sonido"] = [ 529 ];
@@ -344,7 +351,9 @@ app.post('/api/partys', function (req, res) {
 
 app.get('/api/services', function (req, res) {    
 //	res.send(services);
-	res.send("Sarlanga");
+//	res.send("Sarlanga");
+	
+	res.send(services);
 })
 
 var server = app.listen(3000, function () {

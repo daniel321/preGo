@@ -20,6 +20,10 @@ app.config(['$routeProvider',
         when('/serviceCreate', {
             templateUrl: 'www/serviceCreate.partial.html',
             controller: 'ServiceCreateController'
+        }).
+        when('/serviceSearch', {
+            templateUrl: 'www/serviceSearch.partial.html',
+            controller: 'ServiceSearchController'
         })
 
 	/*.

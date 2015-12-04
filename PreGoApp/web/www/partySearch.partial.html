@@ -1,9 +1,7 @@
 
 <head>
-
 	<link rel="stylesheet" type="text/css" href="/www/css/partySearch.css">
 	<script src="/plugins/geoLocation/geo-min.js" type="text/javascript" charset="utf-8"></script>
-
 </head>
 
 <div id="all">
@@ -11,7 +9,7 @@
 	<div id="searchBar2" class="row"> 
 		<div id="secc" class="col-xs-4">
 			<div id="menuOption">
-				<button id="btn" ng-click="findTodayPartys()" class="btn btn-success">
+				<button id="btn" ng-click="enableTodayPartysMenu()" class="btn btn-success">
 					<img id="icon" src="/dist/img/icons/calendarIcon.png" class="img-responsive" alt="Cinque Terre"></img>
 				</button>
 	
@@ -21,7 +19,7 @@
 
 		<div id="secc" class="col-xs-4">			
 			<div id="menuOption">
-				<button id="btn" ng-click="findCloseByPartys()" class="btn btn-success">
+				<button id="btn" ng-click="enableCloseByPartysMenu()" class="btn btn-success">
 					<img id="icon" src="/dist/img/icons/mpIcon.png" class="img-responsive" alt="Cinque Terre"></img>		
 				</button>
 
@@ -38,6 +36,27 @@
 				<div id="text"> todas </div>
 			</div>
 		</div>
+	</div>
+
+	<div id="menuTodaysPartys" ng-show="showMenu == 1">
+		<div id="dateForm">
+			<input id="dayForm" class="form-control-unstyled"></input>
+			/     
+			<input id="monthForm" type="text" class="form-control-unstyled"></input>
+			/
+			<input id="yearForm" type="text" class="form-control-unstyled"></input>
+		
+			<button id="okBtn" ng-click="findTodayPartys()" class="btn btn-success">
+				<img id="icon" src="/dist/img/icons/go.png" class="img-responsive" alt="Cinque Terre"></img>
+			</button>
+		</div>
+	</div>
+
+	<div id="menuCloseByPartys" ng-show="showMenu == 2">
+		<button id="okBtn" ng-click="findCloseByPartys()" class="btn btn-success-unstyled">
+			<img id="icon" src="/dist/img/icons/go.png" class="img-responsive" alt="Cinque Terre"></img>
+		</button>
+
 	</div>
 
 	<div id="ptys">

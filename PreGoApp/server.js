@@ -149,12 +149,7 @@ var closest = function(party1,party2){
 	return (party2.dist - party1.dist);
 }
 
-var isToday = function(party){
-	var date = new Date();
-	var day = date.getDate();
-	var month = date.getMonth()+1;
-	var year = date.getFullYear();
-
+var isToday = function(party,day,month,year){
 	var partyDay = party.fecha.dia;
 	var partyMonth = party.fecha.mes;
 	var partyYear = party.fecha.anio;
@@ -336,13 +331,12 @@ app.get('/api/commonPartys', function (req,res) {
 })
 
 app.get('/api/promotedPartysToday', function (req,res) {
-    var date = new Date();
-    var day = date.getDate();
-    var month = date.getMonth()+1;
-    var year = date.getFullYear();
-
     var ret = [];
     var size = Object.keys(partys).length;
+
+    var day = req.query['day'];
+    var month = req.query['month'];
+    var year = req.query['year'];
 
     var lat = req.query['lat'];
     var long = req.query['long'];
@@ -351,7 +345,7 @@ app.get('/api/promotedPartysToday', function (req,res) {
 	var party = partys[name];
     	var dist = getDistance([lat,long],party);
 
-	if((party.esSugerida)&&(isToday(party))){
+	if((party.esSugerida)&&(isToday(party,day,month,year))){
 		agregar(ret,name,party,dist);
 	}
     }
@@ -364,13 +358,17 @@ app.get('/api/commonPartysToday', function (req,res) {
     var ret = [];
     var size = Object.keys(partys).length;
 
+    var day = req.query['day'];
+    var month = req.query['month'];
+    var year = req.query['year'];
+
     var lat = req.query['lat'];
     var long = req.query['long'];
 
     for (name in partys){
 	var party = partys[name];
     	var dist = getDistance([lat,long],party);
-	if((!party.esSugerida)&&(isToday(party))){
+	if((!party.esSugerida)&&(isToday(party,day,month,year))){
 		agregar(ret,name,party,dist);
 	}
     }

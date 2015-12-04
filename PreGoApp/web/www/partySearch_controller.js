@@ -4,7 +4,6 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	$scope.promoted_partys = [];
 
 	$scope.position = [0,0];
-	$scope.distance = "";
 
 	if(geo_position_js.init()){
 		geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
@@ -23,81 +22,32 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	}
 
     	$scope.getAllPartys = function () {
-		partySearchService.getCommonPartys().then(function (res) {
+		partySearchService.getCommonPartys($scope.position[0],$scope.position[1]).then(function (res) {
         		angular.copy(res, $scope.common_partys);
     		});
 
-		partySearchService.getPromotedPartys().then(function (res) {
+		partySearchService.getPromotedPartys($scope.position[0],$scope.position[1]).then(function (res) {
         		angular.copy(res, $scope.promoted_partys);
     		});
     	}
 
 	$scope.findTodayPartys = function (){
-		partySearchService.getCommonPartysToday().then(function (res) {
+		partySearchService.getCommonPartysToday($scope.position[0],$scope.position[1]).then(function (res) {
         		angular.copy(res, $scope.common_partys);
     		});
 
-		partySearchService.getPromotedPartysToday().then(function (res) {
+		partySearchService.getPromotedPartysToday($scope.position[0],$scope.position[1]).then(function (res) {
         		angular.copy(res, $scope.promoted_partys);
     		});
 	}
 
 	$scope.findCloseByPartys = function (){
-		//console.log("finding partys close by");
+		partySearchService.getCommonPartysCloseBy($scope.position[0],$scope.position[1],10).then(function (res) {
+        		angular.copy(res, $scope.common_partys);
+    		});
 
-		$scope.getAllPartys();
-
-		var tolerance = 10;  // dist max para mostrarlo
-
-		for (var i=0; i<$scope.promoted_partys.length; i++){
-			var party = $scope.promoted_partys[i];
-			var pos = party[1][5];
-			$scope.getDistance(pos);
-
-			if($scope.distance > tolerance){
-				// console.log("saco: " + $scope.common_partys[i][0]);
-				$scope.promoted_partys.splice(i,1);
-				i--;
-			}
-		}
-
-		for (var i=0; i<$scope.common_partys.length; i++){
-			var party = $scope.common_partys[i];
-			var pos = party[1][5];
-			$scope.getDistance(pos);
-
-			if($scope.distance > tolerance){
-				// console.log("saco: " + $scope.common_partys[i][0]);
-				$scope.common_partys.splice(i,1);
-				i--;
-			}	
-		}	
+		partySearchService.getPromotedPartysCloseBy($scope.position[0],$scope.position[1],10).then(function (res) {
+        		angular.copy(res, $scope.promoted_partys);
+    		});
 	}
-
-	var enRadianes = function(valor){
-		return (Math.PI/180)*valor;
-	}
-
-    	$scope.getDistance = function (direccion) {
-//		console.log("lat: " + $scope.position[0]);
-//		console.log("long: " + $scope.position[0]);
-
-//		console.log("dest lat: " + direccion[0]);
-//		console.log("dest long: " + direccion[0]);
-
-		var lat = $scope.position[0];
-		var long = $scope.position[1];
-
-		var lat2 = direccion[0];
-		var long2 = direccion[1];
-
-		var dlat = enRadianes(lat2-lat);
-		var dlong = enRadianes(long2-long);
-
-		var a = Math.pow( Math.sin( dlat/2 ), 2) + Math.cos(enRadianes(lat)) * Math.cos(enRadianes(lat2)) * Math.pow( Math.sin( dlong/2 ), 2);
-		var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));		
-	
-		var RadioTierra = 6378.0;
-		$scope.distance = Math.round(RadioTierra*c);
-    	}
 });

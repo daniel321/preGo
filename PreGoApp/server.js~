@@ -273,26 +273,6 @@ app.get('/api/promotedPartys', function (req,res) {
     res.send(ret);
 })
 
-app.get('/api/commonPartys', function (req,res) {
-    var ret = [];
-    var size = Object.keys(partys).length;
-
-    var lat = req.param('lat');
-    var long = req.param('long');
-
-    for (name in partys){
-	var party = partys[name];
-    	var dist = getDistance([lat,long],party[5]);
-	if(party[0] == false){
-		var flame = getFlame(party[9],party[8]);
-		ret.push([name,party,flame,dist]);
-	}
-    }
-
-    ret.sort(biggerAmountOfPeople);
-    res.send(ret);
-})
-
 app.get('/api/promotedPartysToday', function (req,res) {
     var date = new Date();
     var day = date.getDate();
@@ -311,6 +291,27 @@ app.get('/api/promotedPartysToday', function (req,res) {
     	var dist = getDistance([lat,long],party[5]);
 
 	if((party[0] == true) && (partyDate[0] == day) && (partyDate[1] == month) && (partyDate[2] == year)){
+		var flame = getFlame(party[9],party[8]);
+		ret.push([name,party,flame,dist]);
+	}
+    }
+
+    ret.sort(biggerAmountOfPeople);
+    res.send(ret);
+})
+
+
+app.get('/api/commonPartys', function (req,res) {
+    var ret = [];
+    var size = Object.keys(partys).length;
+
+    var lat = req.param('lat');
+    var long = req.param('long');
+
+    for (name in partys){
+	var party = partys[name];
+    	var dist = getDistance([lat,long],party[5]);
+	if(party[0] == false){
 		var flame = getFlame(party[9],party[8]);
 		ret.push([name,party,flame,dist]);
 	}

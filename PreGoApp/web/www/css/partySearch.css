@@ -1,6 +1,6 @@
-    .content {
-        padding: 0;
-    }
+	.content {
+        	padding: 0;
+	}
 
 	#all{
 		background-color: black;
@@ -71,7 +71,6 @@
 		max-width:200px;		
 		float:right;
 
-
 /*		border-top-right-radius: 3px;
 		border-top-left-radius: 3px;
 		border-bottom-right-radius: 3px;
@@ -80,7 +79,6 @@
 		background-color:black;
 */		margin-right:10px;
 	}
-
 
 	#icon{
 		float:left;
@@ -121,7 +119,7 @@
 	}
 
 	#menuCloseByPartys{
-		height:30px;
+		height:400px;
 		width:100%;
 
 		color:white;
@@ -135,6 +133,16 @@
 
 		border-style:solid;
 		border-color:#C0C0C0;
+	}
+
+	#closeBySelection{
+    		display: table;
+    		margin: 0 auto;
+	}
+
+	#mapView{
+		height:300px;		
+		width:300px;		
 	}
 
 	#dateForm{
@@ -229,7 +237,6 @@
 		padding-top:10px;
 
 		border:0px;
-		border-right:1px;
 		border-top:1px;
 		border-bottom:1px;
 
@@ -237,6 +244,19 @@
 		border-color:#C0C0C0;
 	}
 
+	#secc2{
+		padding-left:10px;
+		padding-top:10px;
+
+		border:0px;
+		border-top:1px;
+		border-bottom:1px;
+		border-right:1px;
+		border-left:1px;
+
+		border-style:solid;
+		border-color:#C0C0C0;
+	}
 	#secc3{
 		padding-left:10px;
 		padding-top:10px;
@@ -248,6 +268,4 @@
 		border-style:solid;
 		border-color:#C0C0C0;
 	}
-
-
 

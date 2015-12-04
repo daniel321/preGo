@@ -1,7 +1,10 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="/www/css/partySearch.css">
+	<meta name = "viewport" content = "width = device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">		
 	<script src="/plugins/geoLocation/geo-min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/plugins/geoLocation/geo.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 </head>
 
 <div id="all">
@@ -17,7 +20,7 @@
 			</div>
 		</div>
 
-		<div id="secc" class="col-xs-4">			
+		<div id="secc2" class="col-xs-4">			
 			<div id="menuOption">
 				<button id="btn" ng-click="enableCloseByPartysMenu()" class="btn btn-success">
 					<img id="icon" src="/dist/img/icons/mpIcon.png" class="img-responsive" alt="Cinque Terre"></img>		
@@ -53,10 +56,20 @@
 	</div>
 
 	<div id="menuCloseByPartys" ng-show="showMenu == 2">
-		<button id="okBtn" ng-click="findCloseByPartys()" class="btn btn-success-unstyled">
-			<img id="iconOk" src="/dist/img/icons/go.png" class="img-responsive" alt="Cinque Terre"></img>
-		</button>
+		<div id = "closeBySelection">
+			<div id="current">Initializing...</div>
+		</div>
 
+		<div id = "closeBySelection">
+			<div id="map_canvas" style="width:320px; height:350px"></div>
+			<meta name = "viewport" id="mapView">			
+		</div>
+
+		<div id = "closeBySelection">
+			<button id="okBtn" ng-click="findCloseByPartys()" class="btn btn-success-unstyled">
+				<img id="iconOk" src="/dist/img/icons/go.png" class="img-responsive" alt="Cinque Terre"></img>
+			</button>
+		</div>
 	</div>
 
 	<div id="ptys">

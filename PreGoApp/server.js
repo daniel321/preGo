@@ -108,7 +108,10 @@ app.post('/api/chat/:nickname', function (req, res) {
     res.send(chats[req.params.nickname]);*/
 })
 
-var getFlame = function(rates,people){
+var getFlame = function(party){
+	var rates = party.userRates;
+	var people = party.cantidadDeGente;
+
 	var count = 0;
 	for (var i=0;i<rates.length;i++)
 		count += rates[i];
@@ -139,134 +142,174 @@ var getFlame = function(rates,people){
 }
 
 var biggerAmountOfPeople = function(party1,party2){
-	return (party2[1][8] - party1[1][8]);
+	return (party2.cantidadDeGente - party1.cantidadDeGente);
 }
 
 var closest = function(party1,party2){
-	return (party2[3] - party1[3]);
+	return (party2.dist - party1.dist);
+}
+
+var isToday = function(party){
+	var date = new Date();
+	var day = date.getDate();
+	var month = date.getMonth()+1;
+	var year = date.getFullYear();
+
+	var partyDay = party.fecha.dia;
+	var partyMonth = party.fecha.mes;
+	var partyYear = party.fecha.anio;
+
+	return ((partyDay == day)&&(partyMonth == month)&&(partyYear == year));
+}
+
+var agregar = function(ret,name,party,dist){
+	var flame = getFlame(party);
+
+	party.nombre = name;
+	party.flama = flame;
+	party.dist = dist;
+	
+	ret.push(party);
+}
+
+var enRadianes = function(valor){
+	return (Math.PI/180)*valor;
+}
+
+var getDistance = function (direccion,party) {
+	var lat = party.pos.lat;
+	var long = party.pos.long;
+
+	var lat2 = direccion[0];
+	var long2 = direccion[1];
+
+	var dlat = enRadianes(lat2-lat);
+	var dlong = enRadianes(long2-long);
+
+	var a = Math.pow( Math.sin( dlat/2 ), 2) + Math.cos(enRadianes(lat)) * Math.cos(enRadianes(lat2)) * Math.pow( Math.sin( dlong/2 ), 2);
+
+	var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));		
+	
+	var RadioTierra = 6378.0;
+	return Math.round(RadioTierra*c);
 }
 
 var partys = {};
 
-/*esSugerida, fondo, barra, [imagen], descripcion, [latitud,longitud], [dia,mes,año], [hora,min], #gente, [rate], [[autor,comentario]] */
-partys["Ink"] = [
-		 true,
-		 "/dist/img/clubs/ink.jpg",
-		 "/dist/img/clubs/ink_BAR.jpg",
-		 [["otras imagenes"]],
-		 "descripcion Ink",
-		 [-34.5865587,-58.4395189],
-		 [26,11,2015],
-		 [9,30],
-		 325,
-		 [10,7,9,9,6],
-		 [ ["Daniel","muy buen lugar!"] , 
-                   ["Facundo","esto esta que explota!!"] ]
-		];
+partys["Ink"] = {
+		 esSugerida:true,
+		 imagenDeFondo:"/dist/img/clubs/ink.jpg",
+		 imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Ink",
+		 pos:{lat:-34.5865587,long:-58.4395189},
+		 fecha:{dia:26,mes:11,anio:2015},
+		 inicio:{hora:9,minutos:30},
+		 cantidadDeGente:325,
+		 userRates:[10,7,9,9,6],
+		 comentarios: [ {autor:"Daniel",comentario:"muy buen lugar!"} , 
+                   		{autor:"Facundo",comentario:"esto esta que explota!!"} ]
+		};
 
-partys["Hiio"] = [
-		 false,
-		 "/dist/img/clubs/Hiio.jpg",
-		 "/dist/img/clubs/Hiio_BAR.jpg",
-		 [["otras imagenes"]],
-		 "descripcion Hiio",
-		 [-34.4961641,-58.5549297],
-		 [26,11,2015],
-		 [13,30],
-		 202,
-		 [8,9,7,9,6,4,7],
-		 [ ["Damian","festejando en este gran lugar!!"]]
-		];
+partys["Hiio"] = {
+		 esSugerida:false,
+		 imagenDeFondo:"/dist/img/clubs/Hiio.jpg",
+		 imagenBanner:"/dist/img/clubs/Hiio_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Hiio",
+		 pos:{lat:-34.4961641,long:-58.5549297},
+		 fecha:{dia:4,mes:12,anio:2015},
+		 inicio:{hora:13,minutos:30},
+		 cantidadDeGente:202,
+		 userRates:[8,9,7,9,6,4,7],
+		 comentarios: [ {autor:"Damian",comentario:"festejando en este gran lugar!!"}]
+		};
 
-partys["Moscow"] = [
-		 false,
-		 "/dist/img/clubs/Moscow.jpg",
-		 "/dist/img/clubs/Moscow_BAR.jpg",
-		 [["otras imagenes"]],
-		 "descripcion Moscow",
-		 [-34.4513129,-58.5561985],
-		 [3,12,2015],
-		 [6,30],
-		 235,
-		 [6,8,10,7,4],
-		 [ ["Guido","que buena fiesta !!!"] ]
-		];
+partys["Moscow"] = {
+		 esSugerida:false,
+		 imagenDeFondo:"/dist/img/clubs/Moscow.jpg",
+		 imagenBanner:"/dist/img/clubs/Moscow_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Moscow",
+		 pos:{lat:-34.4513129,long:-58.5561985},
+		 fecha:{dia:6,mes:12,anio:2015},
+		 inicio:{hora:6,minutos:30},
+		 cantidadDeGente:235,
+		 userRates:[6,8,10,7,4],
+		 comentarios: [ {autor:"Guido",comentario:"que buena fiesta !!!"}]
+		};
 
-partys["Bosque"] = [
-		 false,
-		 "/dist/img/clubs/bosque.jpg",
-		 "/dist/img/clubs/bosque_BAR.jpg",
-		 [["otras imagenes"]],
-		 "descripcion bosque",
-		 [-34.8304372,-58.5712683],
-		 [23,11,2015],
-		 [7,30],
-		 135,
-		 [8,10,7],
-		 [ ["Ezequiel","aca hay de todo !!!"] ]
-		];
+partys["Bosque"] = {
+		 esSugerida:false,
+		 imagenDeFondo:"/dist/img/clubs/bosque.jpg",
+		 imagenBanner:"/dist/img/clubs/bosque_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion bosque",
+		 pos:{lat:-34.8304372,long:-58.5712683},
+		 fecha:{dia:23,mes:12,anio:2015},
+		 inicio:{hora:7,minutos:30},
+		 cantidadDeGente:135,
+		 userRates:[8,10,7],
+		 comentarios: [ {autor:"Ezequiel",comentario:"aca hay de todo !!!"}]
+		};
 
-partys["Sunset"] = [
-		 true,
-		 "/dist/img/clubs/sunset.jpg",
-		 "/dist/img/clubs/sunset_BAR.jpg",
-		 [["otras imagenes"]],
-		 "descripcion sunset",
-		 [-34.5876237,-58.4660913],
-		 [4,12,2015],
-		 [4,30],
-		 632,
-		 [9,10,8,10,7,9],
-		 [ ["Ezequiel","esta genial!"],
-		   ["Guido","festejando como loco!!"],
-		   ["Nahuel","fiestaaaaa!"]
-		 ]
-		];
+partys["Sunset"] = {
+		 esSugerida:true,
+		 imagenDeFondo:"/dist/img/clubs/sunset.jpg",
+		 imagenBanner:"/dist/img/clubs/sunset_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion sunset",
+		 pos:{lat:-34.5876237,long:-58.4660913},
+		 fecha:{dia:4,mes:12,anio:2015},
+		 inicio:{hora:3,minutos:0},
+		 cantidadDeGente:1632,
+		 userRates:[9,10,8,10,7,9],
+		 comentarios: [ {autor:"Ezequiel",comentario:"esta genial!"},
+				{autor:"Guido",comentario:"festejando como loco!!"},
+				{autor:"Nahuel",comentario:"fiestaaaaa!"}]
+		};
 
-partys["BsAsEnFoco"] = [
-		 false,
-		 "/dist/img/clubs/Buenos-Aires-En-Foco.jpg",
-		 "/dist/img/clubs/Buenos-Aires-En-Foco_BAR.jpg",
-		 [["otras imagenes"]],
-		 "descripcion Buenos-Aires-En-Foco",
-		 [-34.6324812,-58.4184982],
-		 [2,12,2015],
-		 [9,00],
-		 35,
-		 [6],
-		 [ ["Facundo","muy bueno, pero no hay nadie..."] ]
-		];
+partys["BsAsEnFoco"] = {
+		 esSugerida:false,
+		 imagenDeFondo:"/dist/img/clubs/Buenos-Aires-En-Foco.jpg",
+		 imagenBanner:"/dist/img/clubs/Buenos-Aires-En-Foco_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Buenos-Aires-En-Foco",
+		 pos:{lat:-34.6324812,long:-58.4184982},
+		 fecha:{dia:2,mes:12,anio:2015},
+		 inicio:{hora:9,minutos:0},
+		 cantidadDeGente:6,
+		 userRates:[8,10,7],
+		 comentarios: [ {autor:"Facundo",comentario:"muy bueno, pero no hay nadie..."}]
+		};
 
-partys["PoolParty"] = [
-		 false,
-		 "/dist/img/clubs/Pool-Party.jpg",
-		 "/dist/img/clubs/Pool-Party_BAR.jpg",
-		 [["otras imagenes"]],
-		 "descripcion Pool-Party",
-		 [-34.5739245,-58.3923359],
-		 [1,12,2015],
-		 [15,30],
-		 302,
-		 [8,8,8,5,7,10],
-		 [ ["Nahuel","chicas lindas x todos lados !!!"] ]
-		];
-
+partys["PoolParty"] = {
+		 esSugerida:false,
+		 imagenDeFondo:"/dist/img/clubs/Pool-Party.jpg",
+		 imagenBanner:"/dist/img/clubs/Pool-Party_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Pool-Party",
+		 pos:{lat:-34.5739245,long:-58.3923359},
+		 fecha:{dia:1,mes:12,anio:2015},
+		 inicio:{hora:6,minutos:30},
+		 cantidadDeGente:302,
+		 userRates:[8,8,8,5,7,10],
+		 comentarios: [ {autor:"Nahuel",comentario:"chicas lindas x todos lados !!!"}]
+		};
 
 app.get('/api/promotedPartys', function (req,res) {
     var ret = [];
     var size = Object.keys(partys).length;
 
-    var lat = req.param('lat');
-    var long = req.param('long');
+    var lat = req.query['lat'];
+    var long = req.query['long'];
 
     for (name in partys){
 	var party = partys[name];
-    	var dist = getDistance([lat,long],party[5]);
+    	var dist = getDistance([lat,long],party);
 
-	if(party[0] == true){
-		var flame = getFlame(party[9],party[8]);
-		ret.push([name,party,flame,dist]);
-	}
+	if(party.esSugerida)
+		agregar(ret,name,party,dist);
     }
 
     ret.sort(biggerAmountOfPeople);
@@ -277,15 +320,14 @@ app.get('/api/commonPartys', function (req,res) {
     var ret = [];
     var size = Object.keys(partys).length;
 
-    var lat = req.param('lat');
-    var long = req.param('long');
+    var lat = req.query['lat'];
+    var long = req.query['long'];
 
     for (name in partys){
 	var party = partys[name];
-    	var dist = getDistance([lat,long],party[5]);
-	if(party[0] == false){
-		var flame = getFlame(party[9],party[8]);
-		ret.push([name,party,flame,dist]);
+    	var dist = getDistance([lat,long],party);
+	if(!(party.esSugerida)){
+		agregar(ret,name,party,dist);
 	}
     }
 
@@ -302,17 +344,15 @@ app.get('/api/promotedPartysToday', function (req,res) {
     var ret = [];
     var size = Object.keys(partys).length;
 
-    var lat = req.param('lat');
-    var long = req.param('long');
+    var lat = req.query['lat'];
+    var long = req.query['long'];
 
     for (name in partys){
 	var party = partys[name];
-	var partyDate = party[6];
-    	var dist = getDistance([lat,long],party[5]);
+    	var dist = getDistance([lat,long],party);
 
-	if((party[0] == true) && (partyDate[0] == day) && (partyDate[1] == month) && (partyDate[2] == year)){
-		var flame = getFlame(party[9],party[8]);
-		ret.push([name,party,flame,dist]);
+	if((party.esSugerida)&&(isToday(party))){
+		agregar(ret,name,party,dist);
 	}
     }
 
@@ -321,25 +361,17 @@ app.get('/api/promotedPartysToday', function (req,res) {
 })
 
 app.get('/api/commonPartysToday', function (req,res) {
-    var date = new Date();
-    var day = date.getDate();
-    var month = date.getMonth()+1;
-    var year = date.getFullYear();
-
     var ret = [];
     var size = Object.keys(partys).length;
 
-    var lat = req.param('lat');
-    var long = req.param('long');
-
+    var lat = req.query['lat'];
+    var long = req.query['long'];
 
     for (name in partys){
 	var party = partys[name];
-	var partyDate = party[6];
-    	var dist = getDistance([lat,long],party[5]);
-	if((party[0] == false)&&(partyDate[0] == day)&&(partyDate[1] == month)&&(partyDate[2] == year)){
-		var flame = getFlame(party[9],party[8]);
-		ret.push([name,party,flame,dist]);
+    	var dist = getDistance([lat,long],party);
+	if((!party.esSugerida)&&(isToday(party))){
+		agregar(ret,name,party,dist);
 	}
     }
 
@@ -351,17 +383,16 @@ app.get('/api/commonPartysCloseBy', function (req,res) {
     var ret = [];
     var size = Object.keys(partys).length;
 
-    var lat = req.param('lat');
-    var long = req.param('long');
-    var tolerance = req.param('tol');
+    var lat = req.query['lat'];
+    var long = req.query['long'];
+    var tolerance = req.query['tol'];
 
     for (name in partys){
 	var party = partys[name];
-    	var dist = getDistance([lat,long],party[5]);
+    	var dist = getDistance([lat,long],party);
 
-	if((party[0] == false)&&(dist < tolerance)){
-		var flame = getFlame(party[9],party[8]);
-		ret.push([name,party,flame,dist]);
+	if((!party.esSugerida)&&(dist < tolerance)){
+		agregar(ret,name,party,dist);
 	}
     }
 
@@ -374,46 +405,22 @@ app.get('/api/promotedPartysCloseBy', function (req,res) {
     var ret = [];
     var size = Object.keys(partys).length;
 
-    var lat = req.param('lat');
-    var long = req.param('long');
-
-    var tolerance = req.param('tol');
+    var lat = req.query['lat'];
+    var long = req.query['long'];
+    var tolerance = req.query['tol'];
 
     for (name in partys){
 	var party = partys[name];
-	var dist = getDistance([lat,long],party[5]);
+	var dist = getDistance([lat,long],party);
 
-	if((party[0] == true)&&(dist < tolerance)){
-		var flame = getFlame(party[9],party[8]);
-		ret.push([name,party,flame,dist]);
+	if((party.esSugerida)&&(dist < tolerance)){
+		agregar(ret,name,party,dist);
 	}
     }
 
     ret.sort(closest);
     res.send(ret);
 })
-
-var enRadianes = function(valor){
-	return (Math.PI/180)*valor;
-}
-
-var getDistance = function (direccion,direccionParty) {
-	var lat = direccionParty[0];
-	var long = direccionParty[1];
-
-	var lat2 = direccion[0];
-	var long2 = direccion[1];
-
-	var dlat = enRadianes(lat2-lat);
-	var dlong = enRadianes(long2-long);
-
-	var a = Math.pow( Math.sin( dlat/2 ), 2) + Math.cos(enRadianes(lat)) * Math.cos(enRadianes(lat2)) * Math.pow( Math.sin( dlong/2 ), 2);
-	var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));		
-	
-	var RadioTierra = 6378.0;
-	return Math.round(RadioTierra*c);
-}
-
 
 app.post('/api/partys', function (req, res) {
     var msg = req.body.message;

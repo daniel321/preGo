@@ -63,7 +63,7 @@
 	}
 
 	#ptys{
-		min-height:300px;		
+		min-height:1000px;		
 	}
 
 	#partyStuff{
@@ -135,14 +135,29 @@
 		border-color:#C0C0C0;
 	}
 
+	#current{
+		color:white;
+	}
+
 	#closeBySelection{
+		color:white;
+
     		display: table;
     		margin: 0 auto;
 	}
 
 	#mapView{
-		height:300px;		
-		width:300px;		
+		height:300px;
+		width:100%;
+	}
+
+	#toleranceForm{
+		height:25px;
+		width:50px;
+
+		
+		text-align:center;
+		color:black;
 	}
 
 	#dateForm{

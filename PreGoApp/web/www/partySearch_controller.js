@@ -6,22 +6,8 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	$scope.showMenu = 0;
 	$scope.position = [0,0];
 
-
-	if(geo_position_js.init()){
-		geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
-	}else{
-		console.log("Functionality not available");
-	}
-
-	function success_callback(p){
-		$scope.position[0] = p.coords.latitude;
-		$scope.position[1] = p.coords.longitude;
-		$scope.getAllPartys();
-	}
-		
-	function error_callback(p){
-		console.log('error='+p.message);
-	}
+	$scope.mapInitialized = false;
+	$scope.initialized = false;
 
 	var reset = function(){
 		$scope.showMenu = 0;
@@ -47,11 +33,18 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 		else
 			$scope.showMenu = 0;	
 
-		initialize_map();
-		initialize();
+		document.getElementById("toleranceForm").value = 10;
+
+		if (!($scope.mapInitialized)){
+			initialize_map("map_canvas");
+			initialize();
+
+			$scope.mapInitialized = true;
+		}
 	}
 
     	$scope.getAllPartys = function () {
+		getPos();
 		reset();
 
 		partySearchService.getCommonPartys($scope.position[0],$scope.position[1]).then(function (res) {
@@ -64,6 +57,7 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
     	}
 
 	$scope.findTodayPartys = function (){
+		getPos();
 		reset();
 
 		var day = document.getElementById("dayForm").value;
@@ -80,30 +74,34 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	}
 
 	$scope.findCloseByPartys = function (){
+		getPos();
 		reset();
 
-		partySearchService.getCommonPartysCloseBy($scope.position[0],$scope.position[1],10).then(function (res) {
+		var tolerance = document.getElementById("toleranceForm").value;
+
+		partySearchService.getCommonPartysCloseBy($scope.position[0],$scope.position[1],tolerance).then(function (res) {
         		angular.copy(res, $scope.common_partys);
     		});
 
-		partySearchService.getPromotedPartysCloseBy($scope.position[0],$scope.position[1],10).then(function (res) {
+		partySearchService.getPromotedPartysCloseBy($scope.position[0],$scope.position[1],tolerance).then(function (res) {
         		angular.copy(res, $scope.promoted_partys);
     		});
 	}
 
 	//---------------------------------------------------------------
 
-	function initialize_map(){
-	    var myOptions = {
-		      zoom: 4,
-		      mapTypeControl: true,
-		      mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
-		      navigationControl: true,
-		      navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
-		      mapTypeId: google.maps.MapTypeId.ROADMAP      
-		    }	
-		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	function initialize_map(id){
+		var myOptions = {
+			zoom: 4,
+			mapTypeControl: true,
+			mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+			navigationControl: true,
+			navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+			mapTypeId: google.maps.MapTypeId.ROADMAP      
+		}	
+		map = new google.maps.Map(document.getElementById(id), myOptions);
 	}
+
 	function initialize(){
 		if(geo_position_js.init())
 		{
@@ -117,24 +115,64 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	}
 
 	function show_position(p){
-		document.getElementById('current').innerHTML="latitude="+p.coords.latitude.toFixed(2)+" longitude="+p.coords.longitude.toFixed(2);
+		$scope.position[0] = p.coords.latitude;
+		$scope.position[1] = p.coords.longitude;
+
+		document.getElementById('current').innerHTML="latitude="+p.coords.latitude.toFixed(5)+" longitude="+p.coords.longitude.toFixed(5);
 		var pos=new google.maps.LatLng(p.coords.latitude,p.coords.longitude);
 		map.setCenter(pos);
 		map.setZoom(14);
 
 		var infowindow = new google.maps.InfoWindow({
-		    content: "<strong>yes</strong>"
+		    content: "<strong>you are here</strong>"
 		});
 
 		var marker = new google.maps.Marker({
 		    position: pos,
 		    map: map,
-		    title:"You are here"
+		    title:"You are here",
+		    draggable:true
 		});
 
 		google.maps.event.addListener(marker, 'click', function() {
 		  infowindow.open(map,marker);
 		});
-	
+
+		google.maps.event.addListener(marker, 'dragend', function() {
+			var pos = marker.position;
+			document.getElementById('current').innerHTML="latitude="+pos.lat().toFixed(5)+" longitude="+pos.lng().toFixed(5);
+
+			$scope.position[0] = pos.lat();
+			$scope.position[1] = pos.lng();
+
+			map.setCenter(pos);
+			map.setZoom(14);
+		});
+
 	}
+
+function success_callback(p){
+	$scope.position[0] = p.coords.latitude;
+	$scope.position[1] = p.coords.longitude;
+}
+		
+function error_callback(p){
+	console.log('error='+p.message);
+}
+
+var getPos = function(){
+	if( $scope.initialized || geo_position_js.init() ){
+		geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
+		$scope.initialized = true;
+	}else{
+		console.log("Functionality not available");
+	}
+
+}
+
+// ---------------------------------------------------------------------------
+	reset();
+	getPos();
 });
+
+

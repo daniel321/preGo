@@ -1,0 +1,40 @@
+	.content {
+        	padding: 0;
+	}
+
+	#all{
+		background-color: black;
+	}
+
+	#mapAndPos{
+		height:400px;
+		width:100%;
+
+		color:white;
+
+		border:0px;
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border-bottom:1px;
+
+		border-style:solid;
+		border-color:#C0C0C0;
+	}
+
+	#centrator{
+		color:white;
+
+    		display: table;
+    		margin: 0 auto;
+	}
+
+	#current{
+		color:white;
+	}
+
+	#mapView{
+		height:300px;
+		width:100%;
+	}

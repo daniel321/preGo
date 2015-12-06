@@ -127,15 +127,28 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 		    content: "<strong>you are here</strong>"
 		});
 
+   		var pinShadow = new google.maps.MarkerImage(
+			"http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+	        	new google.maps.Size(40, 37),
+	        	new google.maps.Point(0, 0),
+	        	new google.maps.Point(12, 35)
+		);
+
+	    	var pinColor = "FE7569";
+	    	var pinImage = new google.maps.MarkerImage(
+			"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+			new google.maps.Size(21, 34),
+			new google.maps.Point(0,0),
+			new google.maps.Point(10, 34)
+		);
+
 		var marker = new google.maps.Marker({
 		    position: pos,
 		    map: map,
+		    shadow:pinShadow,
+		    icon: pinImage,
 		    title:"You are here",
 		    draggable:true
-		});
-
-		google.maps.event.addListener(marker, 'click', function() {
-		  infowindow.open(map,marker);
 		});
 
 		google.maps.event.addListener(marker, 'dragend', function() {
@@ -151,24 +164,24 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 
 	}
 
-function success_callback(p){
-	$scope.position[0] = p.coords.latitude;
-	$scope.position[1] = p.coords.longitude;
-}
+	function success_callback(p){
+		$scope.position[0] = p.coords.latitude;
+		$scope.position[1] = p.coords.longitude;
+	}
 		
-function error_callback(p){
-	console.log('error='+p.message);
-}
-
-var getPos = function(){
-	if( $scope.initialized || geo_position_js.init() ){
-		geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
-		$scope.initialized = true;
-	}else{
-		console.log("Functionality not available");
+	function error_callback(p){
+		console.log('error='+p.message);
 	}
 
-}
+	var getPos = function(){
+		if( $scope.initialized || geo_position_js.init() ){
+			geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
+			$scope.initialized = true;
+		}else{
+			console.log("Functionality not available");
+		}
+
+	}
 
 // ---------------------------------------------------------------------------
 	reset();

@@ -37,10 +37,6 @@ function show_position(p)
 	map.setCenter(pos);
 	map.setZoom(14);
 
-	var infowindow = new google.maps.InfoWindow({
-	    content: "<strong>yes</strong>"
-	});
-
 	var marker = new google.maps.Marker({
 	    position: pos,
 	    map: map,

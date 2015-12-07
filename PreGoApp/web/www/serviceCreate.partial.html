@@ -1,0 +1,192 @@
+<!-- Main row -->
+<div class="row">
+	<!-- Left col -->
+	<section class="col-lg-12 connectedSortable">
+
+		<!-- Chat box -->
+		<div class="box box-success">
+			<div class="box-header">
+				<i class="fa fa-edit"></i>
+				<h3 class="box-title">Ofrecer un Servicio</h3>
+			</div>
+
+			<h2>Seccion Fotos. Work in progress.</h2>
+
+			<div class="box box-warning" style="padding-top: 20px">
+
+
+				<form name="serviceForm" novalidate>
+
+					<div class="col-md-12">
+
+						<div class="form-group" show-errors>
+							<label class="control-label">Nombre del Servicio</label> <input
+								type="text" class="form-control" name="name"
+								ng-model="service.name" required
+								placeholder="¿Como se llama tu servicio?"
+								ng-class="{ 'has-error': serviceForm.name.$invalid && serviceForm.name.$dirty }" />
+						</div>
+
+					</div>
+					<div class="col-md-12">
+						<div class="form-group" show-errors>
+							<label class="control-label">Descripcion</label>
+							<textarea class="form-control" name="description"
+								ng-model="service.description" rows="2"
+								placeholder="¿Que tienes para ofrecer?" required
+								ng-class="{ 'has-error': serviceForm.description.$invalid && serviceForm.description.$dirty }">
+							</textarea>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<div class="form-group" show-errors>
+							<label class="control-label">Precio</label>
+							<div class="input-group">
+								<span class="input-group-addon"> <i class="fa fa-dollar"></i></span>
+								<input type="text" class="form-control" name="price"
+									ng-model="service.price" required
+									placeholder="¿Cual es el precio de tu servicio?"
+									ng-class="{ 'has-error': serviceForm.price.$invalid && serviceForm.price.$dirty }" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<div class="form-group" show-errors>
+							<label class="control-label">Detalle</label>
+							<textarea class="form-control" name="detail"
+								ng-model="service.detail" rows="4"
+								placeholder="¿Que experiencia tienes? ¿En que te diferencias?"
+								required
+								ng-class="{ 'has-error': serviceForm.detail.$invalid && serviceForm.detail.$dirty }">
+							</textarea>
+						</div>
+					</div>
+
+					<button class="btn btn-link pull-right" ng-click="reset()">Borrar</button>
+
+					<div class="row">
+						<div class="col-md-12">
+							<h3>Tipo de servicio</h3>
+
+							<div class="col-md-0 col-lg-1"></div>
+
+							<div class="col-xs-12 col-md-6 col-lg-2">
+								<div class="box box-primary">
+									<div class="box-body box-profile">
+										<img class="profile-user-img img-responsive img-circle"
+											src="dist/img/dj.png" alt="DJ">
+										<h3 class="profile-username text-center">DJ</h3>
+										<p class="text-muted text-center">Servicio de DJ</p>
+
+										<ul class="list-group list-group-unbordered">
+											<li class="list-group-item"><b>Publicados</b> <a
+												class="pull-right">{{publishedAmnt.DJ}}</a></li>
+										</ul>
+										<button type="submit" class="btn btn-primary btn-block"
+											ng-click="save()">
+											<b>Publicar Servicio</b>
+										</button>
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="col-xs-12 col-md-6 col-lg-2">
+								<div class="box box-primary">
+									<div class="box-body box-profile">
+										<img class="profile-user-img img-responsive img-circle"
+											src="dist/img/drinks.png" alt="Drinks">
+										<h3 class="profile-username text-center">Bebidas</h3>
+										<p class="text-muted text-center">Servicio de Barman</p>
+
+										<ul class="list-group list-group-unbordered">
+											<li class="list-group-item"><b>Publicados</b> <a
+												class="pull-right">{{publishedAmnt.Bebidas}}</a></li>
+										</ul>
+										<button type="submit" class="btn btn-primary btn-block"
+											ng-click="save()">
+											<b>Publicar Servicio</b>
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-md-6 col-lg-2">
+								<div class="box box-primary">
+									<div class="box-body box-profile">
+										<img class="profile-user-img img-responsive img-circle"
+											src="dist/img/salon.png" alt="Salon">
+										<h3 class="profile-username text-center">Salon</h3>
+										<p class="text-muted text-center">Reserva de salon</p>
+
+										<ul class="list-group list-group-unbordered">
+											<li class="list-group-item"><b>Publicados</b> <a
+												class="pull-right">{{publishedAmnt.Salon}}</a></li>
+										</ul>
+										<button type="submit" class="btn btn-primary btn-block"
+											ng-click="save()">
+											<b>Publicar Servicio</b>
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-md-6 col-lg-2">
+								<div class="box box-primary">
+									<div class="box-body box-profile">
+										<img class="profile-user-img img-responsive img-circle"
+											src="dist/img/sound.png" alt="Sound">
+										<h3 class="profile-username text-center">Sonido</h3>
+										<p class="text-muted text-center">Equipos de sonido</p>
+
+										<ul class="list-group list-group-unbordered">
+											<li class="list-group-item"><b>Publicados</b> <a
+												class="pull-right">{{publishedAmnt.Sonido}}</a></li>
+										</ul>
+										<button type="submit" class="btn btn-primary btn-block"
+											ng-click="save()">
+											<b>Publicar Servicio</b>
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-0 col-md-3"></div>
+
+							<div class="col-xs-12 col-md-6 col-lg-2">
+								<div class="box box-primary">
+									<div class="box-body box-profile">
+										<img class="profile-user-img img-responsive img-circle"
+											src="dist/img/animacion.png" alt="Animacion">
+										<h3 class="profile-username text-center">Animacion</h3>
+										<p class="text-muted text-center">Animador de fiestas</p>
+
+										<ul class="list-group list-group-unbordered">
+											<li class="list-group-item"><b>Publicados</b> <a
+												class="pull-right">{{publishedAmnt.Animacion}}</a></li>
+										</ul>
+										<button type="submit" class="btn btn-primary btn-block"
+											ng-click="save()">
+											<b>Publicar Servicio</b>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<!-- /.box (chat box) -->
+		<!-- TO DO List -->
+
+	</section>
+	<!-- /.Left col -->
+
+</div>
+<!-- /.row (main row) -->

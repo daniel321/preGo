@@ -1,102 +1,191 @@
 app.controller('partySearchController', function ($scope, $routeParams, partySearchService) {
+    	// $scope.navBar.src = 'www/partySearchNavBar.html';
 	$scope.common_partys = [];
 	$scope.promoted_partys = [];
 
+	$scope.showMenu = 0;
 	$scope.position = [0,0];
-	$scope.distance = "";
 
-	if(geo_position_js.init()){
-		geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
-	}else{
-		console.log("Functionality not available");
+	$scope.mapInitialized = false;
+	$scope.initialized = false;
+
+	var reset = function(){
+		$scope.showMenu = 0;
+		$scope.common_partys = [];
+		$scope.promoted_partys = [];
+	}
+
+	$scope.enableTodayPartysMenu = function(){
+		if($scope.showMenu != 1)
+			$scope.showMenu = 1;
+		else
+			$scope.showMenu = 0;
+
+		var date = new Date();
+		document.getElementById("dayForm").value = date.getDate();
+		document.getElementById("monthForm").value = date.getMonth()+1;
+		document.getElementById("yearForm").value = date.getFullYear();
+	}
+
+	$scope.enableCloseByPartysMenu = function(){
+		if($scope.showMenu != 2)
+			$scope.showMenu = 2;
+		else
+			$scope.showMenu = 0;	
+
+		document.getElementById("toleranceForm").value = 10;
+
+		if (!($scope.mapInitialized)){
+			initialize_map("map_canvas");
+			initialize();
+
+			$scope.mapInitialized = true;
+		}
+	}
+
+    	$scope.getAllPartys = function () {
+		getPos();
+		reset();
+
+		partySearchService.getCommonPartys($scope.position[0],$scope.position[1]).then(function (res) {
+        		angular.copy(res, $scope.common_partys);
+    		});
+
+		partySearchService.getPromotedPartys($scope.position[0],$scope.position[1]).then(function (res) {
+        		angular.copy(res, $scope.promoted_partys);
+    		});
+    	}
+
+	$scope.findTodayPartys = function (){
+		getPos();
+		reset();
+
+		var day = document.getElementById("dayForm").value;
+		var month = document.getElementById("monthForm").value;
+		var year = document.getElementById("yearForm").value;
+
+		partySearchService.getCommonPartysToday($scope.position[0],$scope.position[1],day,month,year).then(function (res) {
+        		angular.copy(res, $scope.common_partys);
+    		});
+
+		partySearchService.getPromotedPartysToday($scope.position[0],$scope.position[1],day,month,year).then(function (res) {
+        		angular.copy(res, $scope.promoted_partys);
+    		});
+	}
+
+	$scope.findCloseByPartys = function (){
+		getPos();
+		reset();
+
+		var tolerance = document.getElementById("toleranceForm").value;
+
+		partySearchService.getCommonPartysCloseBy($scope.position[0],$scope.position[1],tolerance).then(function (res) {
+        		angular.copy(res, $scope.common_partys);
+    		});
+
+		partySearchService.getPromotedPartysCloseBy($scope.position[0],$scope.position[1],tolerance).then(function (res) {
+        		angular.copy(res, $scope.promoted_partys);
+    		});
+	}
+
+	//---------------------------------------------------------------
+
+	function initialize_map(id){
+		var myOptions = {
+			zoom: 4,
+			mapTypeControl: true,
+			mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+			navigationControl: true,
+			navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+			mapTypeId: google.maps.MapTypeId.ROADMAP      
+		}	
+		map = new google.maps.Map(document.getElementById(id), myOptions);
+	}
+
+	function initialize(){
+		if(geo_position_js.init())
+		{
+			document.getElementById('current').innerHTML="Receiving...";
+			geo_position_js.getCurrentPosition(show_position,function(){document.getElementById('current').innerHTML="Couldn't get location"},{enableHighAccuracy:true});
+		}
+		else
+		{
+			document.getElementById('current').innerHTML="Functionality not available";
+		}
+	}
+
+	function show_position(p){
+		$scope.position[0] = p.coords.latitude;
+		$scope.position[1] = p.coords.longitude;
+
+		document.getElementById('current').innerHTML="latitude="+p.coords.latitude.toFixed(5)+" longitude="+p.coords.longitude.toFixed(5);
+		var pos=new google.maps.LatLng(p.coords.latitude,p.coords.longitude);
+		map.setCenter(pos);
+		map.setZoom(14);
+
+		var infowindow = new google.maps.InfoWindow({
+		    content: "<strong>you are here</strong>"
+		});
+
+   		var pinShadow = new google.maps.MarkerImage(
+			"http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+	        	new google.maps.Size(40, 37),
+	        	new google.maps.Point(0, 0),
+	        	new google.maps.Point(12, 35)
+		);
+
+	    	var pinColor = "FE7569";
+	    	var pinImage = new google.maps.MarkerImage(
+			"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+			new google.maps.Size(21, 34),
+			new google.maps.Point(0,0),
+			new google.maps.Point(10, 34)
+		);
+
+		var marker = new google.maps.Marker({
+		    position: pos,
+		    map: map,
+		    shadow:pinShadow,
+		    icon: pinImage,
+		    title:"You are here",
+		    draggable:true
+		});
+
+		google.maps.event.addListener(marker, 'dragend', function() {
+			var pos = marker.position;
+			document.getElementById('current').innerHTML="latitude="+pos.lat().toFixed(5)+" longitude="+pos.lng().toFixed(5);
+
+			$scope.position[0] = pos.lat();
+			$scope.position[1] = pos.lng();
+
+			map.setCenter(pos);
+			map.setZoom(14);
+		});
+
 	}
 
 	function success_callback(p){
 		$scope.position[0] = p.coords.latitude;
 		$scope.position[1] = p.coords.longitude;
-		$scope.getAllPartys();
 	}
 		
 	function error_callback(p){
 		console.log('error='+p.message);
 	}
 
-    	$scope.getAllPartys = function () {
-		partySearchService.getCommonPartys().then(function (res) {
-        		angular.copy(res, $scope.common_partys);
-    		});
-
-		partySearchService.getPromotedPartys().then(function (res) {
-        		angular.copy(res, $scope.promoted_partys);
-    		});
-    	}
-
-	$scope.findTodayPartys = function (){
-		partySearchService.getCommonPartysToday().then(function (res) {
-        		angular.copy(res, $scope.common_partys);
-    		});
-
-		partySearchService.getPromotedPartysToday().then(function (res) {
-        		angular.copy(res, $scope.promoted_partys);
-    		});
-	}
-
-	$scope.findCloseByPartys = function (){
-		//console.log("finding partys close by");
-
-		$scope.getAllPartys();
-
-		var tolerance = 10;  // dist max para mostrarlo
-
-		for (var i=0; i<$scope.promoted_partys.length; i++){
-			var party = $scope.promoted_partys[i];
-			var pos = party[1][5];
-			$scope.getDistance(pos);
-
-			if($scope.distance > tolerance){
-				// console.log("saco: " + $scope.common_partys[i][0]);
-				$scope.promoted_partys.splice(i,1);
-				i--;
-			}
+	var getPos = function(){
+		if( $scope.initialized || geo_position_js.init() ){
+			geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
+			$scope.initialized = true;
+		}else{
+			console.log("Functionality not available");
 		}
 
-		for (var i=0; i<$scope.common_partys.length; i++){
-			var party = $scope.common_partys[i];
-			var pos = party[1][5];
-			$scope.getDistance(pos);
-
-			if($scope.distance > tolerance){
-				// console.log("saco: " + $scope.common_partys[i][0]);
-				$scope.common_partys.splice(i,1);
-				i--;
-			}	
-		}	
 	}
 
-	var enRadianes = function(valor){
-		return (Math.PI/180)*valor;
-	}
-
-    	$scope.getDistance = function (direccion) {
-//		console.log("lat: " + $scope.position[0]);
-//		console.log("long: " + $scope.position[0]);
-
-//		console.log("dest lat: " + direccion[0]);
-//		console.log("dest long: " + direccion[0]);
-
-		var lat = $scope.position[0];
-		var long = $scope.position[1];
-
-		var lat2 = direccion[0];
-		var long2 = direccion[1];
-
-		var dlat = enRadianes(lat2-lat);
-		var dlong = enRadianes(long2-long);
-
-		var a = Math.pow( Math.sin( dlat/2 ), 2) + Math.cos(enRadianes(lat)) * Math.cos(enRadianes(lat2)) * Math.pow( Math.sin( dlong/2 ), 2);
-		var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));		
-	
-		var RadioTierra = 6378.0;
-		$scope.distance = Math.round(RadioTierra*c);
-    	}
+// ---------------------------------------------------------------------------
+	reset();
+	getPos();
 });
+
+

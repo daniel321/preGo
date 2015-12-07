@@ -1,0 +1,286 @@
+	.content {
+        	padding: 0;
+	}
+
+	#all{
+		background-color: black;
+	}
+
+	#Logo{
+		height:50px;
+		margin-top:auto;
+		margin-bottom:auto;
+
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border:none;		
+
+		-o-background-size: cover;
+		-moz-background-size: cover;
+		-webkit-background-size: cover;
+		background-size: cover;
+		background-repeat:no-repeat;
+
+	}
+
+	#promParty{
+		height:175px;
+		margin-top:0px;
+		margin-bottom:-18px;
+
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border:none;		
+
+		-o-background-size: cover;
+		-moz-background-size: cover;
+		-webkit-background-size: cover;
+		background-size: cover;
+		background-repeat:no-repeat;
+	}
+
+	#commonParty{
+		height:125px;
+		margin-top:0px;
+		margin-bottom:-18px;
+
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border:none;		
+
+		-o-background-size: cover;
+		-moz-background-size: cover;
+		-webkit-background-size: cover;
+		background-size: cover;
+		background-repeat:no-repeat;
+
+	}
+
+	#ptys{
+		min-height:1000px;		
+	}
+
+	#partyStuff{
+		max-height:100px;		
+		max-width:200px;		
+		float:right;
+
+/*		border-top-right-radius: 3px;
+		border-top-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+		border-bottom-left-radius: 3px;
+
+		background-color:black;
+*/		margin-right:10px;
+	}
+
+	#icon{
+		float:left;
+		min-height:20px;
+		min-width:20px;		
+
+		max-height:25px;
+		max-width:25px;		
+	}
+
+	#fireIcon{
+		height:35px;
+		width:15px;	
+
+		-o-background-size: 20px 35px;
+		-moz-background-size: 20px 35px;
+		-webkit-background-size: 20px 35px;
+		background-size: 20px 35px;	
+		background-repeat:no-repeat;
+		background-position:center;
+	}
+
+	#menuTodaysPartys{
+		height:30px;
+		width:100%;
+
+		color:white;
+
+		border:0px;
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border-bottom:1px;
+
+		border-style:solid;
+		border-color:#C0C0C0;
+	}
+
+	#menuCloseByPartys{
+		height:400px;
+		width:100%;
+
+		color:white;
+
+		border:0px;
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border-bottom:1px;
+
+		border-style:solid;
+		border-color:#C0C0C0;
+	}
+
+	#current{
+		color:white;
+	}
+
+	#closeBySelection{
+		color:white;
+
+    		display: table;
+    		margin: 0 auto;
+	}
+
+	#mapView{
+		height:300px;
+		width:100%;
+	}
+
+	#toleranceForm{
+		height:25px;
+		width:50px;
+
+		
+		text-align:center;
+		color:black;
+	}
+
+	#dateForm{
+    		display: table;
+    		margin: 0 auto;
+	}
+
+	#dayForm{
+		height:25px;
+		width:30px;
+
+		text-align:center;
+		color:black;
+	}
+
+	#monthForm{
+		height:25px;
+		width:30px;
+
+		text-align:center;
+		color:black;
+	}
+
+	#yearForm{
+		height:25px;
+		width:45px;
+
+		text-align:center;
+		color:black;
+	}
+
+	#menuOption{
+		height:40px;
+		max-width:100px;
+
+		margin-left:auto;
+		margin-right:auto;
+	}
+
+	#okBtn{
+		height:35px;
+		width:50px;		
+
+		margin-top:-5px;
+		margin-right:5px;
+
+		color:transparent;
+		background-color:transparent;
+
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border-color:transparent;
+		border:none;		
+	}
+
+	#btn{
+		float:left;
+		max-height:40px;
+		max-width:35px;		
+
+		color:transparent;
+		background-color:transparent;
+
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border-color:transparent;
+		border:none;		
+	}
+
+	#text{
+		color:white;
+		margin-top:auto;
+		margin-bottom:auto;
+		text-align:center;
+	}
+
+	#searchBar2{
+		max-height:40px;
+
+		margin-top:auto;
+		margin-left:auto;
+		margin-right:auto;
+		margin-bottom:13px;
+	}
+
+	#secc{
+		padding-left:10px;
+		padding-top:10px;
+
+		border:0px;
+		border-top:1px;
+		border-bottom:1px;
+
+		border-style:solid;
+		border-color:#C0C0C0;
+	}
+
+	#secc2{
+		padding-left:10px;
+		padding-top:10px;
+
+		border:0px;
+		border-top:1px;
+		border-bottom:1px;
+		border-right:1px;
+		border-left:1px;
+
+		border-style:solid;
+		border-color:#C0C0C0;
+	}
+	#secc3{
+		padding-left:10px;
+		padding-top:10px;
+
+		border:0px;
+		border-top:1px;
+		border-bottom:1px;
+
+		border-style:solid;
+		border-color:#C0C0C0;
+	}
+

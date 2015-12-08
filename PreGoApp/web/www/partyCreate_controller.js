@@ -6,6 +6,19 @@ app.controller('partyCreateController', function ($scope, PartyCreateService ) {
 	$scope.musicGenres = [];
 	$scope.selectedMusicGenres = [];
 	
+	$scope.location = {
+	   name:null,
+	   lat:null,
+	   lng:null
+	};	
+	
+	$scope.clear = function () {
+      $scope.location = {
+        name: null,
+        lat: null,
+        lng: null
+      };
+    };
 	
 	PartyCreateService.getPartyTypes()
 		.then(function(response){
@@ -13,8 +26,7 @@ app.controller('partyCreateController', function ($scope, PartyCreateService ) {
 		})
 		.catch(function(error){
 			console.log(error);
-		}); 
-		
+		});
 		
 	PartyCreateService.getMusicGenres()
 		.then(function(response){
@@ -22,6 +34,5 @@ app.controller('partyCreateController', function ($scope, PartyCreateService ) {
 		})
 		.catch(function(error){
 			console.log(error);
-		}); 
-	
+		});	
 });

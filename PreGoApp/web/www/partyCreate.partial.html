@@ -32,6 +32,20 @@
 					</div><!-- /.input group -->
 				</div><!-- /.form group -->
 				<div class="form-group">
+					<label>Ubicación</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="fa fa-map-marker"></i>
+						</div>
+						<location-picker id="location" ng-model="location" inner-class="form-control" placeholder="Dirección" ng-required="true"></location-picker>
+						<!--button ng-click="clear()">Clear</button-->	
+					</div>
+					<br/>
+						Name: {{location.name}}
+						Lat: {{location.lat}}
+						Long: {{location.lng}} 
+				</div><!-- /.form group -->
+				<div class="form-group">
 					<label>Tipo de fiesta: </label> <span ng-repeat="item in selectedItems" >{{item.text + ($last?'':', ') }}</span>
 					<div class="row">
 						<pre-go-selector available-items="partyTypes" selected-items="selectedItems"/>

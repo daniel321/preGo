@@ -3,14 +3,8 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	$scope.common_partys = [];
 	$scope.promoted_partys = [];
 
-	$scope.partyTypes = [
-		 {	icon_uri: "dist/img/tipos_fiesta/afteroffice.jpg",	name: "After office",		code: "after",		selected: false,  hover:false	}
-		,{	icon_uri: "dist/img/tipos_fiesta/bar.jpg",		name: "Bar",			code: "bar",		selected: false,  hover:false	}
-		,{	icon_uri: "dist/img/tipos_fiesta/boliche.jpg",		name: "Boliche",		code: "disco",		selected: false,  hover:false	}
-		,{	icon_uri: "dist/img/tipos_fiesta/disfraces.png",	name: "Disfraces",		code: "costume",	selected: false,  hover:false	}
-		,{	icon_uri: "dist/img/tipos_fiesta/privada.jpg",		name: "Privada",		code: "private",	selected: false,  hover:false	}
-		,{	icon_uri: "dist/img/tipos_fiesta/generica.jpg",		name: "Otro",			code: "other",		selected: false,  hover:false	}
-	];
+	$scope.partyTypes = [];
+	$scope.selectedItems = [];
 
 	$scope.showMenu = 0;
 	$scope.position = [0,0];
@@ -25,38 +19,49 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	}
 
 	$scope.enableTodayPartysMenu = function(){
-		if($scope.showMenu != 1)
-			$scope.showMenu = 1;
-		else
-			$scope.showMenu = 0;
+		if($scope.showMenu != 1){
+			var date = new Date();
+			document.getElementById("dayForm").value = date.getDate();
+			document.getElementById("monthForm").value = date.getMonth()+1;
+			document.getElementById("yearForm").value = date.getFullYear();
 
-		var date = new Date();
-		document.getElementById("dayForm").value = date.getDate();
-		document.getElementById("monthForm").value = date.getMonth()+1;
-		document.getElementById("yearForm").value = date.getFullYear();
+			$scope.showMenu = 1;
+		}else{
+			$scope.showMenu = 0;
+		}
 	}
 
 	$scope.enableCloseByPartysMenu = function(){
-		if($scope.showMenu != 2)
+		if($scope.showMenu != 2){
+			document.getElementById("toleranceForm").value = 10;
+
+			if (!($scope.mapInitialized)){
+				initialize_map("map_canvas");
+				initialize();
+
+				$scope.mapInitialized = true;
+			}
+
 			$scope.showMenu = 2;
-		else
+		}else{
 			$scope.showMenu = 0;	
-
-		document.getElementById("toleranceForm").value = 10;
-
-		if (!($scope.mapInitialized)){
-			initialize_map("map_canvas");
-			initialize();
-
-			$scope.mapInitialized = true;
 		}
 	}
 
 	$scope.enablePartyTypesMenu = function(){
-		if($scope.showMenu != 3)
+		if($scope.showMenu != 3){
+			partySearchService.getPartyTypes()
+				.then(function(response){
+					angular.copy(response.data, $scope.partyTypes);
+				})
+				.catch(function(error){
+					console.log(error);
+			});
+
 			$scope.showMenu = 3;
-		else
-			$scope.showMenu = 0;	
+		}else{
+			$scope.showMenu = 0;
+		}
 	}
 
     	$scope.getAllPartys = function () {
@@ -64,13 +69,10 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 		reset();
 
 		var types = [];
-		for (key in $scope.partyTypes){
-			var type = $scope.partyTypes[key];
-			if(type.selected){
-				types.push(type.name);
-			}
+		for (key in $scope.selectedItems){
+			var type = $scope.selectedItems[key];
+			types.push(type.text);
 		}
-
 
 		partySearchService.getCommonPartys($scope.position[0],$scope.position[1],types).then(function (res) {
         		angular.copy(res, $scope.common_partys);

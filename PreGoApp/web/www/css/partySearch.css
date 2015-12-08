@@ -101,6 +101,11 @@
 		background-position:center;
 	}
 
+	#menuPartyTypes{
+		color:white;
+		margin-bottom:5px;	
+	}
+
 	#menuTodaysPartys{
 		height:30px;
 		width:100%;
@@ -137,6 +142,13 @@
 
 	#current{
 		color:white;
+	}
+
+	#typeSelection{
+    		display: table;
+    		margin: 0 auto;
+
+		margin-top:-15px;	
 	}
 
 	#closeBySelection{

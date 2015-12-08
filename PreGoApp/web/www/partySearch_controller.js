@@ -3,6 +3,15 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	$scope.common_partys = [];
 	$scope.promoted_partys = [];
 
+	$scope.partyTypes = [
+		 {	icon_uri: "dist/img/tipos_fiesta/afteroffice.jpg",	name: "After office",		code: "after",		selected: false,  hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/bar.jpg",		name: "Bar",			code: "bar",		selected: false,  hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/boliche.jpg",		name: "Boliche",		code: "disco",		selected: false,  hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/disfraces.png",	name: "Disfraces",		code: "costume",	selected: false,  hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/privada.jpg",		name: "Privada",		code: "private",	selected: false,  hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/generica.jpg",		name: "Otro",			code: "other",		selected: false,  hover:false	}
+	];
+
 	$scope.showMenu = 0;
 	$scope.position = [0,0];
 
@@ -43,15 +52,31 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 		}
 	}
 
+	$scope.enablePartyTypesMenu = function(){
+		if($scope.showMenu != 3)
+			$scope.showMenu = 3;
+		else
+			$scope.showMenu = 0;	
+	}
+
     	$scope.getAllPartys = function () {
 		getPos();
 		reset();
 
-		partySearchService.getCommonPartys($scope.position[0],$scope.position[1]).then(function (res) {
+		var types = [];
+		for (key in $scope.partyTypes){
+			var type = $scope.partyTypes[key];
+			if(type.selected){
+				types.push(type.name);
+			}
+		}
+
+
+		partySearchService.getCommonPartys($scope.position[0],$scope.position[1],types).then(function (res) {
         		angular.copy(res, $scope.common_partys);
     		});
 
-		partySearchService.getPromotedPartys($scope.position[0],$scope.position[1]).then(function (res) {
+		partySearchService.getPromotedPartys($scope.position[0],$scope.position[1],types).then(function (res) {
         		angular.copy(res, $scope.promoted_partys);
     		});
     	}

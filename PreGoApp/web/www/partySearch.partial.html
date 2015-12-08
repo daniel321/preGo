@@ -1,6 +1,7 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="/www/css/partySearch.css">
+	<link rel="stylesheet" type="text/css" href="/www/css/partyCreate.css">
 	<meta name = "viewport" content = "width = device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">		
 </head>
 
@@ -29,11 +30,11 @@
 
 		<div id="secc3" class="col-xs-4">		
 			<div id="menuOption">
-				<button id="btn" ng-click="getAllPartys()" class="btn btn-success">
+				<button id="btn" ng-click="enablePartyTypesMenu()" class="btn btn-success">
 					<img id="icon" src="/dist/img/icons/partyIcon.png" class="img-responsive" alt="Cinque Terre"></img>		
 				</button>
 				
-				<div id="text"> todas </div>
+				<div id="text"> por tipo </div>
 			</div>
 		</div>
 	</div>
@@ -71,6 +72,31 @@
 			</button>
 		</div>
 	</div>
+
+	<div id="menuPartyTypes" ng-show="showMenu == 3">
+		<div class="form-group">
+			<label>Tipo de fiesta</label>					
+			<div class="row">
+				<div class="multiselect col-xs-6 col-md-2 col-lg-2" ng-repeat="type in partyTypes" ng-click="type.selected=!type.selected">
+					<div class="box multiselect_box" ng-class="{selected:type.selected, 'not-selected': type.selected==false}" ng-mouseover="type.hover=true" ng-mouseleave="type.hover=false">
+						<div class="box-body box-profile">
+							<img class="profile-user-img img-responsive img-circle" ng-src="{{type.icon_uri}}" alt="{{type.name}}">
+							<h3 class="profile-username text-center">{{type.name}}</h3>
+							<p ng-show="type.hover && type.selected" class="help-text text-muted text-center">(click para deseleccionar)</p>
+							<p ng-show="type.hover && !type.selected" class="help-text text-muted text-center">(click para seleccionar)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id = "typeSelection">
+			<button id="okBtn" ng-click="getAllPartys()" class="btn btn-success">
+				<img src="/dist/img/icons/go.png" class="img-responsive" alt="Cinque Terre"></img>
+			</button>
+		</div>
+	</div>
+
 
 	<div id="ptys">
 		<div class="list-group" ng-repeat="pty in promoted_partys">

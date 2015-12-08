@@ -14,14 +14,23 @@
                     <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
                 </div-->
             </div>
-            <div class="box-body">
 			<div class="box-body">
-				<input class="form-control input-lg" type="text" placeholder="Nombre de la fiesta">
-				<br>
+				<div class="form-group">
+					<input class="form-control input-lg" type="text" placeholder="Nombre de la fiesta">
+				</div>
 				<div class="form-group">
 					<label>Descripción</label>
 					<textarea class="form-control" rows="3" placeholder="Detalles..."></textarea>
 				</div> 
+				<div class="form-group">
+					<label>Fecha y duración</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+						<i class="fa fa-clock-o"></i>
+						</div>
+						<input type="text" class="form-control pull-right daterange" id="reservationtime">
+					</div><!-- /.input group -->
+				</div><!-- /.form group -->
 				<div class="form-group">
 					<label>Tipo de fiesta: </label> <span ng-repeat="item in selectedItems" >{{item.text + ($last?'':', ') }}</span>
 					<div class="row">
@@ -36,9 +45,94 @@
 				</div>
 			</div><!-- /.box-body -->
             <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary pull-right">Guardar</button>
             </div><!-- /.box-footer-->
         </div><!-- /.box -->
     </div> 
 </div>
+
+<script>
+ /*"2015-12-08T18:14:20.070Z",
+					"2015-12-08T19:14:20.070Z"*/
+	   //"08/12/2015 23:00 PM"
+	   /*var hoy = ;
+	   var mañana = moment().add(1, 'days').hours(6).minutes(0).seconds(0);
+	   */
+		var rangoEstaNoche = [moment().hours(23).minutes(0).seconds(0), 								moment().add(1, 'days').hours(6).minutes(0).seconds(0)];
+		var rangoSabado =	 [moment().endOf("week").hours(23).minutes(0).seconds(0), 					moment().endOf("week").add(1, 'days').hours(6).minutes(0).seconds(0) ];
+		var rangoViernes = 	[moment().endOf("week").add(-1, 'days').hours(23).minutes(0).seconds(0), 	moment().endOf("week").hours(6).minutes(0).seconds(0) ];
+
+		$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+			$(this).val(picker.startDate.format('DD/MM/YYYY h:mm A') + ' - ' + picker.endDate.format('DD/MM/YYYY h:mm A'));
+		});
+
+		$('.daterange').on('cancel.daterangepicker', function(ev, picker) {
+			$(this).val('');
+		});
+		  
+	   
+      $(function () {
+	 
+		$('#reservationtime').daterangepicker({
+			"autoUpdateInput": false,
+			"timePicker": true,
+			"timePicker24Hour": true,
+			"timePickerIncrement": 60,
+			"autoApply": true,
+			"dateLimit": {
+				"days": 4
+			},
+			
+			"ranges": {
+				"Esta noche": rangoEstaNoche,
+				"Viernes a la noche": rangoViernes,
+				"Sábado a la noche": rangoSabado
+			},
+			"locale": {
+				"format": "DD/MM/YYYY h:mm A",
+				"separator": " - ",
+				"applyLabel": "Aplicar",
+				"cancelLabel": "Cancelar",
+				"fromLabel": "Desde",
+				"toLabel": "Hasta",
+				"customRangeLabel": "Personalizado",
+				"daysOfWeek": [
+					"Do",
+					"Lu",
+					"Ma",
+					"Mi",
+					"Ju",
+					"Vi",
+					"Sa"					
+				],
+				"monthNames": [
+					"Enero",
+					"Febrero",
+					"Marzo",
+					"Abril",
+					"Mayo",
+					"Junio",
+					"Julio",
+					"Augosto",
+					"Septiembre",
+					"Octubre",
+					"Noviembre",
+					"Diciembre"
+				],
+				"firstDay": 0
+			},
+			"opens": "center",
+			"drops": "down"
+		});
+		
+	  
+		/*$('#reservationtime').daterangepicker({
+			"timePicker": true,
+			"timePicker24Hour": true,
+			"timePickerIncrement": 60,
+			"autoApply": true
+		});*/
+		//$('#reservationtime').daterangepicker({timePicker24Hour: true, timePicker: true, timePickerIncrement: 60, format: 'MM/DD/YYYY h:mm A'});
+	  });
+</script>
 

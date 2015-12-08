@@ -29,5 +29,8 @@
     "bower_components",
     "composer.json",
     "documentation"
-  ]
+  ],
+  "dependencies": {
+    "bootstrap-daterangepicker": "~2.1.13"
+  }
 }

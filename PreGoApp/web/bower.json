@@ -31,6 +31,7 @@
     "documentation"
   ],
   "dependencies": {
-    "bootstrap-daterangepicker": "~2.1.13"
+    "bootstrap-daterangepicker": "~2.1.13",
+    "angular-daterangepicker": "~0.2.2"
   }
 }

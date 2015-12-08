@@ -1,1 +1,1 @@
-var app = angular.module('preGO', ['ngRoute']);
+var app = angular.module('preGO', ['ngRoute','daterangepicker']);

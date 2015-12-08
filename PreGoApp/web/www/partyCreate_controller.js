@@ -20,6 +20,11 @@ app.controller('partyCreateController', function ($scope, PartyCreateService ) {
       };
     };
 	
+	$scope.datePicker = {
+		date : {startDate: null, endDate: null},
+		options : getCommonDatePickerOptions()
+	};
+	
 	PartyCreateService.getPartyTypes()
 		.then(function(response){
 			$scope.partyTypes = response.data;

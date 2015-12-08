@@ -28,8 +28,10 @@
 						<div class="input-group-addon">
 						<i class="fa fa-clock-o"></i>
 						</div>
-						<input type="text" class="form-control pull-right daterange" id="reservationtime">
+						<!--input type="text" class="form-control pull-right date-picker" ng-model="dateRange" id="reservationtime"-->
+						<input date-range-picker class="form-control pull-right  date-picker" type="text" ng-model="datePicker.date" options="datePicker.options" />
 					</div><!-- /.input group -->
+					{{datePicker.date}}
 				</div><!-- /.form group -->
 				<div class="form-group">
 					<label>Ubicación</label>
@@ -72,22 +74,22 @@
 	   /*var hoy = ;
 	   var mañana = moment().add(1, 'days').hours(6).minutes(0).seconds(0);
 	   */
-		var rangoEstaNoche = [moment().hours(23).minutes(0).seconds(0), 								moment().add(1, 'days').hours(6).minutes(0).seconds(0)];
+	/*	var rangoEstaNoche = [moment().hours(23).minutes(0).seconds(0), 								moment().add(1, 'days').hours(6).minutes(0).seconds(0)];
 		var rangoSabado =	 [moment().endOf("week").hours(23).minutes(0).seconds(0), 					moment().endOf("week").add(1, 'days').hours(6).minutes(0).seconds(0) ];
 		var rangoViernes = 	[moment().endOf("week").add(-1, 'days').hours(23).minutes(0).seconds(0), 	moment().endOf("week").hours(6).minutes(0).seconds(0) ];
 
-		$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+		$('.pull-right').on('apply.daterangepicker', function(ev, picker) {
 			$(this).val(picker.startDate.format('DD/MM/YYYY h:mm A') + ' - ' + picker.endDate.format('DD/MM/YYYY h:mm A'));
 		});
 
-		$('.daterange').on('cancel.daterangepicker', function(ev, picker) {
+		$('.pull-right').on('cancel.daterangepicker', function(ev, picker) {
 			$(this).val('');
 		});
 		  
 	   
       $(function () {
 	 
-		$('#reservationtime').daterangepicker({
+		$('.pull-right').daterangepicker({
 			"autoUpdateInput": false,
 			"timePicker": true,
 			"timePicker24Hour": true,
@@ -139,14 +141,8 @@
 			"drops": "down"
 		});
 		
-	  
-		/*$('#reservationtime').daterangepicker({
-			"timePicker": true,
-			"timePicker24Hour": true,
-			"timePickerIncrement": 60,
-			"autoApply": true
-		});*/
-		//$('#reservationtime').daterangepicker({timePicker24Hour: true, timePicker: true, timePickerIncrement: 60, format: 'MM/DD/YYYY h:mm A'});
 	  });
+	  
+	  */
 </script>
 

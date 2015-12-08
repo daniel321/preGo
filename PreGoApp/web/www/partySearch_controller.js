@@ -20,11 +20,11 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 
 	$scope.enableTodayPartysMenu = function(){
 		if($scope.showMenu != 1){
-			var date = new Date();
+/*			var date = new Date();
 			document.getElementById("dayForm").value = date.getDate();
 			document.getElementById("monthForm").value = date.getMonth()+1;
 			document.getElementById("yearForm").value = date.getFullYear();
-
+*/
 			$scope.showMenu = 1;
 		}else{
 			$scope.showMenu = 0;
@@ -87,10 +87,10 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 		getPos();
 		reset();
 
-		var day = document.getElementById("dayForm").value;
+/*		var day = document.getElementById("dayForm").value;
 		var month = document.getElementById("monthForm").value;
 		var year = document.getElementById("yearForm").value;
-
+*/
 		partySearchService.getCommonPartysToday($scope.position[0],$scope.position[1],day,month,year).then(function (res) {
         		angular.copy(res, $scope.common_partys);
     		});

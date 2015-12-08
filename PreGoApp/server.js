@@ -141,6 +141,121 @@ var getFlame = function(party){
 	}
 }
 
+var partys = {};
+
+partys["Ink"] = {
+
+		 esSugerida:true,
+		 types:["Bar","Boliche"],
+		 imagenDeFondo:"/dist/img/clubs/ink.jpg",
+		 imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Ink",
+		 pos:{lat:-34.5865587,long:-58.4395189},
+		 fecha:{dia:26,mes:11,anio:2015},
+		 inicio:{hora:9,minutos:30},
+		 cantidadDeGente:325,
+		 userRates:[10,7,9,9,6],
+		 comentarios: [ {autor:"Daniel",comentario:"muy buen lugar!"} , 
+                   		{autor:"Facundo",comentario:"esto esta que explota!!"} ]
+		};
+
+partys["Hiio"] = {
+		 esSugerida:false,
+		 types:["Bar","Boliche"],
+
+		 imagenDeFondo:"/dist/img/clubs/Hiio.jpg",
+		 imagenBanner:"/dist/img/clubs/Hiio_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Hiio",
+		 pos:{lat:-34.4961641,long:-58.5549297},
+		 fecha:{dia:4,mes:12,anio:2015},
+		 inicio:{hora:13,minutos:30},
+		 cantidadDeGente:202,
+		 userRates:[8,9,7,9,6,4,7],
+		 comentarios: [ {autor:"Damian",comentario:"festejando en este gran lugar!!"}]
+		};
+
+partys["Moscow"] = {
+		 esSugerida:false,
+		 types:["Bar","Boliche"],
+
+		 imagenDeFondo:"/dist/img/clubs/Moscow.jpg",
+		 imagenBanner:"/dist/img/clubs/Moscow_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Moscow",
+		 pos:{lat:-34.4513129,long:-58.5561985},
+		 fecha:{dia:6,mes:12,anio:2015},
+		 inicio:{hora:6,minutos:30},
+		 cantidadDeGente:235,
+		 userRates:[6,8,10,7,4],
+		 comentarios: [ {autor:"Guido",comentario:"que buena fiesta !!!"}]
+		};
+
+partys["Bosque"] = {
+		 esSugerida:false,
+		 types:["Bar","Boliche"],
+		 imagenDeFondo:"/dist/img/clubs/bosque.jpg",
+		 imagenBanner:"/dist/img/clubs/bosque_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion bosque",
+		 pos:{lat:-34.8304372,long:-58.5712683},
+		 fecha:{dia:23,mes:12,anio:2015},
+		 inicio:{hora:7,minutos:30},
+		 cantidadDeGente:135,
+		 userRates:[8,10,7],
+		 comentarios: [ {autor:"Ezequiel",comentario:"aca hay de todo !!!"}]
+		};
+
+partys["Sunset"] = {
+		 esSugerida:true,
+		 types:["Bar","Boliche"],
+		 imagenDeFondo:"/dist/img/clubs/sunset.jpg",
+		 imagenBanner:"/dist/img/clubs/sunset_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion sunset",
+		 pos:{lat:-34.5876237,long:-58.4660913},
+		 fecha:{dia:4,mes:12,anio:2015},
+		 inicio:{hora:3,minutos:0},
+		 cantidadDeGente:1632,
+		 userRates:[9,10,8,10,7,9],
+		 comentarios: [ {autor:"Ezequiel",comentario:"esta genial!"},
+				{autor:"Guido",comentario:"festejando como loco!!"},
+				{autor:"Nahuel",comentario:"fiestaaaaa!"}]
+		};
+
+partys["BsAsEnFoco"] = {
+		 esSugerida:false,
+		 types:["After office","Bar","Boliche"],
+		 imagenDeFondo:"/dist/img/clubs/Buenos-Aires-En-Foco.jpg",
+		 imagenBanner:"/dist/img/clubs/Buenos-Aires-En-Foco_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Buenos-Aires-En-Foco",
+		 pos:{lat:-34.6324812,long:-58.4184982},
+		 fecha:{dia:2,mes:12,anio:2015},
+		 inicio:{hora:9,minutos:0},
+		 cantidadDeGente:6,
+		 userRates:[8,10,7],
+
+		 comentarios: [ {autor:"Facundo",comentario:"muy bueno, pero no hay nadie..."}]
+		};
+
+partys["PoolParty"] = {
+		 esSugerida:false,
+		 types:["Privada","Otro"],
+		 imagenDeFondo:"/dist/img/clubs/Pool-Party.jpg",
+		 imagenBanner:"/dist/img/clubs/Pool-Party_BAR.jpg",
+		 fotos:["otras imagenes"],
+		 descripcion:"descripcion Pool-Party",
+		 pos:{lat:-34.5739245,long:-58.3923359},
+		 fecha:{dia:1,mes:12,anio:2015},
+		 inicio:{hora:6,minutos:30},
+		 cantidadDeGente:302,
+		 userRates:[8,8,8,5,7,10],
+		 comentarios: [ {autor:"Nahuel",comentario:"chicas lindas x todos lados !!!"}]
+		};
+
+
 var biggerAmountOfPeople = function(party1,party2){
 	return (party2.cantidadDeGente - party1.cantidadDeGente);
 }
@@ -189,108 +304,20 @@ var getDistance = function (direccion,party) {
 	return Math.round(RadioTierra*c);
 }
 
-var partys = {};
+var esDeAlgunoDeLosTipos = function(types,partyTypes){
 
-partys["Ink"] = {
-		 esSugerida:true,
-		 imagenDeFondo:"/dist/img/clubs/ink.jpg",
-		 imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Ink",
-		 pos:{lat:-34.5865587,long:-58.4395189},
-		 fecha:{dia:26,mes:11,anio:2015},
-		 inicio:{hora:9,minutos:30},
-		 cantidadDeGente:325,
-		 userRates:[10,7,9,9,6],
-		 comentarios: [ {autor:"Daniel",comentario:"muy buen lugar!"} , 
-                   		{autor:"Facundo",comentario:"esto esta que explota!!"} ]
-		};
+	for(t1 in types){
+		var type1 = types[t1];
 
-partys["Hiio"] = {
-		 esSugerida:false,
-		 imagenDeFondo:"/dist/img/clubs/Hiio.jpg",
-		 imagenBanner:"/dist/img/clubs/Hiio_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Hiio",
-		 pos:{lat:-34.4961641,long:-58.5549297},
-		 fecha:{dia:4,mes:12,anio:2015},
-		 inicio:{hora:13,minutos:30},
-		 cantidadDeGente:202,
-		 userRates:[8,9,7,9,6,4,7],
-		 comentarios: [ {autor:"Damian",comentario:"festejando en este gran lugar!!"}]
-		};
-
-partys["Moscow"] = {
-		 esSugerida:false,
-		 imagenDeFondo:"/dist/img/clubs/Moscow.jpg",
-		 imagenBanner:"/dist/img/clubs/Moscow_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Moscow",
-		 pos:{lat:-34.4513129,long:-58.5561985},
-		 fecha:{dia:6,mes:12,anio:2015},
-		 inicio:{hora:6,minutos:30},
-		 cantidadDeGente:235,
-		 userRates:[6,8,10,7,4],
-		 comentarios: [ {autor:"Guido",comentario:"que buena fiesta !!!"}]
-		};
-
-partys["Bosque"] = {
-		 esSugerida:false,
-		 imagenDeFondo:"/dist/img/clubs/bosque.jpg",
-		 imagenBanner:"/dist/img/clubs/bosque_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion bosque",
-		 pos:{lat:-34.8304372,long:-58.5712683},
-		 fecha:{dia:23,mes:12,anio:2015},
-		 inicio:{hora:7,minutos:30},
-		 cantidadDeGente:135,
-		 userRates:[8,10,7],
-		 comentarios: [ {autor:"Ezequiel",comentario:"aca hay de todo !!!"}]
-		};
-
-partys["Sunset"] = {
-		 esSugerida:true,
-		 imagenDeFondo:"/dist/img/clubs/sunset.jpg",
-		 imagenBanner:"/dist/img/clubs/sunset_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion sunset",
-		 pos:{lat:-34.5876237,long:-58.4660913},
-		 fecha:{dia:4,mes:12,anio:2015},
-		 inicio:{hora:3,minutos:0},
-		 cantidadDeGente:1632,
-		 userRates:[9,10,8,10,7,9],
-		 comentarios: [ {autor:"Ezequiel",comentario:"esta genial!"},
-				{autor:"Guido",comentario:"festejando como loco!!"},
-				{autor:"Nahuel",comentario:"fiestaaaaa!"}]
-		};
-
-partys["BsAsEnFoco"] = {
-		 esSugerida:false,
-		 imagenDeFondo:"/dist/img/clubs/Buenos-Aires-En-Foco.jpg",
-		 imagenBanner:"/dist/img/clubs/Buenos-Aires-En-Foco_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Buenos-Aires-En-Foco",
-		 pos:{lat:-34.6324812,long:-58.4184982},
-		 fecha:{dia:2,mes:12,anio:2015},
-		 inicio:{hora:9,minutos:0},
-		 cantidadDeGente:6,
-		 userRates:[8,10,7],
-		 comentarios: [ {autor:"Facundo",comentario:"muy bueno, pero no hay nadie..."}]
-		};
-
-partys["PoolParty"] = {
-		 esSugerida:false,
-		 imagenDeFondo:"/dist/img/clubs/Pool-Party.jpg",
-		 imagenBanner:"/dist/img/clubs/Pool-Party_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Pool-Party",
-		 pos:{lat:-34.5739245,long:-58.3923359},
-		 fecha:{dia:1,mes:12,anio:2015},
-		 inicio:{hora:6,minutos:30},
-		 cantidadDeGente:302,
-		 userRates:[8,8,8,5,7,10],
-		 comentarios: [ {autor:"Nahuel",comentario:"chicas lindas x todos lados !!!"}]
-		};
+		for(t2 in partyTypes){
+			var type2 = partyTypes[t2];
+			if(type1 == type2){
+				return true;
+			}
+		}
+	}
+	return false;
+}
 
 app.get('/api/promotedPartys', function (req,res) {
     var ret = [];
@@ -299,11 +326,13 @@ app.get('/api/promotedPartys', function (req,res) {
     var lat = req.query['lat'];
     var long = req.query['long'];
 
+    var types = req.query['types'].split(",");	
+
     for (name in partys){
 	var party = partys[name];
     	var dist = getDistance([lat,long],party);
 
-	if(party.esSugerida)
+	if(party.esSugerida && esDeAlgunoDeLosTipos(types,party.types))
 		agregar(ret,name,party,dist);
     }
 
@@ -318,10 +347,13 @@ app.get('/api/commonPartys', function (req,res) {
     var lat = req.query['lat'];
     var long = req.query['long'];
 
+    var types = req.query['types'].split(",");	
+
     for (name in partys){
 	var party = partys[name];
     	var dist = getDistance([lat,long],party);
-	if(!(party.esSugerida)){
+
+	if(!(party.esSugerida)  && esDeAlgunoDeLosTipos(types,party.types)){
 		agregar(ret,name,party,dist);
 	}
     }

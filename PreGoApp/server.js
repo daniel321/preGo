@@ -469,7 +469,22 @@ app.get('/api/partyTypes', function (req,res) {
 		,{	icon_uri: "dist/img/tipos_fiesta/privada.jpg",		text: "Privada",		code: "private"}
 		,{	icon_uri: "dist/img/tipos_fiesta/generica.jpg",		text: "Otro",			code: "other"}
 	]);
-})
+});
+
+
+app.get('/api/musicGenres', function (req,res) {     
+    res.send([
+		{	icon_uri: "dist/img/tipos_musica/dance.jpg",		text: "Dance",		code: "dance"}
+		,{	icon_uri: "dist/img/tipos_musica/ochentoso.jpg",	text: "Ochentosa",	code: "ochentoso"}
+		,{	icon_uri: "dist/img/tipos_musica/pop.jpg",			text: "Pop",		code: "pop"}
+		,{	icon_uri: "dist/img/tipos_musica/reggae.jpg",		text: "Reggae",		code: "reggae"}
+		,{	icon_uri: "dist/img/tipos_musica/rock.jpg",			text: "Rock",		code: "rock"}
+		,{	icon_uri: "dist/img/tipos_musica/tropical.jpg",		text: "Tropical",	code: "tropical"}
+		,{	icon_uri: "dist/img/tipos_musica/generico.jpg",		text: "Otro",		code: "otro"}
+	]);
+});
+
+
 
 
 /* #publicados */

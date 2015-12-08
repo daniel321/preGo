@@ -28,6 +28,12 @@
 						<pre-go-selector available-items="partyTypes" selected-items="selectedItems"/>
 					</div>					
 				</div> 
+				<div class="form-group">
+					<label>Tipo de Musica: </label> <span ng-repeat="item in selectedMusicGenres" >{{item.text + ($last?'':', ') }}</span>
+					<div class="row">
+						<pre-go-selector available-items="musicGenres" selected-items="selectedMusicGenres"/>
+					</div>					
+				</div> 
 				  
 				<input class="form-control" type="text" placeholder="Default input">
 				<br>

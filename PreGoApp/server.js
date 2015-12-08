@@ -428,6 +428,18 @@ app.post('/api/partys', function (req, res) {
 })
 
 
+app.get('/api/partyTypes', function (req,res) {     
+    res.send([
+		{	icon_uri: "dist/img/tipos_fiesta/afteroffice.jpg",	name: "After office",	code: "after"}
+		,{	icon_uri: "dist/img/tipos_fiesta/bar.jpg",			name: "Bar",			code: "bar"}
+		,{	icon_uri: "dist/img/tipos_fiesta/boliche.jpg",		name: "Boliche",		code: "disco"}
+		,{	icon_uri: "dist/img/tipos_fiesta/disfraces.png",	name: "De disfraces",		code: "costume"}
+		,{	icon_uri: "dist/img/tipos_fiesta/privada.jpg",		name: "Privada",		code: "private"}
+		,{	icon_uri: "dist/img/tipos_fiesta/generica.jpg",		name: "Otro",			code: "other"}
+	]);
+})
+
+
 /* #publicados */
 services = 
 	{

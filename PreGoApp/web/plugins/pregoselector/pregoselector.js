@@ -14,8 +14,9 @@ app.directive('preGoSelector', function(){
 					if(item.selected){
 						$scope.selectedItems.push(
 							{
+								icon_uri: item.icon_uri,
 								code: item.code,
-								description: item.name
+								text: item.text
 							});	
 					}
 				}

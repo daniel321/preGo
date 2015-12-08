@@ -1,4 +1,4 @@
-<div class="multiselect col-xs-6 col-md-2 col-lg-2" ng-repeat="item in availableItems" ng-click="item.selected=!item.selected; updateSelectedItems()">
+<div class="multiselect col-xs-12 col-sm-6 col-md-2 col-lg-2" ng-repeat="item in availableItems" ng-click="item.selected=!item.selected; updateSelectedItems()">
 	<div class="box multiselect_box" ng-class="{selected:item.selected, 'not-selected': item.selected==false}" ng-mouseover="item.hover=true" ng-mouseleave="item.hover=false">
 		<div class="box-body box-profile">
 			<img class="profile-user-img img-responsive img-circle" ng-src="{{item.icon_uri}}" alt="{{item.text}}">

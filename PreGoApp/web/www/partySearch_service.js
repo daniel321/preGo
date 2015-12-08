@@ -31,5 +31,9 @@ app.factory('partySearchService', function ($http, $q) {
             return simpleHttpGet($http, '/api/commonPartysCloseBy?lat='+lat+'&long='+long+"&tol="+tol, $q.reject);
         },
 
+	getPartyTypes: function () {
+		return $http({url: '/api/partyTypes',method: 'GET'});
+        },
+
     };
 });

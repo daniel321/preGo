@@ -74,21 +74,12 @@
 	</div>
 
 	<div id="menuPartyTypes" ng-show="showMenu == 3">
-		<div class="form-group">
-			<label>Tipo de fiesta</label>					
-			<div class="row">
-				<div class="multiselect col-xs-6 col-md-2 col-lg-2" ng-repeat="type in partyTypes" ng-click="type.selected=!type.selected">
-					<div class="box multiselect_box" ng-class="{selected:type.selected, 'not-selected': type.selected==false}" ng-mouseover="type.hover=true" ng-mouseleave="type.hover=false">
-						<div class="box-body box-profile">
-							<img class="profile-user-img img-responsive img-circle" ng-src="{{type.icon_uri}}" alt="{{type.name}}">
-							<h3 class="profile-username text-center">{{type.name}}</h3>
-							<p ng-show="type.hover && type.selected" class="help-text text-muted text-center">(click para deseleccionar)</p>
-							<p ng-show="type.hover && !type.selected" class="help-text text-muted text-center">(click para seleccionar)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+				<div class="form-group">
+					<label>Tipo de fiesta: </label> <span ng-repeat="item in selectedItems" >{{item.text + ($last?'':', ') }}</span>
+					<div class="row">
+						<pre-go-selector available-items="partyTypes" selected-items="selectedItems"/>
+					</div>					
+				</div> 
 
 		<div id = "typeSelection">
 			<button id="okBtn" ng-click="getAllPartys()" class="btn btn-success">

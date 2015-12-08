@@ -3,6 +3,15 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	$scope.common_partys = [];
 	$scope.promoted_partys = [];
 
+	$scope.partyTypes = [
+		{	icon_uri: "dist/img/tipos_fiesta/afteroffice.jpg",	name: "After office",	code: "after",		selected: false, hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/bar.jpg",		name: "Bar",			code: "bar",		selected: false, hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/boliche.jpg",		name: "Boliche",		code: "disco",		selected: true,  hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/disfraces.png",	name: "Disfraces",		code: "costume",	selected: false, hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/privada.jpg",		name: "Privada",		code: "private",	selected: true,  hover:false	}
+		,{	icon_uri: "dist/img/tipos_fiesta/generica.jpg",		name: "Otro",			code: "other",		selected: false, hover:false	}
+	];
+
 	$scope.showMenu = 0;
 	$scope.position = [0,0];
 
@@ -41,6 +50,13 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 
 			$scope.mapInitialized = true;
 		}
+	}
+
+	$scope.enablePartyTypesMenu = function(){
+		if($scope.showMenu != 3)
+			$scope.showMenu = 3;
+		else
+			$scope.showMenu = 0;	
 	}
 
     	$scope.getAllPartys = function () {

@@ -1,0 +1,29 @@
+.multiselect{
+	height:162px;
+}
+
+.multiselect img {
+	width:100px; /* sin esto las cajas tienen distintos altos y cuando caen dejan huecos*/
+	height:74px;
+}
+
+.multiselect .selected {
+	background-color: #99C9E4; /*337ab7*/
+	border-top-color: #3c8dbc;
+}
+.multiselect_box:hover{
+	cursor:pointer;
+}
+
+.multiselect_box .not-selected:hover{
+	border-top-color: #3c8dbc;
+	background-color: #F6F6F6;
+	cursor:pointer;
+}
+/*.help-text{
+	visibility: hidden;
+}
+.help-text:hover{
+	visibility: visible;
+}*/
+

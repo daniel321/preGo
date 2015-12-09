@@ -11,14 +11,14 @@ app.factory('partySearchService', function ($http, $q) {
             return simpleHttpGet($http, '/api/commonPartys?lat='+lat+'&long='+long+'&types='+types, $q.reject);
         },
 
-        getPromotedPartysToday: function (lat,long,day,month,year) {
+        getPromotedPartysByDate: function (lat,long,start,end) {
 	   // console.log("service getting common partys");
-            return simpleHttpGet($http, '/api/promotedPartysToday?lat='+lat+'&long='+long+'&day='+day+'&month='+month+'&year='+year, $q.reject);
+            return simpleHttpGet($http, '/api/promotedPartysByDate?lat='+lat+'&long='+long+'&start='+start+'&end='+end, $q.reject);
         },
 
-        getCommonPartysToday: function (lat,long,day,month,year) {
+        getCommonPartysByDate: function (lat,long,start,end) {
 	   // console.log("service getting promoted partys");
-            return simpleHttpGet($http, '/api/commonPartysToday?lat='+lat+'&long='+long+'&day='+day+'&month='+month+'&year='+year, $q.reject);
+            return simpleHttpGet($http, '/api/commonPartysByDate?lat='+lat+'&long='+long+'&start='+start+'&end='+end, $q.reject);
         },
 
         getPromotedPartysCloseBy: function (lat,long,tol) {

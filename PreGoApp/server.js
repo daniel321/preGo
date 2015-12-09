@@ -14,41 +14,81 @@ app.use(bodyParser.json())
 
 app.use(cookieParser());
 
-app.get("/api/login/:nickname", function (req, res) {
-    res.cookie("nickname", req.params.nickname);
+var users = [
+    {
+        avatar_url: '/dist/img/user3-128x128.jpg',
+        nickname: 'Damian',
+        email: "damian@prego.com",
+        pass: "asd"
+    },
+    {
+        avatar_url: '/dist/img/user4-128x128.jpg',
+        nickname: 'Daniel',
+        email: "damiel@prego.com",
+        pass: "asd"
+    },
+    {
+        avatar_url: '/dist/img/user4-128x128.jpg',
+        nickname: 'Nahuel',
+        email: "nahuel@prego.com",
+        pass: "asd"
+    },
+    {
+        avatar_url: '/dist/img/user4-128x128.jpg',
+        nickname: 'Ezequiel',
+        email: "ezequiel@prego.com",
+        pass: "asd"
+    },
+    {
+        avatar_url: '/dist/img/user4-128x128.jpg',
+        nickname: 'Guido',
+        email: "guido@prego.com",
+        pass: "asd"
+    },
+    {
+        avatar_url: '/dist/img/user4-128x128.jpg',
+        nickname: 'Facundo',
+        email: "facundo@prego.com",
+        pass: "asd"
+    }
+];
+
+app.post("/api/login", function (req, res) {
+    var email = req.body.email;
+    var pass = req.body.pass;
+
+    var user = login(email, pass);
+    console.log(user);
+
+    if (user != null) {
+        res.cookie("nickname", user.nickname);
+    }
+
+    res.send(user);
+});
+
+app.get("/api/logout", function (req, res) {
+    res.clearCookie("nickname");
     res.send(true);
 });
 
-app.get("/api/user", function (req, res) {
-    res.send(
-        [
-            {
-                avatar_url: '/dist/img/user3-128x128.jpg',
-                nickname: 'Damian'
-            },
-            {
-                avatar_url: '/dist/img/user4-128x128.jpg',
-                nickname: 'Daniel'
-            },
-            {
-                avatar_url: '/dist/img/user4-128x128.jpg',
-                nickname: 'Nahuel'
-            },
-            {
-                avatar_url: '/dist/img/user4-128x128.jpg',
-                nickname: 'Ezequiel'
-            },
-            {
-                avatar_url: '/dist/img/user4-128x128.jpg',
-                nickname: 'Guido'
-            },
-            {
-                avatar_url: '/dist/img/user4-128x128.jpg',
-                nickname: 'Facundo'
-            }
+function login(email, pass) {
+    for (var i = 0; i < users.length; i++) {
+        if (users[i].email == email && users[i].pass == pass) {
+            return users[i];
+        }
+    }
+    return null;
+}
 
-        ]
-    );
+app.get("/api/user", function (req, res) {
+    res.send(users);
+});
+
+app.put("/api/user", function (req, res) {
+    console.log(req.body);
+    users.push(req.body);
+    res.send(true);
 });
 
 var chats = {};

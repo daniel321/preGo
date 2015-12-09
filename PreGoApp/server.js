@@ -160,8 +160,8 @@ partys["Ink"] = {
 		 descripcion:"descripcion Ink",
 		 pos:{lat:-34.5865587,long:-58.4395189},
 
-		 inicio: new Date("2015-11-26T09:30:00"),
-		 fin:    new Date("2015-11-27T04:30:00"),
+		 inicio: "2015-11-26T09:30:00",
+		 fin:    "2015-11-27T04:30:00",
 
 		 cantidadDeGente:325,
 		 userRates:[10,7,9,9,6],
@@ -179,8 +179,8 @@ partys["Hiio"] = {
 		 descripcion:"descripcion Hiio",
 		 pos:{lat:-34.4961641,long:-58.5549297},
 
-		 inicio: new Date("2015-12-04T13:30:00"),
-		 fin:    new Date("2015-12-04T21:30:00"),
+		 inicio: "2015-12-04T13:30:00",
+		 fin:    "2015-12-04T21:30:00",
 
 		 cantidadDeGente:202,
 		 userRates:[8,9,7,9,6,4,7],
@@ -197,8 +197,8 @@ partys["Moscow"] = {
 		 descripcion:"descripcion Moscow",
 		 pos:{lat:-34.4513129,long:-58.5561985},
 
-		 inicio: new Date("2015-12-06T06:30:00"),
-		 fin:    new Date("2015-12-12T21:30:00"),
+		 inicio: "2015-12-06T06:30:00",
+		 fin:    "2015-12-12T21:30:00",
 
 		 cantidadDeGente:235,
 		 userRates:[6,8,10,7,4],
@@ -214,8 +214,8 @@ partys["Bosque"] = {
 		 descripcion:"descripcion bosque",
 		 pos:{lat:-34.8304372,long:-58.5712683},
 
-		 inicio: new Date("2015-12-23T07:30:00"),
-		 fin:    new Date("2015-12-24T21:30:00"),
+		 inicio: "2015-12-23T07:30:00",
+		 fin:    "2015-12-24T21:30:00",
 
 		 cantidadDeGente:135,
 		 userRates:[8,10,7],
@@ -231,8 +231,8 @@ partys["Sunset"] = {
 		 descripcion:"descripcion sunset",
 		 pos:{lat:-34.5876237,long:-58.4660913},
 
-		 inicio: new Date("2015-12-04T03:00:00"),
-		 fin:    new Date("2015-12-06T03:30:00"),
+		 inicio: "2015-12-04T03:00:00",
+		 fin:    "2015-12-06T03:30:00",
 
 		 cantidadDeGente:1632,
 		 userRates:[9,10,8,10,7,9],
@@ -250,8 +250,8 @@ partys["BsAsEnFoco"] = {
 		 descripcion:"descripcion Buenos-Aires-En-Foco",
 		 pos:{lat:-34.6324812,long:-58.4184982},
 
-		 inicio: new Date("2015-12-10T06:30:00"),
-		 fin:    new Date("2015-12-12T21:30:00"),
+		 inicio: "2015-12-10T06:30:00",
+		 fin:    "2015-12-12T21:30:00",
 
 		 cantidadDeGente:6,
 		 userRates:[8,10,7],
@@ -268,8 +268,8 @@ partys["PoolParty"] = {
 		 descripcion:"descripcion Pool-Party",
 		 pos:{lat:-34.5739245,long:-58.3923359},
 
-		 inicio: new Date("2015-12-06T10:30:00"),
-		 fin:    new Date("2015-12-06T21:30:00"),
+		 inicio: "2015-12-06T10:30:00",
+		 fin:    "2015-12-06T21:30:00",
 
 		 cantidadDeGente:302,
 		 userRates:[8,8,8,5,7,10],
@@ -328,8 +328,8 @@ var comesBetween = function(party,start,end){
 	var rangeStart = new Date(start.split(".")[0]);
 	var rangeEnd = new Date(end.split(".")[0]);
 
-	var partyStart = party.inicio;
-	var partyEnd = party.fin;
+	var partyStart = new Date(party.inicio.split(".")[0]);
+	var partyEnd = new Date(party.fin.split(".")[0]);
 
 	var res = ( ((partyStart > rangeStart)&&(partyStart < rangeEnd)) || ((rangeStart > partyStart)&&(rangeStart < partyEnd)) ); 
 	return res;

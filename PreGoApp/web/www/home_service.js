@@ -4,8 +4,13 @@ app.factory('HomeService', function ($http, $q) {
             return simpleHttpGet($http, '/api/user', $q.reject);
         },
 
-        login: function (nickname) {
-            return simpleHttpGet($http, '/api/login/' + nickname, $q.reject);
-        }
+        login: function (email, pass) {
+            return $http({
+                url: '/api/login',
+                method: 'POST',
+                data: { email: email, pass: pass }
+            });
+        },
+
     };
 });

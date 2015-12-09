@@ -10,7 +10,7 @@ app.controller('HomeController', function ($scope, HomeService) {
     ];
 
     $scope.login = function (user) {
-        HomeService.login(user.nickname).then(function (res) {
+        HomeService.login(user.email,user.pass).then(function (res) {
             $scope.currentUser.nickname = user.nickname;
         });
     }

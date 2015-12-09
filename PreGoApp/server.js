@@ -16,19 +16,19 @@ app.use(cookieParser());
 
 var users = [
     {
-        avatar_url: '/dist/img/user3-128x128.jpg',
+        avatar_url: '/dist/img/user1-128x128.jpg',
         nickname: 'Damian',
         email: "damian@prego.com",
         pass: "asd"
     },
     {
-        avatar_url: '/dist/img/user4-128x128.jpg',
+        avatar_url: '/dist/img/user2-128x128.jpg',
         nickname: 'Daniel',
         email: "damiel@prego.com",
         pass: "asd"
     },
     {
-        avatar_url: '/dist/img/user4-128x128.jpg',
+        avatar_url: '/dist/img/user3-128x128.jpg',
         nickname: 'Nahuel',
         email: "nahuel@prego.com",
         pass: "asd"
@@ -40,13 +40,13 @@ var users = [
         pass: "asd"
     },
     {
-        avatar_url: '/dist/img/user4-128x128.jpg',
+        avatar_url: '/dist/img/user5-128x128.jpg',
         nickname: 'Guido',
         email: "guido@prego.com",
         pass: "asd"
     },
     {
-        avatar_url: '/dist/img/user4-128x128.jpg',
+        avatar_url: '/dist/img/user6-128x128.jpg',
         nickname: 'Facundo',
         email: "facundo@prego.com",
         pass: "asd"
@@ -58,10 +58,11 @@ app.post("/api/login", function (req, res) {
     var pass = req.body.pass;
 
     var user = login(email, pass);
-    console.log(user);
+    // console.log(user);
 
     if (user != null) {
         res.cookie("nickname", user.nickname);
+        res.cookie("avatar_url", user.avatar_url);
     }
 
     res.send(user);
@@ -69,11 +70,13 @@ app.post("/api/login", function (req, res) {
 
 app.get("/api/logout", function (req, res) {
     res.clearCookie("nickname");
+    res.clearCookie("avatar_url");
     res.send(true);
 });
 
 function login(email, pass) {
     for (var i = 0; i < users.length; i++) {
+	// console.log(email + " - " + pass);
         if (users[i].email == email && users[i].pass == pass) {
             return users[i];
         }
@@ -86,60 +89,88 @@ app.get("/api/user", function (req, res) {
 });
 
 app.put("/api/user", function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     users.push(req.body);
     res.send(true);
 });
 
-var chats = {};
-chats["Daniel"] = [
-    {
-        avatar_url: '/dist/img/user3-128x128.jpg',
-        nickname: 'Damian',
-        message: 'No estoy en casa ahora, iré en un rato y a las 20 me voy',
-        time: '3:15',
-        is_you: true
-    },
-    {
-        avatar_url: '/dist/img/user4-128x128.jpg',
-        nickname: 'Daniel',
-        message: 'Avisame cuando llegues',
-        time: '2:15',
-        is_you: false
-    },
-    {
-        avatar_url: '/dist/img/user3-128x128.jpg',
-        nickname: 'Damian',
-        message: 'Llego en 15',
-        time: '2:15',
-        is_you: true
-    }
-]
+var initChat = function(pers1,pers2){
+    if (chats[pers1] == null)
+	chats[pers1] = [];
+    
+    if(chats[pers1][pers2] == null)
+	chats[pers1][pers2] = [];
+}
 
-app.get('/api/chat/:nickname', function (req, res) {
-    if (chats[req.params.nickname] == null) {
-        chats[req.params.nickname] = [];
-    }
+var addChat = function(me,other,msg,pic){
 
-    res.send(chats[req.params.nickname]);
-})
-
-app.post('/api/chat/:nickname', function (req, res) {
-    console.log(req.body);
-
-    if (chats[req.params.nickname] == null) {
-        chats[req.params.nickname] = [];
-    }
-    console.log(req.body);
-    chats[req.params.nickname].push({
-        avatar_url: '/dist/img/user3-128x128.jpg',
-        nickname: req.cookies.nickname,
-        message: req.body.message,
+    chats[me][other].push({
+        avatar_url: pic,
+        nickname: me,
+        message: msg,
         time: new Date().toString("HH:mm"),
         is_you: true
     });
 
+    chats[other][me].push({
+        avatar_url: pic,
+        nickname: me,
+        message: msg,
+        time: new Date().toString("HH:mm"),
+        is_you: true
+    });
+}
+
+var chats = {};
+initChat("Daniel","Damian");
+initChat("Damian","Daniel");
+
+addChat("Daniel","Damian","No estoy en casa ahora, iré en un rato y a las 20 me voy","/dist/img/user1-128x128.jpg");
+addChat("Damian","Daniel","Avisame cuando llegues","/dist/img/user4-128x128.jpg");
+addChat("Daniel","Damian","Llego en 15","/dist/img/user4-128x128.jpg");
+
+initChat("Facundo","Damian");
+initChat("Damian","Facundo");
+
+addChat("Damian","Facundo","Estas ahi??","/dist/img/user1-128x128.jpg");
+addChat("Facundo","Damian","no :p","/dist/img/user6-128x128.jpg");
+addChat("Damian","Facundo","...","/dist/img/user1-128x128.jpg");
+
+app.get('/api/chat/:nickname', function (req, res) {
+    var me = req.cookies.nickname;
+
+    if(me != null){
+	var other = req.params.nickname;
+
+    	initChat(me,other);
+    	initChat(other,me);
+
+    	res.send(chats[me][other]);
+    }else{
+	var r = [];
+	res.send(r);
+    }
+})
+
+app.post('/api/chat/:nickname', function (req, res) {
+    var me = req.cookies.nickname;
+ 
+    if(me != null){
+	var pic = req.cookies.avatar_url;
+ 
+    	var other = req.params.nickname;
+    	var msg = req.body.message;
+
+    	initChat(me,other);
+    	initChat(other,me);
+
+    	// console.log(req.body);
+
+    	addChat(me,other,msg,pic);
+    }
+
     res.send(true);
+
     /*
     if (chats[req.params.nickname] == null) {
         chats[req.params.nickname] = [];
@@ -567,8 +598,8 @@ app.post('/api/party', function (req, res) {
 	newParty.userRates = [];
 	newParty.comentarios = [];
 	
-	console.log(newParty.nombre);
-	console.log(partys[newParty.nombre]);
+	// console.log(newParty.nombre);
+	// console.log(partys[newParty.nombre]);
 	
 	if(typeof(partys[newParty.nombre]) == 'undefined' ){
 		partys[newParty.nombre] = newParty;

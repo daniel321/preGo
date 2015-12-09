@@ -12,6 +12,11 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	$scope.mapInitialized = false;
 	$scope.initialized = false;
 
+	$scope.datePicker = {
+		date : {startDate: null, endDate: null},
+		options : getCommonDatePickerOptions()
+	};
+
 	var reset = function(){
 		$scope.showMenu = 0;
 		$scope.common_partys = [];
@@ -20,11 +25,6 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 
 	$scope.enableTodayPartysMenu = function(){
 		if($scope.showMenu != 1){
-			var date = new Date();
-			document.getElementById("dayForm").value = date.getDate();
-			document.getElementById("monthForm").value = date.getMonth()+1;
-			document.getElementById("yearForm").value = date.getFullYear();
-
 			$scope.showMenu = 1;
 		}else{
 			$scope.showMenu = 0;
@@ -87,15 +87,14 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 		getPos();
 		reset();
 
-		var day = document.getElementById("dayForm").value;
-		var month = document.getElementById("monthForm").value;
-		var year = document.getElementById("yearForm").value;
+		var start = $scope.datePicker.date.startDate;
+		var end = $scope.datePicker.date.endDate;
 
-		partySearchService.getCommonPartysToday($scope.position[0],$scope.position[1],day,month,year).then(function (res) {
+		partySearchService.getCommonPartysByDate($scope.position[0],$scope.position[1],start.toISOString(),end.toISOString()).then(function (res) {
         		angular.copy(res, $scope.common_partys);
     		});
 
-		partySearchService.getPromotedPartysToday($scope.position[0],$scope.position[1],day,month,year).then(function (res) {
+		partySearchService.getPromotedPartysByDate($scope.position[0],$scope.position[1],start.toISOString(),end.toISOString()).then(function (res) {
         		angular.copy(res, $scope.promoted_partys);
     		});
 	}

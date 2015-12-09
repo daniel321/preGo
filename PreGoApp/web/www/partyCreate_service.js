@@ -12,6 +12,12 @@ app.factory('PartyCreateService', function ($http, $q) {
 				url: '/api/musicGenres',
 				method: 'GET'
 			});
-        }	
+        },		
+        createParty: function (party) {
+            return $http.post(
+                '/api/party',
+                party
+            );
+        }
     };
 });

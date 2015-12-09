@@ -460,7 +460,9 @@ app.post('/api/partys', function (req, res) {
 })
 
 
-app.get('/api/partyTypes', function (req,res) {     
+app.get('/api/partyTypes', function (req,res) {   
+
+	//console.log(req);  
     res.send([
 		{	icon_uri: "dist/img/tipos_fiesta/afteroffice.jpg",	text: "After office",	code: "after"}
 		,{	icon_uri: "dist/img/tipos_fiesta/bar.jpg",			text: "Bar",			code: "bar"}
@@ -483,6 +485,49 @@ app.get('/api/musicGenres', function (req,res) {
 		,{	icon_uri: "dist/img/tipos_musica/generico.jpg",		text: "Otro",		code: "otro"}
 	]);
 });
+
+
+app.post('/api/party', function (req, res) {
+	var newParty = {};
+	
+	newParty.nombre = req.body.name;
+	newParty.descripcion = req.body.description;
+	newParty.fechaHoraDesde = req.body.from;
+	newParty.fechaHoraHasta = req.body.to;
+	newParty.types = req.body.types;
+	newParty.generos = req.body.musicGenres;
+	newParty.location = {
+					direccion: req.body.location.name,
+					lat: req.body.location.lat, 
+					long: req.body.location.long
+				};
+				
+	newParty.userRates = [];
+	newParty.comentarios = [];
+	
+	console.log(newParty.nombre);
+	console.log(partys[newParty.nombre]);
+	
+	if(typeof(partys[newParty.nombre]) == 'undefined' ){
+		partys[newParty.nombre] = newParty;
+		res.send(true);
+	}else{
+		res.append('Error', 'Fiesta duplicada con nombre:' + newParty.name);
+		res.send(false);
+	}
+	
+	/*
+	TODO:
+	Cambiar los atributos de fechas y horas por separado por atributos fechaHora como fechaHoraDesde y fechaHoraHasta
+	Agregar una forma de subir "imagenDeFondo" e "imagenBanner"
+	*/
+    
+});
+
+app.get('/api/allPartys', function (req, res) {
+	res.send(partys);
+})
+
 
 
 

@@ -62,7 +62,6 @@ app.post("/api/login", function (req, res) {
 
     if (user != null) {
         res.cookie("nickname", user.nickname);
-        res.cookie("avatar_url", user.avatar_url);
     }
 
     res.send(user);
@@ -70,7 +69,6 @@ app.post("/api/login", function (req, res) {
 
 app.get("/api/logout", function (req, res) {
     res.clearCookie("nickname");
-    res.clearCookie("avatar_url");
     res.send(true);
 });
 
@@ -136,6 +134,15 @@ addChat("Damian","Facundo","Estas ahi??","/dist/img/user1-128x128.jpg");
 addChat("Facundo","Damian","no :p","/dist/img/user6-128x128.jpg");
 addChat("Damian","Facundo","...","/dist/img/user1-128x128.jpg");
 
+var buscarUrl = function(name){
+	for (key in users){
+		var user = users[key];
+		if(user.nickname = name)
+			return user.avatar_url;
+	}
+	return "/dist/img/user1-128x128.jpg";
+}
+
 app.get('/api/chat/:nickname', function (req, res) {
     var me = req.cookies.nickname;
     // console.log(me);
@@ -157,7 +164,7 @@ app.post('/api/chat/:nickname', function (req, res) {
     var me = req.cookies.nickname;
  
     if(me != null){
-	var pic = req.cookies.avatar_url;
+	var pic = buscarUrl(me);
  
     	var other = req.params.nickname;
     	var msg = req.body.message;

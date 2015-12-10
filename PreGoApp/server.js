@@ -22,7 +22,7 @@ var users = [
         pass: "asd"
     },
     {
-        avatar_url: '/dist/img/user2-128x128.jpg',
+        avatar_url: '/dist/img/user2-160x160.jpg',
         nickname: 'Daniel',
         email: "damiel@prego.com",
         pass: "asd"
@@ -126,8 +126,8 @@ initChat("Daniel","Damian");
 initChat("Damian","Daniel");
 
 addChat("Daniel","Damian","No estoy en casa ahora, iré en un rato y a las 20 me voy","/dist/img/user1-128x128.jpg");
-addChat("Damian","Daniel","Avisame cuando llegues","/dist/img/user4-128x128.jpg");
-addChat("Daniel","Damian","Llego en 15","/dist/img/user4-128x128.jpg");
+addChat("Damian","Daniel","Avisame cuando llegues","/dist/img/user2-160x160.jpg");
+addChat("Daniel","Damian","Llego en 15","/dist/img/user1-128x128.jpg");
 
 initChat("Facundo","Damian");
 initChat("Damian","Facundo");

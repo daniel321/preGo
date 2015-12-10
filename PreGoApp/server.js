@@ -117,7 +117,7 @@ var addChat = function(me,other,msg,pic){
         nickname: me,
         message: msg,
         time: new Date().toString("HH:mm"),
-        is_you: true
+        is_you: false
     });
 }
 

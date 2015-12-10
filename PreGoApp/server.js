@@ -138,6 +138,7 @@ addChat("Damian","Facundo","...","/dist/img/user1-128x128.jpg");
 
 app.get('/api/chat/:nickname', function (req, res) {
     var me = req.cookies.nickname;
+    // console.log(me);
 
     if(me != null){
 	var other = req.params.nickname;
@@ -182,7 +183,6 @@ app.post('/api/chat/:nickname', function (req, res) {
 var partys = {};
 
 partys["Ink"] = {
-
 		 esSugerida:true,
 		 types:["Bar","Boliche"],
 		 imagenDeFondo:"/dist/img/clubs/ink.jpg",

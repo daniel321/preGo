@@ -1,11 +1,32 @@
 app.controller('HomeController', function ($scope, HomeService) {
 
     $scope.users = [];
+    //$scope.currentUser.nickname = "Nadie";
 
     $scope.links = [
         {
+            href: "#/chat/Damian",
+            text: "Chat con Damian"
+        },
+        {
             href: "#/chat/Daniel",
             text: "Chat con Daniel"
+        },
+        {
+            href: "#/chat/Nahuel",
+            text: "Chat con Nahuel"
+        },
+        {
+            href: "#/chat/Ezequiel",
+            text: "Chat con Ezequiel"
+        },
+        {
+            href: "#/chat/Guido",
+            text: "Chat con Guido"
+        },
+        {
+            href: "#/chat/Facundo",
+            text: "Chat con Facundo"
         }
     ];
 

@@ -29,6 +29,9 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 		PartyServicesService) {
 	$scope.publishedAmnt = [];
 	
+	$scope.serviceGenres = [];
+	$scope.selectedServiceGenres = [];
+	
 	$scope.publishedDJ = function() {
 		return PartyServicesService.getPublishedServices();
 	}
@@ -38,6 +41,14 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	PartyServicesService.getPublishedServices().then(function (res) {
         angular.copy(res, $scope.publishedAmnt);
     });
+	
+	PartyServicesService.getServiceGenres()
+	.then(function(response){
+		$scope.serviceGenres = response.data;
+	})
+	.catch(function(error){
+		console.log(error);
+	});	
 	
 	$scope.save = function() {
 		$scope.showErrorsCheckValidity = true;

@@ -130,15 +130,15 @@ module.exports.__Usuarios =function(store){
 			}
 		}
  
-		,getChat:function(author,user2){
-			var auth = this.__getUsuarioByName(author);
+		,getChat:function(user,user2){
+			var usr = this.__getUsuarioByName(user);
 
-			if(auth != null){
-				if(auth.matches.indexOf(user2) >-1){
-					if(auth.chats == null){
+			if(usr != null){
+				if(usr.matches.indexOf(user2) >-1){
+					if(usr.chats == null){
 						return([]);
 					}
-					return auth.chats[user2];
+					return usr.chats[user2];
 				}
 			}
 		}

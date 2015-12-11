@@ -1,8 +1,33 @@
 
+<link rel="stylesheet" type="text/css" href="/www/css/chatList.css">
+
 <div id="all">
 		<div class="list-group" ng-repeat="match in matches">
-			<a id="match" ng-href="#/chat/{{match}}" class="list-group-item">	
-				{{match}}	
+			<a id="match" ng-href="#/chat/{{match[0]}}" class="list-group-item">	
+				<div class="row">			
+					<div class="col-xs-4" id="other">
+						<img id="img" src="{{match[1]}}" class="img-responsive">
+						</img>
+						<div id="name">
+							{{match[0]}}
+						</div>
+					</div>
+
+					<div class="col-xs-8">
+						<ul class="list-group" ng-repeat="message in match[2]">
+								<li class="list-group-item">
+									<div class="row">
+										<div id="postAuthor" class="col-xs-5">
+											{{message.nickname}}: 
+										</div> 
+										<div id="postMsg" class="col-xs-7">
+											{{message.message}}
+										</div> 
+									</div>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</a>
 		</div>
 

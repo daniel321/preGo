@@ -96,7 +96,18 @@ app.get('/api/matches', function (req, res) {
     	var me = myUser.nickname;
     	var matches = myUser.matches;
 
-	res.send(matches);
+	var ret = [];
+	for(key in matches){
+		var mach = matches[key];
+		var other = servicios.Usuarios().getUsuarioByName(mach);
+
+		var otherPic = other.avatar_url;
+
+		var lastChats = servicios.Usuarios().getChat(me,mach).slice(-3);
+		ret.push([mach,otherPic,lastChats]);
+	}
+
+	res.send(ret);
     }else{
 	res.send(null);
     }

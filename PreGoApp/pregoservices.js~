@@ -129,7 +129,7 @@ module.exports.__Usuarios =function(store){
 				}
 			}
 		}
-
+ 
 		,getChat:function(author,user2){
 			var auth = this.__getUsuarioByName(author);
 

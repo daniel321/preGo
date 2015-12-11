@@ -2,7 +2,9 @@ app.controller('chatListController', function ($scope, $routeParams, chatListSer
 	$scope.matches = [];
 
 	chatListService.getMatches().then(function (res) {
-       		angular.copy(res.data, $scope.matches);
+		if(res.data != null){
+	       		angular.copy(res.data, $scope.matches);
+		}	
    	});
 });
 

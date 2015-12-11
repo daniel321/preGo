@@ -129,19 +129,6 @@ module.exports.__Usuarios =function(store){
 			}
 		}
 
-		,getChat:function(author,user2){
-			var auth = this.__getUsuarioByName(author);
-
-			if(auth != null){
-				if(auth.matches.indexOf(user2) >-1){
-					if(auth.chats == null){
-						return([]);
-					}
-					return auth.chats[user2];
-				}
-			}
-		}
-
 		,rellenar:function(){
 			var relleno = 
 						[

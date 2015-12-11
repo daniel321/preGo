@@ -129,7 +129,7 @@ module.exports.__Usuarios =function(store){
 				}
 			}
 		}
-
+ 
 		,getChat:function(author,user2){
 			var auth = this.__getUsuarioByName(author);
 
@@ -155,7 +155,7 @@ module.exports.__Usuarios =function(store){
 							{
 								avatar_url: '/dist/img/user2-160x160.jpg',
 								nickname: 'Daniel',
-								email: "damiel@prego.com",
+								email: "daniel@prego.com",
 								pass: "asd"
 							},
 							{

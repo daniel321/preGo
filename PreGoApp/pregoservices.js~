@@ -63,7 +63,8 @@ module.exports.__Usuarios =function(store){
 				pass:user.pass
 				, email:user.email
 				, nickname:user.nickname
-				, avatar_url:user.avatar_url					
+				, avatar_url:user.avatar_url
+				, matches: user.matches					
 			}
 		}
 		,getUsuarioByEmail:function(email){
@@ -95,9 +96,7 @@ module.exports.__Usuarios =function(store){
 
 				usr.matches.push(user2);
 				usr2.matches.push(user);
-			}
-	
-			console.log("matches: " + user + " " + this.__getUsuarioByName(user).matches);
+			}	
 		}
 		,addChat:function(author,user2,msg){
 			var auth = this.__getUsuarioByName(author);
@@ -156,7 +155,7 @@ module.exports.__Usuarios =function(store){
 							{
 								avatar_url: '/dist/img/user2-160x160.jpg',
 								nickname: 'Daniel',
-								email: "damiel@prego.com",
+								email: "daniel@prego.com",
 								pass: "asd"
 							},
 							{

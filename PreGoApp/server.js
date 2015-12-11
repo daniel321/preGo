@@ -7,6 +7,7 @@ var app = express()
 
 var prego = require('./pregoservices.js');
 var servicios = prego.Servicios(); // no matar esta variable ni volver a llamar a Servicios porque muere todo el estado;
+servicios.Usuarios().rellenar();
 
 app.use(express.static('web'));
 
@@ -23,7 +24,7 @@ app.post("/api/login", function (req, res) {
     var pass = req.body.pass;
 
     if (servicios.Usuarios().login(email, pass)) {
-        res.cookie("nickname", email);
+        res.cookie("email", email);
 		res.send(true);
     }else{
 		res.send(false);	
@@ -31,7 +32,7 @@ app.post("/api/login", function (req, res) {
 });
 
 app.get("/api/logout", function (req, res) {
-    res.clearCookie("nickname");
+    res.clearCookie("email");
     res.send(true);
 });
 
@@ -97,39 +98,36 @@ var buscarUrl = function(email){
 }
 
 app.get('/api/chat/:nickname', function (req, res) {
-    var me = req.cookies.nickname;
+    var myUser = servicios.Usuarios().getUsuarioByEmail(req.cookies.email);
+    var me = myUser.nickname;
     // console.log(me);
 
-    if(me != null){
-	var other = req.params.nickname;
+    var other = req.params.nickname;
+    console.log(me+" - "+other);
 
-    	initChat(me,other);
-    	initChat(other,me);
+    initChat(me,other);
+    initChat(other,me);
 
-    	res.send(chats[me][other]);
-    }else{
-	var r = [];
-	res.send(r);
-    }
+    res.send(chats[me][other]);
 })
 
 app.post('/api/chat/:nickname', function (req, res) {
-    var me = req.cookies.nickname;
+    var myUser = servicios.Usuarios().getUsuarioByEmail(req.cookies.email);
+    var me = myUser.nickname;
  
-    if(me != null){
-	var pic = buscarUrl(me);
+    var pic = buscarUrl(me);
  
-    	var other = req.params.nickname;
-    	var msg = req.body.message;
+    var other = req.params.nickname;
+    console.log(me+" - "+other);
+ 
+    var msg = req.body.message;
 
-    	initChat(me,other);
-    	initChat(other,me);
+    initChat(me,other);
+    initChat(other,me);
 
-    	// console.log(req.body);
+    // console.log(req.body);
 
-    	addChat(me,other,msg,pic);
-    }
-
+    addChat(me,other,msg,pic);
     res.send(true);
 
     /*

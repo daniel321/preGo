@@ -555,29 +555,15 @@ app.get('/api/services', function (req, res) {
 	res.send(services);
 })
 
-//app.post('/api/services', function (req, res) {
-//    console.log(req.body);
-//
-////    if (chats[req.params.nickname] == null) {
-////        chats[req.params.nickname] = [];
-////    }
-////    console.log(req.body);
-////    chats[req.params.nickname].push({
-////        avatar_url: '/dist/img/user3-128x128.jpg',
-////        nickname: req.cookies.nickname,
-////        message: req.body.message,
-////        time: new Date().toString("HH:mm"),
-////        is_you: true
-////    });
-//
-//    res.send(true);
-//    /*
-//    if (chats[req.params.nickname] == null) {
-//        chats[req.params.nickname] = [];
-//    }
-//
-//    res.send(chats[req.params.nickname]);*/
-//})
+app.get('/api/serviceGenres', function (req,res) {     
+    res.send([
+		 {	icon_uri: "dist/img/tipos_servicio/dj.png",			text: "DJ",			code: "dj"}
+		,{	icon_uri: "dist/img/tipos_servicio/drinks.png",		text: "Bebidas",	code: "bebidas"}
+		,{	icon_uri: "dist/img/tipos_servicio/salon.png",		text: "Salon",		code: "salon"}
+		,{	icon_uri: "dist/img/tipos_servicio/sound.png",		text: "Sonido",		code: "sonido"}
+		,{	icon_uri: "dist/img/tipos_servicio/animacion.png",	text: "Animacion",	code: "animacion"}
+	]);
+});
 
 var server = app.listen(3000, function () {
 

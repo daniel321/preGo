@@ -63,7 +63,8 @@ module.exports.__Usuarios =function(store){
 				pass:user.pass
 				, email:user.email
 				, nickname:user.nickname
-				, avatar_url:user.avatar_url					
+				, avatar_url:user.avatar_url
+				, matches: user.matches					
 			}
 		}
 		,getUsuarioByEmail:function(email){
@@ -95,7 +96,7 @@ module.exports.__Usuarios =function(store){
 
 				usr.matches.push(user2);
 				usr2.matches.push(user);
-			}
+			}	
 		}
 		,addChat:function(author,user2,msg){
 			var auth = this.__getUsuarioByName(author);

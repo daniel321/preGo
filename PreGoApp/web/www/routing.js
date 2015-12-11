@@ -29,6 +29,10 @@ app.config(['$routeProvider',
             templateUrl: 'www/serviceSearch.partial.html',
             controller: 'ServiceSearchController'
         }).
+        when('/chatList', {
+            templateUrl: 'www/chatList.partial.html',
+            controller: 'chatListController'
+        }).
         when('/testMap', {
             templateUrl: 'www/testMap.partial.html',
             controller: 'testMapController'

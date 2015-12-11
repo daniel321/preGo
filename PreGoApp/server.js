@@ -89,6 +89,19 @@ app.post('/api/chat/:nickname', function (req, res) {
     res.send(true);
 })
 
+app.get('/api/matches', function (req, res) {    
+    var myUser = servicios.Usuarios().getUsuarioByEmail(req.cookies.email);
+
+    if (myUser != null){
+    	var me = myUser.nickname;
+    	var matches = myUser.matches;
+
+	res.send(matches);
+    }else{
+	res.send(null);
+    }
+})
+
 var partys = {};
 
 partys["Ink"] = {

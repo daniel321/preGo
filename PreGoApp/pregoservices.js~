@@ -96,6 +96,8 @@ module.exports.__Usuarios =function(store){
 				usr.matches.push(user2);
 				usr2.matches.push(user);
 			}
+	
+			console.log("matches: " + user + " " + this.__getUsuarioByName(user).matches);
 		}
 		,addChat:function(author,user2,msg){
 			var auth = this.__getUsuarioByName(author);
@@ -125,6 +127,19 @@ module.exports.__Usuarios =function(store){
 						message: msg,
 						time: new Date().toString("HH:mm"),
 					});
+				}
+			}
+		}
+
+		,getChat:function(author,user2){
+			var auth = this.__getUsuarioByName(author);
+
+			if(auth != null){
+				if(auth.matches.indexOf(user2) >-1){
+					if(auth.chats == null){
+						return([]);
+					}
+					return auth.chats[user2];
 				}
 			}
 		}

@@ -50,12 +50,18 @@ servicios.Usuarios().addMatch("Daniel","Damian");
 servicios.Usuarios().addChat("Daniel","Damian","No estoy en casa ahora, iré en un rato y a las 20 me voy");
 servicios.Usuarios().addChat("Damian","Daniel","Avisame cuando llegues");
 servicios.Usuarios().addChat("Daniel","Damian","Llego en 15");
+servicios.Usuarios().addChat("Daniel","Damian","ya llego");
 
 servicios.Usuarios().addMatch("Facundo","Damian");
 
 servicios.Usuarios().addChat("Damian","Facundo","Estas ahi??");
 servicios.Usuarios().addChat("Facundo","Damian","no :p");
 servicios.Usuarios().addChat("Damian","Facundo","...");
+
+servicios.Usuarios().addMatch("Ezequiel","Nahuel");
+servicios.Usuarios().addChat("Ezequiel","Nahuel","todo en orden?");
+servicios.Usuarios().addChat("Nahuel","Ezequiel","sip");
+
 
 app.get('/api/chat/:nickname', function (req, res) {
     var myUser = servicios.Usuarios().getUsuarioByEmail(req.cookies.email);

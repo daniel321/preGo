@@ -4,6 +4,10 @@ var cookieParser = require('cookie-parser')
 
 var app = express()
 
+
+var prego = require('./pregoservices.js');
+var servicios = prego.Servicios(); // no matar esta variable ni volver a llamar a Servicios porque muere todo el estado;
+
 app.use(express.static('web'));
 
 // parse application/x-www-form-urlencoded 
@@ -14,57 +18,16 @@ app.use(bodyParser.json())
 
 app.use(cookieParser());
 
-var users = [
-    {
-        avatar_url: '/dist/img/user1-128x128.jpg',
-        nickname: 'Damian',
-        email: "damian@prego.com",
-        pass: "asd"
-    },
-    {
-        avatar_url: '/dist/img/user2-160x160.jpg',
-        nickname: 'Daniel',
-        email: "damiel@prego.com",
-        pass: "asd"
-    },
-    {
-        avatar_url: '/dist/img/user3-128x128.jpg',
-        nickname: 'Nahuel',
-        email: "nahuel@prego.com",
-        pass: "asd"
-    },
-    {
-        avatar_url: '/dist/img/user4-128x128.jpg',
-        nickname: 'Ezequiel',
-        email: "ezequiel@prego.com",
-        pass: "asd"
-    },
-    {
-        avatar_url: '/dist/img/user5-128x128.jpg',
-        nickname: 'Guido',
-        email: "guido@prego.com",
-        pass: "asd"
-    },
-    {
-        avatar_url: '/dist/img/user6-128x128.jpg',
-        nickname: 'Facundo',
-        email: "facundo@prego.com",
-        pass: "asd"
-    }
-];
-
 app.post("/api/login", function (req, res) {
     var email = req.body.email;
     var pass = req.body.pass;
 
-    var user = login(email, pass);
-    // console.log(user);
-
-    if (user != null) {
-        res.cookie("nickname", user.nickname);
-    }
-
-    res.send(user);
+    if (servicios.Usuarios().login(email, pass)) {
+        res.cookie("nickname", email);
+		res.send(true);
+    }else{
+		res.send(false);	
+	}
 });
 
 app.get("/api/logout", function (req, res) {
@@ -72,24 +35,13 @@ app.get("/api/logout", function (req, res) {
     res.send(true);
 });
 
-function login(email, pass) {
-    for (var i = 0; i < users.length; i++) {
-	// console.log(email + " - " + pass);
-        if (users[i].email == email && users[i].pass == pass) {
-            return users[i];
-        }
-    }
-    return null;
-}
 
 app.get("/api/user", function (req, res) {
-    res.send(users);
+    res.send(servicios.Usuarios().getUsuarios());
 });
 
 app.put("/api/user", function (req, res) {
-    // console.log(req.body);
-    users.push(req.body);
-    res.send(true);
+    res.send(servicios.Usuarios().agregarUsuario(req.nombre, req.pass,req.email,req.nickname,req.avatar_url).exito);
 });
 
 var initChat = function(pers1,pers2){
@@ -134,13 +86,14 @@ addChat("Damian","Facundo","Estas ahi??","/dist/img/user1-128x128.jpg");
 addChat("Facundo","Damian","no :p","/dist/img/user6-128x128.jpg");
 addChat("Damian","Facundo","...","/dist/img/user1-128x128.jpg");
 
-var buscarUrl = function(name){
-	for (key in users){
-		var user = users[key];
-		if(user.nickname = name)
-			return user.avatar_url;
+var buscarUrl = function(email){
+	var u = servicios.Usuarios().getUsuarioByEmail(email);
+	if(u){
+		return u.avatar_url;
+	}else{
+		return "/dist/img/user1-128x128.jpg";	
 	}
-	return "/dist/img/user1-128x128.jpg";
+	
 }
 
 app.get('/api/chat/:nickname', function (req, res) {
@@ -388,21 +341,27 @@ var enRadianes = function(valor){
 }
 
 var getDistance = function (direccion,party) {
-	var lat = party.pos.lat;
-	var long = party.pos.long;
+	if(party.pos){	
+		var lat = party.pos.lat;
+		var long = party.pos.long;
 
-	var lat2 = direccion[0];
-	var long2 = direccion[1];
+		var lat2 = direccion[0];
+		var long2 = direccion[1];
 
-	var dlat = enRadianes(lat2-lat);
-	var dlong = enRadianes(long2-long);
+		var dlat = enRadianes(lat2-lat);
+		var dlong = enRadianes(long2-long);
 
-	var a = Math.pow( Math.sin( dlat/2 ), 2) + Math.cos(enRadianes(lat)) * Math.cos(enRadianes(lat2)) * Math.pow( Math.sin( dlong/2 ), 2);
+		var a = Math.pow( Math.sin( dlat/2 ), 2) + Math.cos(enRadianes(lat)) * Math.cos(enRadianes(lat2)) * Math.pow( Math.sin( dlong/2 ), 2);
 
-	var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));		
+		var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));		
+		
+		var RadioTierra = 6378.0;
+		return Math.round(RadioTierra*c);	
+	}else{
+		console.log('Party sin pos:');
+		console.log(party);
+	}
 	
-	var RadioTierra = 6378.0;
-	return Math.round(RadioTierra*c);
 }
 
 var esDeAlgunoDeLosTipos = function(types,partyTypes){
@@ -430,11 +389,11 @@ app.get('/api/promotedPartys', function (req,res) {
     var types = req.query['types'].split(",");	
 
     for (name in partys){
-	var party = partys[name];
+		var party = partys[name];
     	var dist = getDistance([lat,long],party);
 
-	if(party.esSugerida && esDeAlgunoDeLosTipos(types,party.types))
-		agregar(ret,name,party,dist);
+		if(party.esSugerida && esDeAlgunoDeLosTipos(types,party.types))
+			agregar(ret,name,party,dist);
     }
 
     ret.sort(biggerAmountOfPeople);
@@ -472,9 +431,10 @@ app.get('/api/promotedPartysByDate', function (req,res) {
 
     var lat = req.query['lat'];
     var long = req.query['long'];
-
+	
     for (name in partys){
 	var party = partys[name];
+		
     	var dist = getDistance([lat,long],party);
 
 	if((party.esSugerida)&&(comesBetween(party,start,end))){

@@ -6,8 +6,10 @@ var app = express()
 
 var PregoServices = require('./prego_services.js');
 var pregoServices = new PregoServices();
-var usuariosService = pregoServices.getUsuariosService();
 pregoServices.rellenar();
+var usuariosService = pregoServices.getUsuariosService();
+var encuentrosService = pregoServices.getEncuentrosService();
+
 
 
 
@@ -611,3 +613,30 @@ var server = app.listen(3000, function () {
 app.get('/api/party/:key', function (req, res) {
     res.send(partys[req.params.key]);
 })
+
+
+//ENCUENTROS
+
+app.get("/api/meetingSuggests", function (req, res) {
+	//var email = req.body.email || req.query['email'];
+    res.send(encuentrosService.sugerir(  req.cookies.email ));
+});
+
+
+app.post("/api/meetingQualify", function (req, res) {
+	var userQualifiedEmail = req.body.email;
+	
+	var like = req.body.like;
+	if(typeof(userQualifiedEmail)=='undefined' || typeof(like)=='undefined'){
+		console.log(like);
+		res.send({exito:false, error:'revisar parametros'});
+	}else{
+		if(typeof(req.cookies.email)=='undefined'){
+			res.send({exito:false, error:'revisar cookies'});	
+		}else{
+			res.send(encuentrosService.calificar( req.cookies.email, userQualifiedEmail, like ));		
+		}		
+	}
+    
+});
+

@@ -99,7 +99,7 @@ describe('PregoServices', function() {
 	    var servicios = createServicios();
 		servicios.usuarios.rellenar();
 		  
-		assert.equal(false,servicios.encuentros.getProximoAConocer('no-existe@mail.com').exito);
+		assert.equal(false,servicios.encuentros.sugerir('no-existe@mail.com').exito);
     });	 
 	
 	it('deberia traer algun usuario', function () {
@@ -108,8 +108,9 @@ describe('PregoServices', function() {
 		servicios.usuarios.rellenar();
 		   
 		
-		assert.equal(true, servicios.encuentros.getProximoAConocer('nahuel@prego.com').exito);
-		assert.isNotNull( servicios.encuentros.getProximoAConocer('nahuel@prego.com').usuarioAConocer);
+		assert.equal(true, servicios.encuentros.sugerir('nahuel@prego.com').exito);
+		assert.isNotNull( servicios.encuentros.sugerir('nahuel@prego.com').usuarioAConocer);
+		assert.isNotNull( servicios.encuentros.sugerir('nahuel@prego.com').usuarioAConocer.email);
     });
 	
 	
@@ -119,13 +120,33 @@ describe('PregoServices', function() {
 		servicios.usuarios.rellenar();
 		
 		var usuario = servicios.usuarios.getUsuarioByEmail('nahuel@prego.com');
-		var usuarioAConocer = servicios.encuentros.getProximoAConocer(usuario.email).usuarioAConocer;
+		var usuarioAConocer = servicios.encuentros.sugerir(usuario.email).usuarioAConocer;
 		
 		assert.notEqual( usuario.sexo, usuarioAConocer.sexo);
     });
 	
 	
+	it('deberia permitir calificar, luego la proxima sugerencia debe ser distinta', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		var usuario = servicios.usuarios.getUsuarioByEmail('nahuel@prego.com');
+		var usuarioAConocer1 = servicios.encuentros.sugerir(usuario.email).usuarioAConocer;
+		assert.isNotNull( usuarioAConocer1.email,'usuarioAConocer1 null');				
+		var resCalif = servicios.encuentros.calificar(usuario.email, usuarioAConocer1.email, true);
+		assert.equal(true,resCalif.exito , "problema al calificar");
+		var usuarioAConocer2 = servicios.encuentros.sugerir(usuario.email).usuarioAConocer;
+		assert.notEqual( usuarioAConocer1.email, usuarioAConocer2.email, 'No deberia traer al mismo usuario que ya fue calificado');
+		servicios.encuentros.calificar(usuario.email, usuarioAConocer2.email, false);
+		var usuarioAConocer3 = servicios.encuentros.sugerir(usuario.email).usuarioAConocer;
+		console.log('Tercera sugerencia:' + usuarioAConocer3.email);
+		assert.notEqual( usuarioAConocer2.email, usuarioAConocer3.email, 'No deberia traer al mismo usuario que ya fue calificado');
+		assert.notEqual( usuarioAConocer1.email, usuarioAConocer3.email, 'No deberia traer al mismo usuario que ya fue calificado');
+		
+    });
+	
 	//no deberia traer al mismo usuario que busca
+	//mientras no califique trae la misma persona
 	//deberia traer en orden de creacion de usuario
 	//deberia permitir calificar
 	//una vez que calificas no deberia volver a traer al mismo

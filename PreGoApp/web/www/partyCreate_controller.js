@@ -63,7 +63,8 @@ app.controller('partyCreateController', function ($scope, $http, PartyCreateServ
 		
 		
 		PartyCreateService.createParty(party).then(function(response) {
-            console.log(response);
+		    console.log(response);
+		    location.href = "#partyDetail/" + encodeURIComponent(party.name);
         });
 	}
 });

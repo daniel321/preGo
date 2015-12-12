@@ -22,6 +22,7 @@ app.controller('MainController', function ($scope, LoginService) {
     } else {
         $scope.currentUser = {
             email: readCookie('email'),
+            avatar_url: readCookie('avatar_url'),
             nickname: readCookie('nickname'),
         };
     }

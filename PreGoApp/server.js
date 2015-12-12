@@ -27,7 +27,12 @@ app.post("/api/login", function (req, res) {
 
     if (usuariosService.login(email, pass)) {
         res.cookie("email", email);
-        res.cookie("nickname", usuariosService.getUsuarioByEmail(email).nickname);
+
+	var user = usuariosService.getUsuarioByEmail(email);
+
+        res.cookie("nickname", user.nickname);
+        res.cookie("avatar_url", user.avatar_url);
+
 		res.send(true);
     }else{
 		res.send(false);	
@@ -37,6 +42,7 @@ app.post("/api/login", function (req, res) {
 app.get("/api/logout", function (req, res) {
     res.clearCookie("email");
     res.clearCookie("nickname");
+    res.clearCookie("avatar_url");
     res.send(true);
 });
 

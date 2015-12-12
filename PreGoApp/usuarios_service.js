@@ -82,7 +82,7 @@ function UsuariosService(store) {
 		return null;
     }
 
-    this.addMatch = function (user, user2, msg) {
+    this.addMatch = function (user, user2) {
 		var usr = __getUsuarioByName(user);
 		var usr2 = __getUsuarioByName(user2);
 

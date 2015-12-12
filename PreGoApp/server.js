@@ -6,8 +6,10 @@ var app = express()
 
 var PregoServices = require('./prego_services.js');
 var pregoServices = new PregoServices();
-var usuariosService = pregoServices.getUsuariosService();
 pregoServices.rellenar();
+var usuariosService = pregoServices.getUsuariosService();
+var encuentrosService = pregoServices.getEncuentrosService();
+
 
 
 
@@ -132,6 +134,7 @@ app.get('/api/matches', function (req, res) {
 var partys = {};
 
 partys["Ink"] = {
+         nombre:"Ink",
 		 esSugerida:true,
 		 types:["Bar","Boliche"],
 		 imagenDeFondo:"/dist/img/clubs/ink.jpg",
@@ -150,6 +153,7 @@ partys["Ink"] = {
 		};
 
 partys["Hiio"] = {
+         nombre: "Hiio",
 		 esSugerida:false,
 		 types:["Bar","Boliche"],
 
@@ -168,6 +172,7 @@ partys["Hiio"] = {
 		};
 
 partys["Moscow"] = {
+         nombre: "Moscow",
 		 esSugerida:false,
 		 types:["Bar","Boliche"],
 
@@ -186,6 +191,7 @@ partys["Moscow"] = {
 		};
 
 partys["Bosque"] = {
+         nombre:"Bosque",
 		 esSugerida:false,
 		 types:["Bar","Boliche"],
 		 imagenDeFondo:"/dist/img/clubs/bosque.jpg",
@@ -203,6 +209,7 @@ partys["Bosque"] = {
 		};
 
 partys["Sunset"] = {
+         nombre: "Sunset",
 		 esSugerida:true,
 		 types:["Bar","Boliche"],
 		 imagenDeFondo:"/dist/img/clubs/sunset.jpg",
@@ -222,6 +229,7 @@ partys["Sunset"] = {
 		};
 
 partys["BsAsEnFoco"] = {
+         nombre: "BsAsEnFoco",
 		 esSugerida:false,
 		 types:["After office","Bar","Boliche"],
 		 imagenDeFondo:"/dist/img/clubs/Buenos-Aires-En-Foco.jpg",
@@ -240,6 +248,7 @@ partys["BsAsEnFoco"] = {
 		};
 
 partys["PoolParty"] = {
+         nombre: "PoolParty",
 		 esSugerida:false,
 		 types:["Privada","Otro"],
 		 imagenDeFondo:"/dist/img/clubs/Pool-Party.jpg",
@@ -617,3 +626,30 @@ var server = app.listen(3000, function () {
 app.get('/api/party/:key', function (req, res) {
     res.send(partys[req.params.key]);
 })
+
+
+//ENCUENTROS
+
+app.get("/api/meetingSuggests", function (req, res) {
+	//var email = req.body.email || req.query['email'];
+    res.send(encuentrosService.sugerir(  req.cookies.email ));
+});
+
+
+app.post("/api/meetingQualify", function (req, res) {
+	var userQualifiedEmail = req.body.email;
+	
+	var like = req.body.like;
+	if(typeof(userQualifiedEmail)=='undefined' || typeof(like)=='undefined'){
+		console.log(like);
+		res.send({exito:false, error:'revisar parametros'});
+	}else{
+		if(typeof(req.cookies.email)=='undefined'){
+			res.send({exito:false, error:'revisar cookies'});	
+		}else{
+			res.send(encuentrosService.calificar( req.cookies.email, userQualifiedEmail, like ));		
+		}		
+	}
+    
+});
+

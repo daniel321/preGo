@@ -6,7 +6,18 @@ app.factory('MeetingsService', function ($http, $q) {
 				url: '/api/meetingSuggests',
 				method: 'GET'
 			});
-        }/*,
+        }
+		,qualify: function(email, like){
+			return $http.post(
+                '/api/meetingQualify',
+                {
+					email: email,
+					like: like
+				}
+            );
+		}
+		/*,
+		
 		getMusicGenres: function () {
 			return $http({
 				url: '/api/musicGenres',
@@ -21,3 +32,4 @@ app.factory('MeetingsService', function ($http, $q) {
         }*/
     };
 });
+

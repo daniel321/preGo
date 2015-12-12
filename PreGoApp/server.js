@@ -57,75 +57,50 @@ app.put("/api/user", function (req, res) {
     res.send(usuariosService.agregarUsuario(req.body.email, req.body.pass, req.body.nickname, req.body.avatar_url).exito);
 });
 
-usuariosService.addMatch("Daniel","Damian");
 
-usuariosService.addChat("Daniel","Damian","No estoy en casa ahora, iré en un rato y a las 20 me voy");
-usuariosService.addChat("Damian","Daniel","Avisame cuando llegues");
-usuariosService.addChat("Daniel","Damian","Llego en 15");
-usuariosService.addChat("Daniel","Damian","ya llego");
-
-usuariosService.addMatch("Facundo","Damian");
-
-usuariosService.addChat("Damian","Facundo","Estas ahi??");
-usuariosService.addChat("Facundo","Damian","no :p");
-usuariosService.addChat("Damian","Facundo","...");
-
-usuariosService.addMatch("Ezequiel","Nahuel");
-usuariosService.addChat("Ezequiel","Nahuel","todo en orden?");
-usuariosService.addChat("Nahuel","Ezequiel","sip");
-
-
-app.get('/api/chat/:nickname', function (req, res) {
+app.get('/api/chat/:email', function (req, res) {
     var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
-    if (myUser != null){
-	    var me = myUser.nickname;
-	    var msgs = usuariosService.getChat(me,req.params.nickname);
-
+    if (myUser != null){ 
+	    var msgs = encuentrosService.getChat(myUser.email,req.params.email);
+		console.log(msgs);
 	    for(key in msgs){
-		var msg = msgs[key];
-		if(msg.nickname == me){
-			msg.is_yours = true;
-		}else{
-			msg.is_yours = false;
-		}
+			var msg = msgs[key];
+			if(msg.email == myUser.email){
+				msg.is_you = true;
+			}else{
+				msg.is_you = false;
+			}
 	    }
 
-   	 res.send(msgs);
+		res.send(msgs);
    }else{
-	   var ret = [];
-   	res.send(ret);
+		console.log('usuario no encontrado:' + res.cookies.email);
+		res.send([]);
    }
 })
 
 app.post('/api/chat/:nickname', function (req, res) {
     var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
     if (myUser != null){
-    	var me = myUser.nickname;
-
-    	var msgs = usuariosService.addChat(me,req.params.nickname,req.body.message);
+    	var msgs = encuentrosService.addChat(myUser.email,req.params.email,req.body.message);
     }
     res.send(true);
 })
 
 app.get('/api/matches', function (req, res) {    
     var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
-
     if (myUser != null){
-    	var me = myUser.nickname;
+    	var me = myUser.email;
     	var matches = myUser.matches;
 
-	var ret = [];
-	for(key in matches){
-		var mach = matches[key];
-		var other = usuariosService.getUsuarioByName(mach);
-
-		var otherPic = other.avatar_url;
-
-		var lastChats = usuariosService.getChat(me,mach).slice(-3);
-		ret.push([mach,otherPic,lastChats]);
-	}
-
-	res.send(ret);
+		var ret = [];
+		for(var i=0; i< matches.length;i++){
+			var match = matches[i];
+			var other = usuariosService.getUsuarioByEmail(match);  
+			var lastChats = encuentrosService.getChat(me,match).slice(-3);			
+			ret.push([other.nickname,other.avatar_url,lastChats,other.email]);
+		}
+		res.send(ret);
     }else{
 	res.send(null);
     }

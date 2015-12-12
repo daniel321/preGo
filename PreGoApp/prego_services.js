@@ -14,6 +14,7 @@ function PregoServices() {
 
     this.rellenar = function () {
         __usuariosService.rellenar();
+        __encuentrosService.rellenar();
     }
 
     this.getUsuariosService = function () {

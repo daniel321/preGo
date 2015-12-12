@@ -145,13 +145,45 @@ describe('PregoServices', function() {
 		
     });
 	
+	
+	it('deberia permitir calificar, luego la proxima sugerencia debe ser distinta', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		var usuario = servicios.usuarios.getUsuarioByEmail('nahuel@prego.com');
+		var usuarioAConocer1 = servicios.encuentros.sugerir(usuario.email).usuarioAConocer;
+		var usuarioAConocer2 = servicios.encuentros.sugerir(usuario.email).usuarioAConocer;		
+		assert.equal(usuarioAConocer1.email, usuarioAConocer2.email,  'Mientras no se califique muestra siempre al mismo usuario');
+    });
+	
+	
+	it('cuando ambos se califican mutuamente deberia haber una coincidencia', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'china@prego.com', true);		
+		assert.equal(true,resCalifIda1.exito);		
+		assert.equal(false,resCalifIda1.match,'No se esperaba match 1');		
+		
+		console.log(servicios.encuentros.calificar('nahuel@prego.com', 'ursula@prego.com', false));
+		var resCalifIda2 = servicios.encuentros.calificar('nahuel@prego.com', 'ursula@prego.com', false);
+		assert.equal(true,resCalifIda2.exito);		
+		assert.equal(false,resCalifIda2.match,'No se esperaba match 2');
+		
+		var resCalifVuelta1 = servicios.encuentros.calificar('ursula@prego.com','nahuel@prego.com', true);
+		assert.equal(true,resCalifVuelta1.exito);		
+		assert.equal(false,resCalifVuelta1.match,'No se esperaba match 3');
+		
+		var resCalifVuelta2 = servicios.encuentros.calificar('china@prego.com','nahuel@prego.com', true);
+		assert.equal(true,resCalifVuelta2.exito);		
+		assert.equal(true,resCalifVuelta2.match,'Se esperaba match 4');
+    });
+	
+	//verificar que al haber match se cree un match en los usuarios
 	//no deberia traer al mismo usuario que busca
-	//mientras no califique trae la misma persona
 	//deberia traer en orden de creacion de usuario
-	//deberia permitir calificar
-	//una vez que calificas no deberia volver a traer al mismo
 	//deberia devolver match cuando calificas
-	//al producirse un match deberia crear el chat
+	//al producirse un match deberia crear el chat	
 	//deberia traer primero los usuarios de fiestas a las que va el usuarioConocedor	
 	
   });

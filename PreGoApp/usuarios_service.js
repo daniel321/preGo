@@ -9,9 +9,9 @@ module.exports.setStore = function (store) {
     }
 }
 
-module.exports.agregarUsuario = function (email, pass, nickname, avatar_url) {
+module.exports.agregarUsuario = function (email, pass, nickname, avatar_url, sexo) {
     if (!__getUsuarioByEmail(email)) {
-        __store.usuarios.push({ pass: pass, email: email, nickname: nickname, avatar_url: avatar_url });
+        __store.usuarios.push({ pass: pass, email: email, nickname: nickname, avatar_url: avatar_url, sexo: sexo });
         return { exito: true };
     }
     return { exito: false };
@@ -26,6 +26,7 @@ module.exports.getUsuarios = function () {
             , email: arr[i].email
             , nickname: arr[i].nickname
             , avatar_url: arr[i].avatar_url
+			, sexo: arr[i].sexo
         });
     }
     return res;
@@ -66,6 +67,7 @@ var __copyUsuario = function (user) {
         , nickname: user.nickname
         , avatar_url: user.avatar_url
         , matches: user.matches
+		, sexo: user.sexo
     }
 }
 
@@ -155,43 +157,77 @@ module.exports.rellenar = function () {
                 avatar_url: '/dist/img/user1-128x128.jpg',
                 nickname: 'Damian',
                 email: "damian@prego.com",
-                pass: "asd"
+                pass: "asd",
+				sexo: 'M',
             },
             {
                 avatar_url: '/dist/img/user2-160x160.jpg',
                 nickname: 'Daniel',
                 email: "daniel@prego.com",
-                pass: "asd"
-            },
-            {
-                avatar_url: '/dist/img/user3-128x128.jpg',
-                nickname: 'Nahuel',
-                email: "nahuel@prego.com",
-                pass: "asd"
-            },
-            {
-                avatar_url: '/dist/img/user4-128x128.jpg',
-                nickname: 'Ezequiel',
-                email: "ezequiel@prego.com",
-                pass: "asd"
-            },
-            {
-                avatar_url: '/dist/img/user5-128x128.jpg',
-                nickname: 'Guido',
-                email: "guido@prego.com",
-                pass: "asd"
+                pass: "asd",
+				sexo: 'M',
             },
             {
                 avatar_url: '/dist/img/user6-128x128.jpg',
+                nickname: 'Nahuel',
+                email: "nahuel@prego.com",
+                pass: "asd",
+				sexo: 'M',
+            },
+            {
+                avatar_url: '/dist/img/user7-128x128.jpg',
+                nickname: 'Ezequiel',
+                email: "ezequiel@prego.com",
+                pass: "asd",
+				sexo: 'M',
+            },
+            {
+                avatar_url: '/dist/img/user8-128x128.jpg',
+                nickname: 'Guido',
+                email: "guido@prego.com",
+                pass: "asd",
+				sexo: 'M',
+            },
+            {
+                avatar_url: '/dist/img/avatar04.png',
                 nickname: 'Facundo',
                 email: "facundo@prego.com",
-                pass: "asd"
+                pass: "asd",
+				sexo: 'M',
+            },
+            {
+                avatar_url: '/dist/img/user3-128x128.jpg',
+                nickname: 'Ursula',
+                email: "Ursula@prego.com",
+                pass: "asd",
+				sexo: 'F',
+            },
+            {
+                avatar_url: '/dist/img/user4-128x128.jpg',
+                nickname: 'China',
+                email: "China@prego.com",
+                pass: "asd",
+				sexo: 'F',
+            },
+            {
+                avatar_url: '/dist/img/user5-128x128.jpg',
+                nickname: 'Rosita',
+                email: "Rosita@prego.com",
+                pass: "asd",
+				sexo: 'F',
+            },
+            {
+                avatar_url: '/dist/img/user7-128x128.jpg',
+                nickname: 'Malena',
+                email: "Malena@prego.com",
+                pass: "asd",
+				sexo: 'F',
             }
         ];
     var arr = relleno;
     for (var i = 0; i < arr.length; i++) {
         var u = arr[i];
-        this.agregarUsuario(u.email, u.pass, u.nickname, u.avatar_url);
+        this.agregarUsuario(u.email, u.pass, u.nickname, u.avatar_url, u.sexo);
     };
     return true;
 }

@@ -605,3 +605,7 @@ var server = app.listen(3000, function () {
     console.log('Example app listening at http://%s:%s', host, port)
 
 })
+
+app.get('/api/party/:key', function (req, res) {
+    res.send(partys[req.params.key]);
+})

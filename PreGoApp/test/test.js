@@ -1,13 +1,12 @@
 var assert = require('chai').assert;
+var PregoServices = require('../prego_services.js');
 
 
 
 describe('PregoServices', function() {
   describe('#Usuarios', function () {
-	var createUsuariosService = function () {
-		var pregoServices = require('../prego_services.js');
-		var usuariosService = pregoServices.getUsuariosService();
-		pregoServices.resetStore();
+	var createUsuariosService = function () { 
+		var usuariosService = new PregoServices().getUsuariosService();
 		return usuariosService;
 	}
 
@@ -85,13 +84,10 @@ describe('PregoServices', function() {
 	  
 	var createServicios = function () {
 		var store = {};
-		var pregoServices = require('../prego_services.js');
+		var pregoServices = new PregoServices();
 		
-		var usuariosService = pregoServices.getUsuariosService();
-		pregoServices.resetStore();
-		
-		var encuentrosService = pregoServices.getEncuentrosService();
-		pregoServices.resetStore();
+		var usuariosService =  pregoServices.getUsuariosService();
+		var encuentrosService =  pregoServices.getEncuentrosService();
 		
 		var res = {};
 		res.usuarios = usuariosService;

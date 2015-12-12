@@ -1,31 +1,28 @@
-module.exports = {};
+UsuariosService = require('./usuarios_service.js');
+EncuentrosService = require('./encuentros_service.js');
 
-var __store = {};
-var __usuariosService = require('./usuarios_service.js');
-var __encuentrosService = require('./encuentros_service.js');
-__usuariosService.setStore(__store);
-__encuentrosService.setStore(__store);
+function PregoServices() {
+    var __store = {};
+    var __usuariosService = new UsuariosService(__store);
+	var __encuentrosService = new EncuentrosService(__store);
 
-module.exports.setStore = function (store) {
-    __store = store;
-    __usuariosService.setStore(__store);
-    __encuentrosService.setStore(__store);
+    this.setStore = function (store) {
+		__store = store;
+		__usuariosService.setStore(__store);
+		__encuentrosService.setStore(__store);
+    }
+
+    this.rellenar = function () {
+        __usuariosService.rellenar();
+    }
+
+    this.getUsuariosService = function () {
+        return __usuariosService;
+    }
+	
+    this.getEncuentrosService = function () {
+        return __encuentrosService;
+    }
 }
 
-module.exports.resetStore = function () {
-    __store = {};
-    module.exports.setStore(__store);
-}
-
-module.exports.rellenar = function () {
-    __usuariosService.rellenar();
-}
-
-module.exports.getUsuariosService = function () {
-    return __usuariosService;
-}
-
-
-module.exports.getEncuentrosService = function () {
-    return __encuentrosService;
-}
+module.exports = PregoServices;

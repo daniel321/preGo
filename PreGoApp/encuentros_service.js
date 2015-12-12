@@ -58,7 +58,7 @@ function EncuentrosService(store) {
     this.addChat = function (author, user2, msg) {
 		var auth = __buscarUsuario(author);
 		var usr2 = __buscarUsuario(user2);
-
+		
 		if ((auth != null) && (usr2 != null)) {
 			if ((auth.matches.indexOf(user2) > -1) && (usr2.matches.indexOf(author) > -1)) {
 

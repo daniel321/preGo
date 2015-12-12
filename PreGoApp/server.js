@@ -62,7 +62,7 @@ app.get('/api/chat/:email', function (req, res) {
     var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
     if (myUser != null){ 
 	    var msgs = encuentrosService.getChat(myUser.email,req.params.email);
-		console.log(msgs);
+		// console.log(msgs);
 	    for(key in msgs){
 			var msg = msgs[key];
 			if(msg.email == myUser.email){
@@ -79,7 +79,7 @@ app.get('/api/chat/:email', function (req, res) {
    }
 })
 
-app.post('/api/chat/:nickname', function (req, res) {
+app.post('/api/chat/:email', function (req, res) {
     var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
     if (myUser != null){
     	var msgs = encuentrosService.addChat(myUser.email,req.params.email,req.body.message);
@@ -616,7 +616,7 @@ app.post("/api/meetingQualify", function (req, res) {
 	
 	var like = req.body.like;
 	if(typeof(userQualifiedEmail)=='undefined' || typeof(like)=='undefined'){
-		console.log(like);
+		//console.log(like);
 		res.send({exito:false, error:'revisar parametros'});
 	}else{
 		if(typeof(req.cookies.email)=='undefined'){

@@ -21,7 +21,7 @@ app.factory('PartyDetailService', function ($http, $q) {
         },
         getParty: function (key) {
             return $http({
-                url: '/api/party/' + key,
+                url: '/api/party/' + encodeURIComponent(key),
                 method: 'GET'
             });
         }

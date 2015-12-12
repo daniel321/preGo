@@ -126,6 +126,7 @@ app.get('/api/matches', function (req, res) {
 var partys = {};
 
 partys["Ink"] = {
+         nombre:"Ink",
 		 esSugerida:true,
 		 types:["Bar","Boliche"],
 		 imagenDeFondo:"/dist/img/clubs/ink.jpg",
@@ -144,6 +145,7 @@ partys["Ink"] = {
 		};
 
 partys["Hiio"] = {
+         nombre: "Hiio",
 		 esSugerida:false,
 		 types:["Bar","Boliche"],
 
@@ -162,6 +164,7 @@ partys["Hiio"] = {
 		};
 
 partys["Moscow"] = {
+         nombre: "Moscow",
 		 esSugerida:false,
 		 types:["Bar","Boliche"],
 
@@ -180,6 +183,7 @@ partys["Moscow"] = {
 		};
 
 partys["Bosque"] = {
+         nombre:"Bosque",
 		 esSugerida:false,
 		 types:["Bar","Boliche"],
 		 imagenDeFondo:"/dist/img/clubs/bosque.jpg",
@@ -197,6 +201,7 @@ partys["Bosque"] = {
 		};
 
 partys["Sunset"] = {
+         nombre: "Sunset",
 		 esSugerida:true,
 		 types:["Bar","Boliche"],
 		 imagenDeFondo:"/dist/img/clubs/sunset.jpg",
@@ -216,6 +221,7 @@ partys["Sunset"] = {
 		};
 
 partys["BsAsEnFoco"] = {
+         nombre: "BsAsEnFoco",
 		 esSugerida:false,
 		 types:["After office","Bar","Boliche"],
 		 imagenDeFondo:"/dist/img/clubs/Buenos-Aires-En-Foco.jpg",
@@ -234,6 +240,7 @@ partys["BsAsEnFoco"] = {
 		};
 
 partys["PoolParty"] = {
+         nombre: "PoolParty",
 		 esSugerida:false,
 		 types:["Privada","Otro"],
 		 imagenDeFondo:"/dist/img/clubs/Pool-Party.jpg",

@@ -4,39 +4,41 @@
         <div class="box">
 			<form name="mainForm" ng-submit="sendForm()">
 				<div class="box-header with-border">
-					<h3 class="box-title">Nueva fiesta</h3>
+					<h3 class="box-title">{{party.nombre}}</h3>
 				</div>
 				<div class="box-body">
-					<div class="form-group">
+					<!--<div class="form-group">
 						<input class="form-control input-lg" type="text" placeholder="Nombre de la fiesta" ng-model="name" required />
-					</div>
+					</div>-->
 					<div class="form-group">
 						<label>Descripción</label>
-						<textarea class="form-control" rows="3" placeholder="Detalles..." ng-model="description" required ></textarea>
+						<div>{{party.descripcion}}</div>
 					</div> 
 					<div class="form-group">
 						<label>Fecha y duración</label>
-						<div class="input-group">
+						<!--<div class="input-group">
 							<div class="input-group-addon">
 							<i class="fa fa-clock-o"></i>
 							</div>
 							<input date-range-picker class="form-control pull-right  date-picker" type="text" ng-model="datePicker.date" options="datePicker.options" />
-						</div><!-- /.input group -->
-						{{datePicker.date}}
+						</div>--><!-- /.input group -->
+                        <div>{{party.fechaHoraDesde | date : 'dd/MM/yyyy HH:mm'}} - {{party.fechaHoraHasta | date : 'dd/MM/yyyy HH:mm'}}</div>
 					</div><!-- /.form group -->
 					<div class="form-group">
 						<label>Ubicación</label>
-						<div class="input-group">
+                        <div>
+                            {{party.location.name}} ({{party.location.lat}}, {{party.location.long}})
+                        </div>
+						<!--<div class="input-group">
 							<div class="input-group-addon">
 								<i class="fa fa-map-marker"></i>
 							</div>
 							<location-picker id="location" ng-model="location" inner-class="form-control" placeholder="Dirección" ng-required="true"></location-picker>
-							<!--button ng-click="clear()">Clear</button-->	
-						</div>
-						<br/>
+						</div>-->
+						<!--<br/>
 							Name: {{location.name}}
 							Lat: {{location.lat}}
-							Long: {{location.lng}} 
+							Long: {{location.lng}}--> 
 					</div><!-- /.form group -->
 					<div class="form-group">
 						<label>Tipo de fiesta: </label> <span ng-repeat="item in selectedItems" >{{item.text + ($last?'':', ') }}</span>

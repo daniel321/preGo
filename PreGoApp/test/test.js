@@ -1,8 +1,9 @@
 var assert = require('assert');
 
 var createUsuariosService = function () {
-    var usuariosService = require("../usuarios_service.js");
-    usuariosService.setStore({});
+    var pregoServices = require('../prego_services.js');
+    var usuariosService = pregoServices.getUsuariosService();
+    pregoServices.resetStore();
     return usuariosService;
 }
 

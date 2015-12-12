@@ -4,10 +4,11 @@ var cookieParser = require('cookie-parser')
 
 var app = express()
 
-var store = {};
-var usuariosService = require('./usuarios_service.js'); // no matar esta variable porque muere todo el estado;
-usuariosService.setStore(store);
-usuariosService.rellenar();
+var pregoServices = require('./prego_services.js');
+var usuariosService = pregoServices.getUsuariosService();
+pregoServices.rellenar();
+
+
 
 app.use(express.static('web'));
 

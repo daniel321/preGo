@@ -1,12 +1,12 @@
-app.factory('PartyCreateService', function ($http, $q) {
+app.factory('MeetingsService', function ($http, $q) {
     return {
 	
-		getPartyTypes: function () {
+		getMeetingSuggest: function () {
 			return $http({
-				url: '/api/partyTypes',
+				url: '/api/meetingSuggests',
 				method: 'GET'
 			});
-        },
+        }/*,
 		getMusicGenres: function () {
 			return $http({
 				url: '/api/musicGenres',
@@ -18,6 +18,6 @@ app.factory('PartyCreateService', function ($http, $q) {
                 '/api/party',
                 party
             );
-        }
+        }*/
     };
 });

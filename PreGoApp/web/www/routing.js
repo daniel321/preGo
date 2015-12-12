@@ -21,6 +21,10 @@ app.config(['$routeProvider',
             templateUrl: 'www/partyCreate.partial.html',
             controller: 'partyCreateController'
         }).
+        when('/partyDetail/:partyKey', {
+            templateUrl: 'www/partyDetail.partial.html',
+            controller: 'partyDetailController'
+        }).
         when('/serviceCreate', {
             templateUrl: 'www/serviceCreate.partial.html',
             controller: 'ServiceCreateController'

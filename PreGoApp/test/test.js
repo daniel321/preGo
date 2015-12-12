@@ -1,15 +1,15 @@
-var assert = require('assert');
+var assert = require('chai').assert;
 var PregoServices = require('../prego_services.js');
 
-var createUsuariosService = function () {
-    var pregoServices = new PregoServices();
-    var usuariosService = pregoServices.getUsuariosService();
-    return usuariosService;
-}
 
 
 describe('PregoServices', function() {
   describe('#Usuarios', function () {
+	var createUsuariosService = function () { 
+		var usuariosService = new PregoServices().getUsuariosService();
+		return usuariosService;
+	}
+
     
 	it('deberia devolver true', function () {
 	    var usuarios = createUsuariosService();
@@ -62,7 +62,7 @@ describe('PregoServices', function() {
 		
 		usuarios.rellenar();
 		
-		assert.equal(6, usuarios.getUsuarios().length);
+		assert.equal(true, usuarios.getUsuarios().length>=6);
     });
 	
 	
@@ -72,44 +72,66 @@ describe('PregoServices', function() {
 		usuarios.rellenar();
 		
 		assert.equal("Nahuel", usuarios.getUsuarioByEmail("nahuel@prego.com").nickname);
+		assert.equal("M", usuarios.getUsuarioByEmail("nahuel@prego.com").sexo);
     });
 	
 	
   });
-});
-
-
-
- /*
-describe('PregoServices', function() {
-  describe('#Usuarios', function () {
-    
-	it('deberia devolver true', function () {
-		var serivicios = servicios.init();
-		assert.equal(true, serivicios.agregarUsuario('pepe@pepe.com','pepePass').exito);
-    });	
-	
-	it('no deberian haber usuarios al principio', function () {
-		var serivicios = servicios.init();
+  
+  
+  
+  describe('#Encuentros', function () {
+	  
+	var createServicios = function () {
+		var store = {};
+		var pregoServices = new PregoServices();
 		
-		assert.equal(0, serivicios.usuarios().length);
-    });
-	
-	it('deberia existir el usuario recien agregado', function () {
-		var serivicios = servicios.init();
-		serivicios.agregarUsuario('pepe@pepe.com','pepePass');
-		assert.equal('pepe@pepe.com', serivicios.usuarios()[0].nombre);
-    });
-	
-	it('no deberia permitir usuarios duplicados', function () {
-		var serivicios = servicios.init();
-		serivicios.agregarUsuario('usuarioDup','pepePass');
+		var usuariosService =  pregoServices.getUsuariosService();
+		var encuentrosService =  pregoServices.getEncuentrosService();
 		
-		assert.equal(false, serivicios.agregarUsuario('usuarioDup','pepePass').exito);
-		assert.equal(1, serivicios.usuarios().length);
+		var res = {};
+		res.usuarios = usuariosService;
+		res.encuentros = encuentrosService;
+		return res;
+	}
+
+	it('deberia devolver error con email invalido', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		  
+		assert.equal(false,servicios.encuentros.getProximoAConocer('no-existe@mail.com').exito);
+    });	 
+	
+	it('deberia traer algun usuario', function () {
+	    var servicios = createServicios();
+		//assert.equal(false, servicios.usuarios==null);
+		servicios.usuarios.rellenar();
+		   
+		
+		assert.equal(true, servicios.encuentros.getProximoAConocer('nahuel@prego.com').exito);
+		assert.isNotNull( servicios.encuentros.getProximoAConocer('nahuel@prego.com').usuarioAConocer);
     });
 	
+	
+	it('deberia traer matches de sexo opuesto', function () {
+	    var servicios = createServicios();
+		//assert.equal(false, servicios.usuarios==null);
+		servicios.usuarios.rellenar();
+		
+		var usuario = servicios.usuarios.getUsuarioByEmail('nahuel@prego.com');
+		var usuarioAConocer = servicios.encuentros.getProximoAConocer(usuario.email).usuarioAConocer;
+		
+		assert.notEqual( usuario.sexo, usuarioAConocer.sexo);
+    });
+	
+	
+	//no deberia traer al mismo usuario que busca
+	//deberia traer en orden de creacion de usuario
+	//deberia permitir calificar
+	//una vez que calificas no deberia volver a traer al mismo
+	//deberia devolver match cuando calificas
+	//al producirse un match deberia crear el chat
+	//deberia traer primero los usuarios de fiestas a las que va el usuarioConocedor	
 	
   });
 });
-*/

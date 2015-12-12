@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser')
 var app = express()
 
 var PregoServices = require('./prego_services.js');
-
 var pregoServices = new PregoServices();
 var usuariosService = pregoServices.getUsuariosService();
 pregoServices.rellenar();

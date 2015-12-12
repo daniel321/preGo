@@ -26,18 +26,18 @@
         &nbsp;
     </div>
     <div class="col-xs-10 col-sm-6 col-md-6">
-        <form name="mainForm" ng-submit="sendForm()">
+        <form name="mainForm" >
             <div class="box-body">
 
-                <div class="box">
+                <div class="box" ng-if="sugerencia!=null">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
-                        <h3 class="profile-username text-center">Nina Mcintire</h3>
+                        <img class="profile-user-img img-responsive img-circle" ng-src="{{sugerencia.avatar_url}}" alt="User profile picture">
+                        <h3 class="profile-username text-center">{{sugerencia.nickname}}</h3>
                         <!--<p class="text-muted text-center">Software Engineer</p>-->
 
                         <div class="row">
                             <div class="col-sm-12 botones-encuentro">
-                                <a class="btn btn-app" title="En otro momento...">
+                                <a class="btn btn-app" title="En otro momento..." >
                                     <i class="fa fa-remove rechazo"></i>
                                 </a>
                                 <a class="btn btn-app" title="Elegir">
@@ -47,6 +47,15 @@
                         </div>
                     </div><!-- /.box-body -->
                 </div>
+				
+				<div class="box" ng-if="sugerencia==null">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="/dist/img/ajaxSpinner.gif" alt="User profile picture">
+                        <h3 class="profile-username text-center" ng-if="sugerencia==null && exitoso">En este momento no hay usuarios nuevos por conocer. Te esperamos pronto!</h3>
+                    </div><!-- /.box-body -->
+                </div>
+				
+				
             </div>
         </form>
     </div>

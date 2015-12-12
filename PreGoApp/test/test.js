@@ -139,7 +139,7 @@ describe('PregoServices', function() {
 		assert.notEqual( usuarioAConocer1.email, usuarioAConocer2.email, 'No deberia traer al mismo usuario que ya fue calificado');
 		servicios.encuentros.calificar(usuario.email, usuarioAConocer2.email, false);
 		var usuarioAConocer3 = servicios.encuentros.sugerir(usuario.email).usuarioAConocer;
-		console.log('Tercera sugerencia:' + usuarioAConocer3.email);
+		//console.log('Tercera sugerencia:' + usuarioAConocer3.email);
 		assert.notEqual( usuarioAConocer2.email, usuarioAConocer3.email, 'No deberia traer al mismo usuario que ya fue calificado');
 		assert.notEqual( usuarioAConocer1.email, usuarioAConocer3.email, 'No deberia traer al mismo usuario que ya fue calificado');
 		
@@ -157,15 +157,27 @@ describe('PregoServices', function() {
     });
 	
 	
+	it('get Matches', function () {
+		var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		assert.equal(0, servicios.encuentros.getMatches('damian@prego.com').length);
+		servicios.encuentros.rellenar();
+		assert.equal(2, servicios.encuentros.getMatches('damian@prego.com').length);
+		
+    });
+	
+	
 	it('cuando ambos se califican mutuamente deberia haber una coincidencia', function () {
 	    var servicios = createServicios();
 		servicios.usuarios.rellenar();
 		
+		assert.equal(0,servicios.encuentros.getMatches('china@prego.com','nahuel@prego.com').length)
 		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'china@prego.com', true);		
 		assert.equal(true,resCalifIda1.exito);		
 		assert.equal(false,resCalifIda1.match,'No se esperaba match 1');		
 		
-		console.log(servicios.encuentros.calificar('nahuel@prego.com', 'ursula@prego.com', false));
+		//console.log(servicios.encuentros.calificar('nahuel@prego.com', 'ursula@prego.com', false));
 		var resCalifIda2 = servicios.encuentros.calificar('nahuel@prego.com', 'ursula@prego.com', false);
 		assert.equal(true,resCalifIda2.exito);		
 		assert.equal(false,resCalifIda2.match,'No se esperaba match 2');
@@ -177,9 +189,16 @@ describe('PregoServices', function() {
 		var resCalifVuelta2 = servicios.encuentros.calificar('china@prego.com','nahuel@prego.com', true);
 		assert.equal(true,resCalifVuelta2.exito);		
 		assert.equal(true,resCalifVuelta2.match,'Se esperaba match 4');
+		
+		assert.equal(1,servicios.encuentros.getMatches('china@prego.com','nahuel@prego.com').length)
+		
+		
+		
     });
 	
 	//verificar que al haber match se cree un match en los usuarios
+	//que no se puedan agregar matches entre mismos usuarios
+	//que no se puedan agregar matches repetidos
 	//no deberia traer al mismo usuario que busca
 	//deberia traer en orden de creacion de usuario
 	//deberia devolver match cuando calificas

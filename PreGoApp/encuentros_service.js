@@ -88,19 +88,45 @@ function EncuentrosService(store) {
 		}
     }
 
-    this.getChat = function (user, user2) {
-		var usr = __buscarUsuario(user);
+    this.getChat = function (emailUsuario, emailOtro) {
+		var usr = __buscarUsuario(emailUsuario);
 
 		if (usr != null) {
-			if (usr.matches.indexOf(user2) > -1) {
+			if (usr.matches && usr.matches.indexOf(emailOtro) > -1) {
 				if (usr.chats == null) {
 					return ([]);
 				}
-				return usr.chats[user2];
+				return usr.chats[emailOtro];
 			}
 		}
+		return [];
     }
 	
+    this.getMatches = function (emailUsuario) {
+		var user = __buscarUsuario(emailUsuario);
+		if (user != null) {
+			if (user.matches) {
+				var ret = [];
+				
+				for(var i=0; i< user.matches.length;i++){
+					var matchEmail = user.matches[i];					
+					var other = __buscarUsuario(matchEmail);  
+					var lastChats = this.getChat(user.email,matchEmail).slice(-3);			
+					ret.push( {
+						nickname: other.nickname,
+						avatar_url: other.avatar_url,
+						lastChats: lastChats,						
+						email: other.email,
+					});
+				} 
+				return ret;
+			}else{
+				return [];				
+			}
+		}		
+		
+		return null;
+    }
 	
 
 	this.sugerir = function (emailUsuarioBuscador) {
@@ -146,6 +172,7 @@ function EncuentrosService(store) {
 			if(calificacionPositiva){
 				var posibleCalificacionReciproca = __getUsuarioCalificado(usuarioCalificado, usuarioCalificador);
 				if( posibleCalificacionReciproca!= null && posibleCalificacionReciproca.calificacion==true){
+					this.addMatch(emailUsuarioCalificador,emailUsuarioCalificado);
 					return { exito: true, match: true};
 				}				
 			}			

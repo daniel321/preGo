@@ -87,23 +87,10 @@ app.post('/api/chat/:email', function (req, res) {
     res.send(true);
 })
 
-app.get('/api/matches', function (req, res) {    
-    var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
-    if (myUser != null){
-    	var me = myUser.email;
-    	var matches = myUser.matches;
-
-		var ret = [];
-		for(var i=0; i< matches.length;i++){
-			var match = matches[i];
-			var other = usuariosService.getUsuarioByEmail(match);  
-			var lastChats = encuentrosService.getChat(me,match).slice(-3);			
-			ret.push([other.nickname,other.avatar_url,lastChats,other.email]);
-		}
-		res.send(ret);
-    }else{
-	res.send(null);
-    }
+app.get('/api/matches', function (req, res) {
+	var matches = encuentrosService.getMatches(req.cookies.email);
+	console.log(matches);
+	res.send(matches);
 })
 
 var partys = {};

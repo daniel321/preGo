@@ -25,6 +25,7 @@ app.post("/api/login", function (req, res) {
 
     if (usuariosService.login(email, pass)) {
         res.cookie("email", email);
+        res.cookie("nickname", usuariosService.getUsuarioByEmail(email).nickname);
 		res.send(true);
     }else{
 		res.send(false);	
@@ -33,6 +34,7 @@ app.post("/api/login", function (req, res) {
 
 app.get("/api/logout", function (req, res) {
     res.clearCookie("email");
+    res.clearCookie("nickname");
     res.send(true);
 });
 
@@ -42,7 +44,7 @@ app.get("/api/user", function (req, res) {
 });
 
 app.put("/api/user", function (req, res) {
-    res.send(usuariosService.agregarUsuario(req.nombre, req.pass,req.email,req.nickname,req.avatar_url).exito);
+    res.send(usuariosService.agregarUsuario(req.body.email, req.body.pass, req.body.nickname, req.body.avatar_url).exito);
 });
 
 usuariosService.addMatch("Daniel","Damian");

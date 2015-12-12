@@ -4,10 +4,10 @@ var cookieParser = require('cookie-parser')
 
 var app = express()
 
-
-var prego = require('./pregoservices.js');
-var servicios = prego.Servicios(); // no matar esta variable ni volver a llamar a Servicios porque muere todo el estado;
-servicios.Usuarios().rellenar();
+var store = {};
+var usuariosService = require('./usuarios_service.js'); // no matar esta variable porque muere todo el estado;
+usuariosService.setStore(store);
+usuariosService.rellenar();
 
 app.use(express.static('web'));
 
@@ -23,7 +23,7 @@ app.post("/api/login", function (req, res) {
     var email = req.body.email;
     var pass = req.body.pass;
 
-    if (servicios.Usuarios().login(email, pass)) {
+    if (usuariosService.login(email, pass)) {
         res.cookie("email", email);
 		res.send(true);
     }else{
@@ -38,36 +38,36 @@ app.get("/api/logout", function (req, res) {
 
 
 app.get("/api/user", function (req, res) {
-    res.send(servicios.Usuarios().getUsuarios());
+    res.send(usuariosService.getUsuarios());
 });
 
 app.put("/api/user", function (req, res) {
-    res.send(servicios.Usuarios().agregarUsuario(req.nombre, req.pass,req.email,req.nickname,req.avatar_url).exito);
+    res.send(usuariosService.agregarUsuario(req.nombre, req.pass,req.email,req.nickname,req.avatar_url).exito);
 });
 
-servicios.Usuarios().addMatch("Daniel","Damian");
+usuariosService.addMatch("Daniel","Damian");
 
-servicios.Usuarios().addChat("Daniel","Damian","No estoy en casa ahora, iré en un rato y a las 20 me voy");
-servicios.Usuarios().addChat("Damian","Daniel","Avisame cuando llegues");
-servicios.Usuarios().addChat("Daniel","Damian","Llego en 15");
-servicios.Usuarios().addChat("Daniel","Damian","ya llego");
+usuariosService.addChat("Daniel","Damian","No estoy en casa ahora, iré en un rato y a las 20 me voy");
+usuariosService.addChat("Damian","Daniel","Avisame cuando llegues");
+usuariosService.addChat("Daniel","Damian","Llego en 15");
+usuariosService.addChat("Daniel","Damian","ya llego");
 
-servicios.Usuarios().addMatch("Facundo","Damian");
+usuariosService.addMatch("Facundo","Damian");
 
-servicios.Usuarios().addChat("Damian","Facundo","Estas ahi??");
-servicios.Usuarios().addChat("Facundo","Damian","no :p");
-servicios.Usuarios().addChat("Damian","Facundo","...");
+usuariosService.addChat("Damian","Facundo","Estas ahi??");
+usuariosService.addChat("Facundo","Damian","no :p");
+usuariosService.addChat("Damian","Facundo","...");
 
-servicios.Usuarios().addMatch("Ezequiel","Nahuel");
-servicios.Usuarios().addChat("Ezequiel","Nahuel","todo en orden?");
-servicios.Usuarios().addChat("Nahuel","Ezequiel","sip");
+usuariosService.addMatch("Ezequiel","Nahuel");
+usuariosService.addChat("Ezequiel","Nahuel","todo en orden?");
+usuariosService.addChat("Nahuel","Ezequiel","sip");
 
 
 app.get('/api/chat/:nickname', function (req, res) {
-    var myUser = servicios.Usuarios().getUsuarioByEmail(req.cookies.email);
+    var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
     if (myUser != null){
 	    var me = myUser.nickname;
-	    var msgs = servicios.Usuarios().getChat(me,req.params.nickname);
+	    var msgs = usuariosService.getChat(me,req.params.nickname);
 
 	    for(key in msgs){
 		var msg = msgs[key];
@@ -86,17 +86,17 @@ app.get('/api/chat/:nickname', function (req, res) {
 })
 
 app.post('/api/chat/:nickname', function (req, res) {
-    var myUser = servicios.Usuarios().getUsuarioByEmail(req.cookies.email);
+    var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
     if (myUser != null){
     	var me = myUser.nickname;
 
-    	var msgs = servicios.Usuarios().addChat(me,req.params.nickname,req.body.message);
+    	var msgs = usuariosService.addChat(me,req.params.nickname,req.body.message);
     }
     res.send(true);
 })
 
 app.get('/api/matches', function (req, res) {    
-    var myUser = servicios.Usuarios().getUsuarioByEmail(req.cookies.email);
+    var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
 
     if (myUser != null){
     	var me = myUser.nickname;
@@ -105,11 +105,11 @@ app.get('/api/matches', function (req, res) {
 	var ret = [];
 	for(key in matches){
 		var mach = matches[key];
-		var other = servicios.Usuarios().getUsuarioByName(mach);
+		var other = usuariosService.getUsuarioByName(mach);
 
 		var otherPic = other.avatar_url;
 
-		var lastChats = servicios.Usuarios().getChat(me,mach).slice(-3);
+		var lastChats = usuariosService.getChat(me,mach).slice(-3);
 		ret.push([mach,otherPic,lastChats]);
 	}
 

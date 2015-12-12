@@ -1,35 +1,36 @@
 var assert = require('assert');
 
-var prego = require("../pregoservices.js");
+var createUsuariosService = function () {
+    var usuariosService = require("../usuarios_service.js");
+    usuariosService.setStore({});
+    return usuariosService;
+}
 
 
 describe('PregoServices', function() {
   describe('#Usuarios', function () {
     
 	it('deberia devolver true', function () {
-		var servicios = prego.Servicios();
-		var usuarios = servicios.Usuarios();
+	    var usuarios = createUsuariosService();
+
 		assert.equal(true, usuarios.agregarUsuario('pepe@pepe.com','pepePass').exito);
     });	
 	
 	it('no deberian haber usuarios al principio', function () {
-		var servicios = prego.Servicios();
-		var usuarios = servicios.Usuarios();
-		
+	    var usuarios = createUsuariosService();
+
 		assert.equal(0, usuarios.getUsuarios().length);
     });
 	
 	it('deberia existir el usuario recien agregado', function () {
-		var servicios = prego.Servicios();
-		var usuarios = servicios.Usuarios();
+	    var usuarios = createUsuariosService();
 		
 		usuarios.agregarUsuario('pepe@pepe.com','pepePass');
 		assert.equal('pepe@pepe.com', usuarios.getUsuarios()[0].email);
     });
 	
 	it('no deberia permitir usuarios duplicados', function () {
-		var servicios = prego.Servicios();
-		var usuarios = servicios.Usuarios();
+	    var usuarios = createUsuariosService();
 		
 		usuarios.agregarUsuario('usuarioDup','pepePass');
 		
@@ -39,8 +40,7 @@ describe('PregoServices', function() {
 	
 
 	it('deberia permitir loggearse con credenciales correctas', function () {
-		var servicios = prego.Servicios();
-		var usuarios = servicios.Usuarios();
+	    var usuarios = createUsuariosService();
 		
 		usuarios.agregarUsuario('pepe@pepe.com','pepePass');
 		
@@ -48,8 +48,7 @@ describe('PregoServices', function() {
     });
 	
 	it('no deberia permitir loggearse con credenciales erroneas', function () {
-		var servicios = prego.Servicios();
-		var usuarios = servicios.Usuarios();
+	    var usuarios = createUsuariosService();
 		
 		usuarios.agregarUsuario('pepe@pepe.com','pepa');
 		
@@ -58,8 +57,7 @@ describe('PregoServices', function() {
 	
 	
 	it('deberian permitir rellenar la base con datos de prueba', function () {
-		var servicios = prego.Servicios();
-		var usuarios = servicios.Usuarios();
+	    var usuarios = createUsuariosService();
 		
 		usuarios.rellenar();
 		
@@ -68,8 +66,7 @@ describe('PregoServices', function() {
 	
 	
 	it('deberian permitir buscar un usuario por email', function () {
-		var servicios = prego.Servicios();
-		var usuarios = servicios.Usuarios();
+	    var usuarios = createUsuariosService();
 		
 		usuarios.rellenar();
 		

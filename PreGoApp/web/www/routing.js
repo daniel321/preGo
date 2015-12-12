@@ -36,6 +36,10 @@ app.config(['$routeProvider',
         when('/testMap', {
             templateUrl: 'www/testMap.partial.html',
             controller: 'testMapController'
+        }).
+        when('/meetings', {
+            templateUrl: 'www/meetings.partial.html',
+            controller: 'meetingsController'
         })
 
 	/*.

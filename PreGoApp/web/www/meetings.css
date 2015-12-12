@@ -1,0 +1,24 @@
+.botones-encuentro{    
+    text-align: center;
+}
+
+.botones-encuentro a{    
+    background-color: transparent;
+    border: none;
+    min-width: 90px;
+    height: 80px;
+    margin: 0px;
+}
+    
+.botones-encuentro .btn-app>.fa{    
+    font-size:-webkit-xxx-large; /*xx-large*/
+}
+
+.botones-encuentro .btn-app > .rechazo {
+    color: #DD4B39;
+}
+
+.botones-encuentro .btn-app > .eleccion {
+    color: #0DBD0C;
+}
+

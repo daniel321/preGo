@@ -16,4 +16,19 @@ app.controller('ChatController', function ($scope, $routeParams, ChatService) {
             $scope.newMessage = "";
         });	
     }
+
+    var f = function(){
+		ChatService.getChat($scope.contactNickname).then(
+			function (res) {
+				console.log(res.length);
+				console.log($scope.messages.length);
+
+				if(res.length > $scope.messages.length)
+					angular.copy(res, $scope.messages);
+    			});
+		setTimeout(f,5000);
+	}
+
+	setTimeout(f,5000);
+
 });

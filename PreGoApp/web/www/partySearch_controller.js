@@ -9,9 +9,6 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	$scope.showMenu = 0;
 	$scope.position = [0,0];
 
-	$scope.mapInitialized = false;
-	$scope.initialized = false;
-
 	$scope.datePicker = {
 		date : {startDate: null, endDate: null},
 		options : getCommonDatePickerOptions()
@@ -35,12 +32,8 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 		if($scope.showMenu != 2){
 			document.getElementById("toleranceForm").value = 10;
 
-			if (!($scope.mapInitialized)){
-				initialize_map("map_canvas");
-				initialize();
-
-				$scope.mapInitialized = true;
-			}
+			initialize_map("map_canvas");
+			initialize();
 
 			$scope.showMenu = 2;
 		}else{
@@ -200,9 +193,8 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	}
 
 	var getPos = function(){
-		if( $scope.initialized || geo_position_js.init() ){
+		if(geo_position_js.init() ){
 			geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
-			$scope.initialized = true;
 		}else{
 			console.log("Functionality not available");
 		}

@@ -262,7 +262,7 @@ var getFlame = function(party){ //pasada
 	}
 }
 
-var biggerAmountOfPeople = function(party1,party2){
+var biggerAmountOfPeople = function(party1,party2){ //pasada
 	return (party2.cantidadDeGente - party1.cantidadDeGente);
 }
 
@@ -384,50 +384,25 @@ app.get('/api/commonPartys', function (req,res) {
 })
 
 app.get('/api/promotedPartysByDate', function (req,res) {
-    var ret = [];
-    var size = Object.keys(partys).length;
-
     var start = req.query['start'];
     var end = req.query['end'];
 
     var lat = req.query['lat'];
-    var long = req.query['long'];
+    var long = req.query['long']; 
 	
-    for (name in partys){
-	var party = partys[name];
-		
-    	var dist = getDistance([lat,long],party);
-
-	if((party.esSugerida)&&(comesBetween(party,start,end))){
-		agregar(ret,name,party,dist);
-	}
-    }
-
-    ret.sort(biggerAmountOfPeople);
-    res.send(ret);
+	var ret = fiestasService.getPartysByDate(true, lat, long, start,end);
+	res.send(ret);
 })
 
 app.get('/api/commonPartysByDate', function (req,res) {
-    var ret = [];
-    var size = Object.keys(partys).length;
-
     var start = req.query['start'];
     var end = req.query['end'];
 
     var lat = req.query['lat'];
-    var long = req.query['long'];
-
-    for (name in partys){
-	var party = partys[name];
-    	var dist = getDistance([lat,long],party);
-
-	if((!party.esSugerida)&&(comesBetween(party,start,end))){
-		agregar(ret,name,party,dist);
-	}
-    }
-
-    ret.sort(biggerAmountOfPeople);
-    res.send(ret);
+    var long = req.query['long']; 
+	
+	var ret = fiestasService.getPartysByDate(false, lat, long, start,end);
+	res.send(ret);
 })
 
 app.get('/api/commonPartysCloseBy', function (req,res) {

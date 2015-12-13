@@ -206,12 +206,37 @@ function FiestasService(store) {
 					//console.log(party);
 				}
 				if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
-					agregar(ret,party.nombre,party,dist);	
+					agregar(ret,party.nombre,party,dist);		
 				}
+				
 			}
 		}
 
 		ret.sort(closest);
+		return ret;
+	};
+	
+	
+	this.getPartysByDate = function(destacadas, lat, long, desde, hasta){
+		
+		var ret = []; 
+
+		for(var i=0;i<__store.fiestas.length;i++){
+			var party = __store.fiestas[i];  
+			
+			var dist = getDistance([lat,long],party);
+			
+			if(!destacadas){
+				//console.log('>Sugerida:' + party.esSugerida);
+				//console.log(party);
+			}
+			if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
+				if( (isUndef(desde) && isUndef(hasta)) || comesBetween(party,desde,hasta)){
+					agregar(ret,party.nombre,party,dist);		
+				}
+			}
+		}
+		ret.sort(biggerAmountOfPeople);
 		return ret;
 	};
 	
@@ -229,6 +254,10 @@ function FiestasService(store) {
 		
 		ret.push(party);
 	};
+
+	var biggerAmountOfPeople = function(party1,party2){ //pasada
+		return (party2.cantidadDeGente - party1.cantidadDeGente);
+	}
 
 	
 	var getFlame = function(party){
@@ -336,6 +365,20 @@ function FiestasService(store) {
 		return (days * sign) + 'º' + minutes + "'" + secounds + '"' + direction;
 	};
 	//alert(getDD2DMS(-8.68388888888889, 'lon'));
+	
+	
+	var comesBetween = function(party,start,end){
+
+		var rangeStart = new Date(start.split(".")[0]);
+		var rangeEnd = new Date(end.split(".")[0]);
+
+		var partyStart = new Date(party.inicio.split(".")[0]);
+		var partyEnd = new Date(party.fin.split(".")[0]);
+
+		var res = ( ((partyStart > rangeStart)&&(partyStart < rangeEnd)) || ((rangeStart > partyStart)&&(rangeStart < partyEnd)) ); 
+		return res;
+	}
+
  
 }
 

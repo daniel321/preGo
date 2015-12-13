@@ -290,6 +290,45 @@ describe('PregoServices', function() {
     });
 	
 	
+	it('se puede obtener fiestas comunes por fecha', function () {
+	    var servicios = createServicios();
+		
+		 
+		servicios.fiestas.rellenar();	
+
+		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
+		
+		//17/12/2015 12:00 AM - 19/12/2015 12:00 AM
+		
+		var fiestas = servicios.fiestas.getPartysByDate(false, munioz.lat, munioz.long, '2015-12-17T03:00:00.000Z','2015-12-19T03:00:00.000Z');
+		//console.log(fiestas);
+		assert.equal(1, fiestas.length);
+		assert.equal("Moscow", fiestas[0].nombre);
+		
+    });
+	
+	
+	it('se puede obtener fiestas destacadas por fecha', function () {
+	    var servicios = createServicios();
+		
+		 
+		servicios.fiestas.rellenar();	
+
+		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
+		
+		//17/12/2015 12:00 AM - 19/12/2015 12:00 AM
+		
+		var fiestas = servicios.fiestas.getPartysByDate(true, munioz.lat, munioz.long, '2015-12-17T03:00:00.000Z','2015-12-19T03:00:00.000Z');
+		//console.log(fiestas);
+		assert.equal(2, fiestas.length);
+		assert.equal("Ink", fiestas[0].nombre);
+		assert.equal("Hiio", fiestas[1].nombre);
+		
+    });
+	
+	
+	
+	
 	
 	// Cerca de Sunset -34.587581, -58.476997
 	//        pos:{lat:-34.5876237,long:-58.4660913},

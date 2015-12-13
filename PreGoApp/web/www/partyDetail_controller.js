@@ -58,10 +58,10 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
         if (Math.abs(minutos) < 1) {
             cuando = "Ahora.";
         }
-        if (horas < 1) {
+        if (Math.abs(horas) < 1) {
             cuando += Math.floor(Math.abs(minutos)) + " minuto(s)";
         }
-        else if (dias < 1) {
+        else if (Math.abs(dias) < 1) {
             cuando += Math.floor(Math.abs(horas)) + " hora(s)";
         }
         else {

@@ -8,7 +8,7 @@ function PregoServices() {
     var __usuariosService = new UsuariosService(__store);
 	var __encuentrosService = new EncuentrosService(__store);
 	var __serviciosService = new ServiciosService(__store);
-	var __fiestasService = new ServiciosService(__store);
+	var __fiestasService = new FiestasService(__store);
 
     this.setStore = function (store) {
 		__store = store;

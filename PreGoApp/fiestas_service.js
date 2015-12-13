@@ -1,46 +1,29 @@
-function EncuentrosService(store) {
+function FiestasService(store) {
     var __store = store;
     if (typeof (__store.fiestas) === 'undefined') {
         __store.fiestas = [];
 		__store.fiesta_last_id = 0;
-    }
+    };
 	
 	this.getAll = function(){
 		return __store.fiestas;
-	}
+	};
 	 
-	 
+	
     this.rellenar = function () {
 		 
 		var partys = {};
-		/*
-		newParty.nombre = 'Una fiesta';
-		newParty.descripcion = 'Re copada';
-		newParty.inicio = moment([2015, 12, 12,23,0,0]).toDate();
-		newParty.fin = moment([2015, 12, 13,6,0,0]).toDate();
-		newParty.types = [ "after","bar"];
-		newParty.generos = [ "after","bar"]; 
-		newParty.direccion: "Calle Paunero 1650, San Miguel, Buenos Aires",
-		newParty.pos = {
-			lat: '-34.5410156', 
-			long: '-58.7140899'
-		};
-
-			esSugerida:true,
-			imagenDeFondo:"/dist/img/clubs/ink.jpg",
-			imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
-			fotos:["otras imagenes"],
-			cantidadDeGente:325,
-			userRates:[10,7,9,9,6],
-			comentarios: [ {autor:"Daniel",comentario:"muy buen lugar!"} , 
-			{autor:"Facundo",comentario:"esto esta que explota!!"} ]
-		*/
+		
 	 	this.addParty({
-			nombre:"Ink",			
+			nombre:"Ink",	
+			esSugerida:true,		
 			types:["Bar","Boliche"],
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Ink",
 			pos:{lat:-34.5865587,long:-58.4395189},
+			
+			imagenDeFondo:"/dist/img/clubs/ink.jpg",
+			imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
 
 			inicio: "2015-12-18T09:30:00",
 			fin:    "2015-12-19T04:30:00",
@@ -48,7 +31,7 @@ function EncuentrosService(store) {
 
 		this.addParty({
 			nombre: "Hiio",
-			esSugerida:false,
+			esSugerida:true,
 			types:["Bar","Boliche"],
 
 			imagenDeFondo:"/dist/img/clubs/Hiio.jpg",
@@ -67,7 +50,7 @@ function EncuentrosService(store) {
 
 		this.addParty({
 			nombre: "Moscow",
-			esSugerida:false,
+			//esSugerida:false,//es lo mismo
 			types:["Bar","Boliche"],
 
 			imagenDeFondo:"/dist/img/clubs/Moscow.jpg",
@@ -159,9 +142,7 @@ function EncuentrosService(store) {
 			comentarios: [ {autor:"Nahuel",comentario:"chicas lindas x todos lados !!!"}]
 		});
 
-
-
-	}
+	};
 	
 	this.addParty = function(newParty){
 		
@@ -189,7 +170,7 @@ function EncuentrosService(store) {
 		newParty.id = ++ __store.fiesta_last_id;
 		__store.fiestas.push(newParty);
 		return {exito:true, id : newParty.id};
-	}
+	};
 	
 	this.getParty = function(key){
 		var nombre=null;
@@ -209,29 +190,34 @@ function EncuentrosService(store) {
 			}
 		}
 		return null;
-	}
+	};
 	
 	
-	this.getCommonPartysCloseBy = function(lat, long, tol){
+	this.getPartysCloseBy = function(destacadas, lat, long, tol){
 		
 		var ret = []; 
 
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  
 			var dist = getDistance([lat,long],party);
-
-			if( (isUndef(party.esSugerida) || !party.esSugerida) && (dist < tol)){
-				agregar(ret,party.nombre,party,dist);
+			if((dist < tol)){
+				if(!destacadas){
+					//console.log('>Sugerida:' + party.esSugerida);
+					//console.log(party);
+				}
+				if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
+					agregar(ret,party.nombre,party,dist);	
+				}
 			}
 		}
 
 		ret.sort(closest);
 		return ret;
-	}
+	};
 	
 	var isUndef = function(obj){
 		return typeof(obj)=='undefined';
-	}
+	};
 	
 	var agregar = function(ret,name,party,dist){
 		var flame = getFlame(party);
@@ -242,7 +228,7 @@ function EncuentrosService(store) {
 		party.googleMapsUrl = 'https://www.google.com.ar/maps/place/'+getDD2DMS(party.pos.lat, 'lat')+'+'+getDD2DMS(party.pos.long, 'lon');
 		
 		ret.push(party);
-	}
+	};
 
 	
 	var getFlame = function(party){
@@ -285,12 +271,12 @@ function EncuentrosService(store) {
 				}
 			}
 		}
-	}
+	};
 	
 	
 	var closest = function(party1,party2){
 		return (party2.dist - party1.dist);
-	}
+	};
 	
 	var getDistance = function (direccion,party) {
 		if(party.pos){	
@@ -314,12 +300,12 @@ function EncuentrosService(store) {
 			console.log(party);
 		}
 		
-	}
+	};
 	
 	
 	var enRadianes = function(valor){
 		return (Math.PI/180)*valor;
-	}
+	};
 
 	
 	function getDD2DMS(dms, type){
@@ -348,9 +334,9 @@ function EncuentrosService(store) {
 		if(type == 'lon') direction = days<0 ? 'W' : 'E';
 		//else return value     
 		return (days * sign) + 'º' + minutes + "'" + secounds + '"' + direction;
-	}
+	};
 	//alert(getDD2DMS(-8.68388888888889, 'lon'));
  
 }
 
-module.exports = EncuentrosService;
+module.exports = FiestasService;

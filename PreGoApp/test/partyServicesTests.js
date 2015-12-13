@@ -25,6 +25,7 @@ describe('PregoServices', function() {
 
 	it('no hay fiestas al principio', function () {
 	    var servicios = createServicios();
+		
 		assert.equal(0, servicios.fiestas.getAll().length);
     });
 	
@@ -224,32 +225,70 @@ describe('PregoServices', function() {
 	
 	
 	
-	it('se puede obtener fiestas cercanas a sunset', function () {
+	it('se puede obtener fiestas comunes cercanas a sanmiguel y pilar', function () {
 	    var servicios = createServicios();
 		
 		 
 		servicios.fiestas.rellenar();	
 
 		
-		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel
-		servicios.fiestas.rellenar();	
-		var fiestas = servicios.fiestas.getCommonPartysCloseBy(munioz.lat, munioz.long, 30);
-		console.log(fiestas);
-		 
+		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
+		
+		var fiestas = servicios.fiestas.getPartysCloseBy(false, munioz.lat, munioz.long, 31);
+		
+		assert.equal(3, fiestas.length);
+		
+		for(var i=0; i<fiestas.length;i++){
+			assert.equal(true, typeof(fiestas[i].esSugerida)=='undefined' || !fiestas[i].esSugerida);				
+		}
 		
 		
-		assert.equal(4, fiestas.length);
-		
-		
-		var fiestas = servicios.fiestas.getCommonPartysCloseBy(munioz.lat, munioz.long, .1);//achico la tolerancia
+		var fiestas = servicios.fiestas.getPartysCloseBy(false,munioz.lat, munioz.long, .1);//achico la tolerancia
 		assert.equal(0, fiestas.length);
 		
 		var pilar = {lat:-34.4557386,long:-58.9181307};
 		
-		var fiestas = servicios.fiestas.getCommonPartysCloseBy(pilar.lat, pilar.long, 30);//muevo la posicion
+		var fiestas = servicios.fiestas.getPartysCloseBy(false,pilar.lat, pilar.long, 31);//muevo la posicion
+		assert.equal(0, fiestas.length);
+		
+		var fiestas = servicios.fiestas.getPartysCloseBy(false,pilar.lat, pilar.long, 50);//muevo la posicion
+		assert.equal(1, fiestas.length);
+		
+    });
+	
+	
+	it('se puede obtener fiestas destacadas cercanas a sanmiguel y pilar', function () {
+	    var servicios = createServicios();
+		
+		 
+		servicios.fiestas.rellenar();	
+
+		
+		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
+		
+		var fiestas = servicios.fiestas.getPartysCloseBy(true, munioz.lat, munioz.long, 30);
+		//console.log(fiestas);
+		assert.equal(3, fiestas.length);
+		
+		for(var i=0; i<fiestas.length;i++){
+			assert.equal(true, fiestas[i].esSugerida);				
+		}
+		
+		
+		var fiestas = servicios.fiestas.getPartysCloseBy(true,munioz.lat, munioz.long, .1);//achico la tolerancia
+		assert.equal(0, fiestas.length);
+		
+		var pilar = {lat:-34.4557386,long:-58.9181307};
+		
+		var fiestas = servicios.fiestas.getPartysCloseBy(true,pilar.lat, pilar.long, 50);//muevo la posicion
+		assert.equal(3, fiestas.length);
+		 
+		
+		var fiestas = servicios.fiestas.getPartysCloseBy(true,pilar.lat, pilar.long, 30);//muevo la posicion
 		assert.equal(0, fiestas.length);
 		
     });
+	
 	
 	
 	// Cerca de Sunset -34.587581, -58.476997

@@ -339,6 +339,7 @@ var esDeAlgunoDeLosTipos = function(types,partyTypes){
 	return false;
 }
 
+
 app.get('/api/promotedPartys', function (req,res) {
     var ret = [];
     var size = Object.keys(partys).length;
@@ -430,45 +431,26 @@ app.get('/api/commonPartysByDate', function (req,res) {
 })
 
 app.get('/api/commonPartysCloseBy', function (req,res) {
-    var ret = [];
-    var size = Object.keys(partys).length;
-
-    var lat = req.query['lat'];
+	
+	var lat = req.query['lat'];
     var long = req.query['long'];
     var tolerance = req.query['tol'];
-
-    for (name in partys){
-	var party = partys[name];
-    	var dist = getDistance([lat,long],party);
-
-	if((!party.esSugerida)&&(dist < tolerance)){
-		agregar(ret,name,party,dist);
-	}
-    }
-
-    ret.sort(closest);
+	
+	
+	var ret = fiestasService.getPartysCloseBy(false,lat, long, tolerance)
     res.send(ret);
 })
 
 
 app.get('/api/promotedPartysCloseBy', function (req,res) {
-    var ret = [];
-    var size = Object.keys(partys).length;
-
-    var lat = req.query['lat'];
+    
+	
+	var lat = req.query['lat'];
     var long = req.query['long'];
     var tolerance = req.query['tol'];
-
-    for (name in partys){
-	var party = partys[name];
-	var dist = getDistance([lat,long],party);
-
-	if((party.esSugerida)&&(dist < tolerance)){
-		agregar(ret,name,party,dist);
-	}
-    }
-
-    ret.sort(closest);
+	
+	
+	var ret = fiestasService.getPartysCloseBy(true,lat, long, tolerance)
     res.send(ret);
 })
 

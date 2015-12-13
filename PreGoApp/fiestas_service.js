@@ -182,7 +182,7 @@ function FiestasService(store, services) {
 			console.log('nombre' + nombre);
 		}else{
 			id = key;
-			console.log('id:' + id);
+			//console.log('id:' + id);
 		}
 		
 		for(var i=0;i<__store.fiestas.length;i++){

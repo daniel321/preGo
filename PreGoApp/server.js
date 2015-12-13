@@ -232,7 +232,7 @@ app.get('/api/partyDistance/:id', function (req, res) {
     var party = fiestasService.getParty(req.params.id);
     if (party) {
         var pos = [parseFloat(req.query.lat), parseFloat(req.query.long)];
-        console.log(pos);
+        //console.log(pos);
         var distance = fiestasService.getDistance(pos, party);
         res.send("" + distance);
     } else {

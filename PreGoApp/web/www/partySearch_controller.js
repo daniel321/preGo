@@ -216,7 +216,7 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 	}
 	
 	$scope.viewParty = function(nombre, id){
-		$location.path('partyDetail/').search({id: id,nombre:nombre});
+		$location.path('partyDetail/').search({id: id});
 	}
 
 // ---------------------------------------------------------------------------

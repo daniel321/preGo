@@ -3,44 +3,28 @@ function FiestasService(store) {
     if (typeof (__store.fiestas) === 'undefined') {
         __store.fiestas = [];
 		__store.fiesta_last_id = 0;
-    }
+    };
 	
 	this.getAll = function(){
 		return __store.fiestas;
-	}
+	};
 	 
-	 
+	
     this.rellenar = function () {
 		 
 		var partys = {};
-		/*
-		newParty.nombre = 'Una fiesta';
-		newParty.descripcion = 'Re copada';
-		newParty.inicio = moment([2015, 12, 12,23,0,0]).toDate();
-		newParty.fin = moment([2015, 12, 13,6,0,0]).toDate();
-		newParty.types = [ "after","bar"];
-		newParty.generos = [ "after","bar"]; 
-		newParty.direccion: "Calle Paunero 1650, San Miguel, Buenos Aires",
-		newParty.pos = {
-			lat: '-34.5410156', 
-			long: '-58.7140899'
-		};
-
-			esSugerida:true,
-			imagenDeFondo:"/dist/img/clubs/ink.jpg",
-			imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
-			fotos:["otras imagenes"],
-			cantidadDeGente:325,
-			userRates:[10,7,9,9,6],
-			comentarios: [ {autor:"Daniel",comentario:"muy buen lugar!"} , 
-			{autor:"Facundo",comentario:"esto esta que explota!!"} ]
-		*/
+		
 	 	this.addParty({
-			nombre:"Ink",			
+			nombre:"Ink",	
+			esSugerida:true,		
 			types:["Bar","Boliche"],
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Ink",
 			pos:{lat:-34.5865587,long:-58.4395189},
+			
+			cantidadDeGente:325,
+			imagenDeFondo:"/dist/img/clubs/ink.jpg",
+			imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
 
 			inicio: "2015-12-18T09:30:00",
 			fin:    "2015-12-19T04:30:00",
@@ -48,7 +32,7 @@ function FiestasService(store) {
 
 		this.addParty({
 			nombre: "Hiio",
-			esSugerida:false,
+			esSugerida:true,
 			types:["Bar","Boliche"],
 
 			imagenDeFondo:"/dist/img/clubs/Hiio.jpg",
@@ -67,7 +51,7 @@ function FiestasService(store) {
 
 		this.addParty({
 			nombre: "Moscow",
-			esSugerida:false,
+			//esSugerida:false,//es lo mismo
 			types:["Bar","Boliche"],
 
 			imagenDeFondo:"/dist/img/clubs/Moscow.jpg",
@@ -159,9 +143,7 @@ function FiestasService(store) {
 			comentarios: [ {autor:"Nahuel",comentario:"chicas lindas x todos lados !!!"}]
 		});
 
-
-
-	}
+	};
 	
 	this.addParty = function(newParty){
 		
@@ -189,7 +171,7 @@ function FiestasService(store) {
 		newParty.id = ++ __store.fiesta_last_id;
 		__store.fiestas.push(newParty);
 		return {exito:true, id : newParty.id};
-	}
+	};
 	
 	this.getParty = function(key){
 		var nombre=null;
@@ -209,7 +191,167 @@ function FiestasService(store) {
 			}
 		}
 		return null;
+	};
+	
+	this.getPartysByType = function(destacadas, lat, long, types){
+		var ret = []; 
+		for(var i=0;i<__store.fiestas.length;i++){
+			var party = __store.fiestas[i];  			
+			var dist = getDistance([lat,long],party);			 
+			if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
+				if(  esDeAlgunoDeLosTipos(types, party.types)){
+					agregar(ret,party.nombre,party,dist);		
+				}
+			}
+		}
+		ret.sort(biggerAmountOfPeople);
+		return ret;
+	};
+	
+	
+	this.getPartysCloseBy = function(destacadas, lat, long, tol){
+		
+		var ret = []; 
+
+		for(var i=0;i<__store.fiestas.length;i++){
+			var party = __store.fiestas[i];  
+			var dist = getDistance([lat,long],party);
+			if((dist < tol)){
+				if(!destacadas){
+					//console.log('>Sugerida:' + party.esSugerida);
+					//console.log(party);
+				}
+				if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
+					agregar(ret,party.nombre,party,dist);		
+				}
+				
+			}
+		}
+
+		ret.sort(closest);
+		return ret;
+	};
+	
+	
+	this.getPartysByDate = function(destacadas, lat, long, desde, hasta){
+		
+		var ret = []; 
+
+		for(var i=0;i<__store.fiestas.length;i++){
+			var party = __store.fiestas[i];  
+			
+			var dist = getDistance([lat,long],party);
+			
+			if(!destacadas){
+				//console.log('>Sugerida:' + party.esSugerida);
+				//console.log(party);
+			}
+			if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
+				if( (isUndef(desde) && isUndef(hasta)) || comesBetween(party,desde,hasta)){
+					agregar(ret,party.nombre,party,dist);		
+				}
+			}
+		}
+		ret.sort(biggerAmountOfPeople);
+		return ret;
+	};
+	
+	var isUndef = function(obj){
+		return typeof(obj)=='undefined';
+	};
+	
+	var agregar = function(ret,name,party,dist){
+		var flame = getFlame(party);
+
+		party.nombre = name;
+		party.flama = flame;
+		party.dist = dist;
+		party.googleMapsUrl = 'https://www.google.com.ar/maps/place/'+getDD2DMS(party.pos.lat, 'lat')+'+'+getDD2DMS(party.pos.long, 'lon');
+		
+		ret.push(party);
+	};
+
+	var biggerAmountOfPeople = function(party1,party2){ //pasada
+		return (party2.cantidadDeGente - party1.cantidadDeGente);
 	}
+
+	
+	var getFlame = function(party){
+		var rates = party.userRates;
+		var people = party.cantidadDeGente;
+		
+		if(isUndef(rates)){
+			rates = [];
+		}
+		
+		if(isUndef(people)){
+			people = [];
+		}
+
+		var count = 0;
+
+		for (var i=0;i<rates.length;i++)
+			count += rates[i];
+
+		var avg = count/rates.length;
+
+		if((people > 1000)&&(avg > 9)){
+			return "/dist/img/icons/fire/fireIconPurple.png";
+		}else{
+			if((people > 500)&&(avg > 8)){
+				return "/dist/img/icons/fire/fireIconBlue.png";
+			}else{
+				if((people > 400)&&(avg > 7)){
+					return "/dist/img/icons/fire/fireIconRed.png";
+				}else{
+					if((people > 300)&&(avg > 6)){
+						return "/dist/img/icons/fire/fireIconOrange.png";
+					}else{
+						if((people > 200)&&(avg > 5)){
+							return "/dist/img/icons/fire/fireIconYellow.png";
+						}else{
+							return "/dist/img/icons/fire/fireIconWhite.png";
+						}
+					}	
+				}
+			}
+		}
+	};
+	
+	
+	var closest = function(party1,party2){
+		return (party2.dist - party1.dist);
+	};
+	
+	var getDistance = function (direccion,party) {
+		if(party.pos){	
+			var lat = party.pos.lat;
+			var long = party.pos.long;
+
+			var lat2 = direccion[0];
+			var long2 = direccion[1];
+
+			var dlat = enRadianes(lat2-lat);
+			var dlong = enRadianes(long2-long);
+
+			var a = Math.pow( Math.sin( dlat/2 ), 2) + Math.cos(enRadianes(lat)) * Math.cos(enRadianes(lat2)) * Math.pow( Math.sin( dlong/2 ), 2);
+
+			var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));		
+			
+			var RadioTierra = 6378.0;
+			return Math.round(RadioTierra*c);	
+		}else{
+			console.log('Party sin pos:');
+			console.log(party);
+		}
+		
+	};
+	
+	
+	var enRadianes = function(valor){
+		return (Math.PI/180)*valor;
+	};
+
 	
 	function getDD2DMS(dms, type){
 
@@ -237,8 +379,37 @@ function FiestasService(store) {
 		if(type == 'lon') direction = days<0 ? 'W' : 'E';
 		//else return value     
 		return (days * sign) + 'º' + minutes + "'" + secounds + '"' + direction;
-	}
+	};
 	//alert(getDD2DMS(-8.68388888888889, 'lon'));
+	
+	
+	var comesBetween = function(party,start,end){
+
+		var rangeStart = new Date(start.split(".")[0]);
+		var rangeEnd = new Date(end.split(".")[0]);
+
+		var partyStart = new Date(party.inicio.split(".")[0]);
+		var partyEnd = new Date(party.fin.split(".")[0]);
+
+		var res = ( ((partyStart > rangeStart)&&(partyStart < rangeEnd)) || ((rangeStart > partyStart)&&(rangeStart < partyEnd)) ); 
+		return res;
+	}
+	
+	var esDeAlgunoDeLosTipos = function(types,partyTypes){ //pasada
+
+		for(t1 in types){
+			var type1 = types[t1];
+
+			for(t2 in partyTypes){
+				var type2 = partyTypes[t2];
+				if(type1 == type2){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
  
 }
 

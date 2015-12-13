@@ -1,5 +1,6 @@
-function FiestasService(store) {
+function FiestasService(store, services) {
     var __store = store;
+	var services = services;
     if (typeof (__store.fiestas) === 'undefined') {
         __store.fiestas = [];
 		__store.fiesta_last_id = 0;
@@ -10,14 +11,85 @@ function FiestasService(store) {
 	};
 	 
 	
+	this.rellenarDemo = function () {
+		var participantes_fill = [
+			"nahuel@prego.com",
+			"china@prego.com",
+			"daniel@prego.com",
+			"facundo@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"damian@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"nahuel@prego.com",
+			"ursula@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"damian@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"damian@prego.com",
+			"malena@prego.com",
+			"facundo@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"nahuel@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"china@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
+			"guido@prego.com",
+			"damian@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com"
+		];
+		
+		
+		var f=0;
+		for(var i=0; i<participantes_fill.length; i++){
+			if(f>=__store.fiestas.length){
+				f=0;
+			}
+			//console.log(__store.fiestas[f]);
+			this.participar(__store.fiestas[f].id,participantes_fill[i]);
+			f++;
+		}
+		
+		
+	}
+	
     this.rellenar = function () {
 		 
 		var partys = {};
-		
+
 	 	this.addParty({
 			nombre:"Ink",	
 			esSugerida:true,		
-			types:["Bar","Boliche"],
+			types:["bar","disco"],
+			musicGenres:["tropical","dance","pop"],
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Ink",
 			pos:{lat:-34.5865587,long:-58.4395189},
@@ -29,12 +101,12 @@ function FiestasService(store) {
 			inicio: "2015-12-18T09:30:00",
 			fin:    "2015-12-19T04:30:00",
 		});
-
+		
 		this.addParty({
 			nombre: "Hiio",
 			esSugerida:true,
-			types:["Bar","Boliche"],
-
+			types:["bar","disco"],
+			musicGenres:["dance"],
 			imagenDeFondo:"/dist/img/clubs/Hiio.jpg",
 			imagenBanner:"/dist/img/clubs/Hiio_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -52,8 +124,8 @@ function FiestasService(store) {
 		this.addParty({
 			nombre: "Moscow",
 			//esSugerida:false,//es lo mismo
-			types:["Bar","Boliche"],
-
+			types:["bar","disco"],
+			musicGenres:["tropical","reggae"],
 			imagenDeFondo:"/dist/img/clubs/Moscow.jpg",
 			imagenBanner:"/dist/img/clubs/Moscow_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -71,7 +143,8 @@ function FiestasService(store) {
 		this.addParty({
 			nombre:"Bosque",
 			esSugerida:false,
-			types:["Bar","Boliche"],
+			types:["bar","disco"],
+			musicGenres:["tropical","dance","pop","rock"],
 			imagenDeFondo:"/dist/img/clubs/bosque.jpg",
 			imagenBanner:"/dist/img/clubs/bosque_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -89,7 +162,8 @@ function FiestasService(store) {
 		this.addParty({
 			nombre: "Sunset",
 			esSugerida:true,
-			types:["Bar","Boliche"],
+			types:["bar","disco"],
+			musicGenres:["dance","other"],
 			imagenDeFondo:"/dist/img/clubs/sunset.jpg",
 			imagenBanner:"/dist/img/clubs/sunset_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -109,7 +183,8 @@ function FiestasService(store) {
 		this.addParty({
 			nombre: "BsAsEnFoco",
 			esSugerida:false,
-			types:["After office","Bar","Boliche"],
+			types:["after","bar","disco"],
+			musicGenres:["tropical"],
 			imagenDeFondo:"/dist/img/clubs/Buenos-Aires-En-Foco.jpg",
 			imagenBanner:"/dist/img/clubs/Buenos-Aires-En-Foco_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -128,7 +203,8 @@ function FiestasService(store) {
 		this.addParty({
 			nombre: "PoolParty",
 			esSugerida:false,
-			types:["Privada","Otro"],
+			types:["private","other"],
+			musicGenres:["tropical","dance","pop"],
 			imagenDeFondo:"/dist/img/clubs/Pool-Party.jpg",
 			imagenBanner:"/dist/img/clubs/Pool-Party_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -173,7 +249,7 @@ function FiestasService(store) {
 		return {exito:true, id : newParty.id};
 	};
 	
-	this.getParty = function(key){
+	this.getParty = function(key, usuarioConsulta){
 		var nombre=null;
 		var id=null;
 		if(isNaN(key)){
@@ -181,23 +257,74 @@ function FiestasService(store) {
 			console.log('nombre' + nombre);
 		}else{
 			id = key;
-			console.log('id:' + id);
+			//console.log('id:' + id);
 		}
 		
+		var fiesta=null;
+		var res = null;
 		for(var i=0;i<__store.fiestas.length;i++){
 			var item = __store.fiestas[i];
 			if( (nombre!=null && item.nombre == nombre) || (id!=null && item.id==id)){
-				return __store.fiestas[i];		
+				fiesta = __store.fiestas[i];
+				res = copyParty(fiesta);
+				break;
 			}
 		}
-		return null;
+		if(!isUndef(usuarioConsulta) && fiesta!=null){
+			for(var i=0;i<fiesta.participantes.length;i++){
+				var item = fiesta.participantes[i];
+				if( item.email == usuarioConsulta ){
+					res.soyAsistente = true;
+					break;
+				}
+			}	
+		}
+		return res;
 	};
+	
+	var copyParty = function(party){
+		var copy = {};
+		
+		party.userRates = asegurarArray(party.userRates);
+		party.types = asegurarArray(party.types);
+		party.musicGenres = asegurarArray(party.musicGenres);		
+		party.fotos = asegurarArray(party.fotos);
+		party.userRates = asegurarArray(party.userRates);
+		party.comentarios = asegurarArray(party.comentarios);
+		
+		copy.id=party.id;
+		copy.nombre=party.nombre;
+		copy.esSugerida=party.esSugerida;
+		copy.types=party.types.slice();
+		copy.musicGenres=party.musicGenres.slice();		
+		copy.imagenDeFondo=party.imagenDeFondo;
+		copy.imagenBanner=party.imagenBanner;
+		copy.fotos = party.fotos.slice();
+		copy.descripcion=party.descripcion;
+		copy.pos = party.pos;
+		copy.inicio=party.inicio;
+		copy.fin=party.fin;
+		copy.cantidadDeGente=party.cantidadDeGente;
+		copy.userRates=party.userRates.slice();
+		copy.comentarios=party.comentarios.slice();
+		
+		party.participantes = asegurarArray(party.participantes);
+		copy.participantes = [];
+		for(var i=0;i<party.participantes.length;i++){
+			var participante = party.participantes[i];  			
+			copy.participantes.push(participante.avatar_url);
+		}
+		
+		copy.soyAsistente = false;
+		
+		return copy;
+	}
 	
 	this.getPartysByType = function(destacadas, lat, long, types){
 		var ret = []; 
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  			
-			var dist = getDistance([lat,long],party);			 
+			var dist = this.getDistance([lat,long],party);			 
 			if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
 				if(  esDeAlgunoDeLosTipos(types, party.types)){
 					agregar(ret,party.nombre,party,dist);		
@@ -215,7 +342,7 @@ function FiestasService(store) {
 
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  
-			var dist = getDistance([lat,long],party);
+			var dist = this.getDistance([lat,long],party);
 			if((dist < tol)){
 				if(!destacadas){
 					//console.log('>Sugerida:' + party.esSugerida);
@@ -240,7 +367,7 @@ function FiestasService(store) {
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  
 			
-			var dist = getDistance([lat,long],party);
+			var dist = this.getDistance([lat,long],party);
 			
 			if(!destacadas){
 				//console.log('>Sugerida:' + party.esSugerida);
@@ -255,6 +382,46 @@ function FiestasService(store) {
 		ret.sort(biggerAmountOfPeople);
 		return ret;
 	};
+	
+	this.participar = function(fiestaId, emailUsuario){
+		var party = __getParty(fiestaId);
+		if(party){
+			var usuario = __store.__getUsuarioByEmail(emailUsuario);
+			if(usuario){
+				party.participantes = asegurarArray(party.participantes);
+				for(var i=0;i<party.participantes.length;i++){
+					if(party.participantes[i].email==usuario.email){
+						return {exito:false, error:'Intentando participar dos veces'};
+					}
+				}
+				party.participantes.push(usuario);
+				return {exito:true};
+			}else{
+				return {exito:false};	
+			}			
+		}else{
+			return {exito:false};
+		}
+	}
+	
+	var __getParty = function(id){
+		for(var i=0;i<__store.fiestas.length;i++){
+			var item = __store.fiestas[i];
+			if( (id!=null && item.id == id)){
+				return __store.fiestas[i];		
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	var asegurarArray = function(arr){
+		if(isUndef(arr) || arr==null){
+			return [];	
+		}
+		return arr;
+	}
 	
 	var isUndef = function(obj){
 		return typeof(obj)=='undefined';
@@ -323,7 +490,7 @@ function FiestasService(store) {
 		return (party2.dist - party1.dist);
 	};
 	
-	var getDistance = function (direccion,party) {
+	this.getDistance = function (direccion,party) {
 		if(party.pos){	
 			var lat = party.pos.lat;
 			var long = party.pos.long;
@@ -396,7 +563,7 @@ function FiestasService(store) {
 	}
 	
 	var esDeAlgunoDeLosTipos = function(types,partyTypes){ //pasada
-
+		
 		for(t1 in types){
 			var type1 = types[t1];
 

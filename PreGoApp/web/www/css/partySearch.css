@@ -77,6 +77,13 @@
 		min-height:1000px;		
 	}
 
+	#partyName{
+		margin-left:10px;
+
+		text-align: left;
+		float: left;
+	}
+
 	#partyStuff{
 		max-height:100px;		
 		max-width:200px;		

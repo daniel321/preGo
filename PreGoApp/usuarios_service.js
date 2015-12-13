@@ -1,7 +1,24 @@
 function UsuariosService(store) {
     var __store = store;
+	
+	this.rellenarDemo = function () {
+		
+	}
+	
+    var __getUsuarioByEmail = function (email) {
+		var arr = __store.usuarios;
+		for (var i = 0; i < arr.length; i++) {
+			if (arr[i].email == email) {
+				return arr[i];
+			}
+		}
+		return null;
+    }
+
+	
     if (typeof (__store.usuarios) === 'undefined') {
         __store.usuarios = [];
+		__store.__getUsuarioByEmail = __getUsuarioByEmail;
     }
 
 	this.agregarUsuario = function (email, pass, nickname, avatar_url, sexo) {
@@ -33,16 +50,6 @@ function UsuariosService(store) {
 			return user.pass == pass;
 		}
 		return false;
-    }
-
-    var __getUsuarioByEmail = function (email) {
-		var arr = __store.usuarios;
-		for (var i = 0; i < arr.length; i++) {
-			if (arr[i].email == email) {
-				return arr[i];
-			}
-		}
-		return null;
     }
 
     var __getUsuarioByName = function (name) {
@@ -107,7 +114,7 @@ function UsuariosService(store) {
 					sexo: 'M',
 				},
 				{
-					avatar_url: '/dist/img/user7-128x128.jpg',
+					avatar_url: '/dist/img/avatar5.png',
 					nickname: 'Ezequiel',
 					email: "ezequiel@prego.com",
 					pass: "asd",

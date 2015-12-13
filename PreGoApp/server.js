@@ -7,6 +7,8 @@ var app = express()
 var PregoServices = require('./prego_services.js');
 var pregoServices = new PregoServices();
 pregoServices.rellenar();
+pregoServices.rellenarDemo();
+
 var usuariosService = pregoServices.getUsuariosService();
 var encuentrosService = pregoServices.getEncuentrosService();
 var serviciosService = pregoServices.getServiciosService();
@@ -194,7 +196,7 @@ app.post('/api/party', function (req, res) {
 	newParty.inicio = req.body.from;
 	newParty.fin = req.body.to;
 	newParty.types = req.body.types;
-	newParty.generos = req.body.musicGenres;
+	newParty.musicGenres = req.body.musicGenres;
 	newParty.direccion = req.body.location.name;
 	newParty.pos = {
 					lat: req.body.location.lat, 
@@ -208,14 +210,37 @@ app.post('/api/party', function (req, res) {
     
 });
 
+
+app.put('/api/partyParticipation', function (req, res) {
+	if(req.body.partyId && req.cookies.email){
+		var partyParticipationResult = fiestasService.participar(req.body.partyId,req.cookies.email);
+		res.send(partyParticipationResult);    	
+	}else{
+		res.send({exito:false, error:'problema con los parametros o desconexion'});
+	}
+	
+});
+
 app.get('/api/party/:id', function (req, res) {
-	var resultado = fiestasService.getParty(req.params.id);
+	var resultado = fiestasService.getParty(req.params.id, req.cookies.email);
 	if(resultado){
 		res.send(resultado);	
 	}else{
 		res.send({nombre:'No se encontró'});	
 	}
-    
+})
+
+app.get('/api/partyDistance/:id', function (req, res) {
+    var party = fiestasService.getParty(req.params.id);
+    if (party) {
+        var pos = [parseFloat(req.query.lat), parseFloat(req.query.long)];
+        //console.log(pos);
+        var distance = fiestasService.getDistance(pos, party);
+        res.send("" + distance);
+    } else {
+        res.send({ nombre: 'No se encontró' });
+    }
+
 })
 
 

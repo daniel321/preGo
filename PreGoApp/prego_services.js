@@ -1,7 +1,7 @@
 UsuariosService = require('./usuarios_service.js');
 EncuentrosService = require('./encuentros_service.js');
 ServiciosService = require('./servicios_service.js');
-ServiciosService = require('./fiestas_service.js');
+FiestasService = require('./fiestas_service.js');
 
 function PregoServices() {
     var __store = {};

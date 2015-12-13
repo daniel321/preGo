@@ -194,7 +194,7 @@ app.post('/api/party', function (req, res) {
 	newParty.inicio = req.body.from;
 	newParty.fin = req.body.to;
 	newParty.types = req.body.types;
-	newParty.generos = req.body.musicGenres;
+	newParty.musicGenres = req.body.musicGenres;
 	newParty.direccion = req.body.location.name;
 	newParty.pos = {
 					lat: req.body.location.lat, 

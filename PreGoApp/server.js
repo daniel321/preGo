@@ -228,7 +228,7 @@ partys["PoolParty"] = {
 		};
 
 
-var getFlame = function(party){
+var getFlame = function(party){ //pasada
 	var rates = party.userRates;
 	var people = party.cantidadDeGente;
 
@@ -266,7 +266,7 @@ var biggerAmountOfPeople = function(party1,party2){
 	return (party2.cantidadDeGente - party1.cantidadDeGente);
 }
 
-var closest = function(party1,party2){
+var closest = function(party1,party2){ //pasada
 	return (party2.dist - party1.dist);
 }
 
@@ -286,7 +286,7 @@ var comesBetween = function(party,start,end){
 	return res;
 }
 
-var agregar = function(ret,name,party,dist){
+var agregar = function(ret,name,party,dist){ //pasada
 	var flame = getFlame(party);
 
 	party.nombre = name;
@@ -296,11 +296,11 @@ var agregar = function(ret,name,party,dist){
 	ret.push(party);
 }
 
-var enRadianes = function(valor){
+var enRadianes = function(valor){//pasada
 	return (Math.PI/180)*valor;
 }
 
-var getDistance = function (direccion,party) {
+var getDistance = function (direccion,party) { //pasada
 	if(party.pos){	
 		var lat = party.pos.lat;
 		var long = party.pos.long;

@@ -211,6 +211,117 @@ function EncuentrosService(store) {
 		return null;
 	}
 	
+	
+	this.getCommonPartysCloseBy = function(lat, long, tol){
+		
+		var ret = []; 
+
+		for(var i=0;i<__store.fiestas.length;i++){
+			var party = __store.fiestas[i];  
+			var dist = getDistance([lat,long],party);
+
+			if( (isUndef(party.esSugerida) || !party.esSugerida) && (dist < tol)){
+				agregar(ret,party.nombre,party,dist);
+			}
+		}
+
+		ret.sort(closest);
+		return ret;
+	}
+	
+	var isUndef = function(obj){
+		return typeof(obj)=='undefined';
+	}
+	
+	var agregar = function(ret,name,party,dist){
+		var flame = getFlame(party);
+
+		party.nombre = name;
+		party.flama = flame;
+		party.dist = dist;
+		party.googleMapsUrl = 'https://www.google.com.ar/maps/place/'+getDD2DMS(party.pos.lat, 'lat')+'+'+getDD2DMS(party.pos.long, 'lon');
+		
+		ret.push(party);
+	}
+
+	
+	var getFlame = function(party){
+		var rates = party.userRates;
+		var people = party.cantidadDeGente;
+		
+		if(isUndef(rates)){
+			rates = [];
+		}
+		
+		if(isUndef(people)){
+			people = [];
+		}
+
+		var count = 0;
+
+		for (var i=0;i<rates.length;i++)
+			count += rates[i];
+
+		var avg = count/rates.length;
+
+		if((people > 1000)&&(avg > 9)){
+			return "/dist/img/icons/fire/fireIconPurple.png";
+		}else{
+			if((people > 500)&&(avg > 8)){
+				return "/dist/img/icons/fire/fireIconBlue.png";
+			}else{
+				if((people > 400)&&(avg > 7)){
+					return "/dist/img/icons/fire/fireIconRed.png";
+				}else{
+					if((people > 300)&&(avg > 6)){
+						return "/dist/img/icons/fire/fireIconOrange.png";
+					}else{
+						if((people > 200)&&(avg > 5)){
+							return "/dist/img/icons/fire/fireIconYellow.png";
+						}else{
+							return "/dist/img/icons/fire/fireIconWhite.png";
+						}
+					}	
+				}
+			}
+		}
+	}
+	
+	
+	var closest = function(party1,party2){
+		return (party2.dist - party1.dist);
+	}
+	
+	var getDistance = function (direccion,party) {
+		if(party.pos){	
+			var lat = party.pos.lat;
+			var long = party.pos.long;
+
+			var lat2 = direccion[0];
+			var long2 = direccion[1];
+
+			var dlat = enRadianes(lat2-lat);
+			var dlong = enRadianes(long2-long);
+
+			var a = Math.pow( Math.sin( dlat/2 ), 2) + Math.cos(enRadianes(lat)) * Math.cos(enRadianes(lat2)) * Math.pow( Math.sin( dlong/2 ), 2);
+
+			var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));		
+			
+			var RadioTierra = 6378.0;
+			return Math.round(RadioTierra*c);	
+		}else{
+			console.log('Party sin pos:');
+			console.log(party);
+		}
+		
+	}
+	
+	
+	var enRadianes = function(valor){
+		return (Math.PI/180)*valor;
+	}
+
+	
 	function getDD2DMS(dms, type){
 
 		var sign = 1, Abs=0;

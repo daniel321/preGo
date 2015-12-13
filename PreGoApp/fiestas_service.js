@@ -1,4 +1,4 @@
-function EncuentrosService(store) {
+function FiestasService(store) {
     var __store = store;
     if (typeof (__store.fiestas) === 'undefined') {
         __store.fiestas = [];
@@ -242,4 +242,4 @@ function EncuentrosService(store) {
  
 }
 
-module.exports = EncuentrosService;
+module.exports = FiestasService;

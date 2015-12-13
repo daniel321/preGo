@@ -11,7 +11,7 @@ app.directive('preGoSelector', function(){
 		    $scope.selectItem = function (item) {
 		        if ($scope.readOnly != "true") {
 		            item.selected = !item.selected;
-		            updateSelectedItems();
+		            $scope.updateSelectedItems();
 		        }
 		    }
 

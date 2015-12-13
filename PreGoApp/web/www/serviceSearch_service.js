@@ -3,24 +3,16 @@ app.factory('PartyServicesService', function($http, $q) {
 		getPublishedServices : function() {
 			return simpleHttpGet($http, '/api/services', $q.reject);
 		},
-		
-		getServiceGenres: function () {
+
+		getServiceGenres : function() {
 			return $http({
-				url: '/api/serviceGenres',
-				method: 'GET'
+				url : '/api/serviceGenres',
+				method : 'GET'
 			});
-	    }
-	
-//		sendService: function (name, description, price, detail) {
-//	        return $http.post(
-//	            '/api/services',
-//	            { 
-//	            	name: name,
-//	            	description: description,
-//	            	price: price,
-//	            	detail: detail
-//	            }
-//	        );
-//	    }
+		},
+
+		getSearchedServices : function(types) {
+			return simpleHttpGet($http, '/api/serviceSearch?types=' + types, $q.reject);
+		}
 	}
 });

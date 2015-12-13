@@ -27,20 +27,9 @@ app.directive('showErrors', function() {
 
 app.controller('ServiceSearchController', function($scope, $routeParams,
 		PartyServicesService) {
-	$scope.publishedAmnt = [];
-	
 	$scope.serviceGenres = [];
 	$scope.selectedServiceGenres = [];
-	
-	$scope.publishedDJ = function() {
-		return PartyServicesService.getPublishedServices();
-	}
-	
-
-	
-	PartyServicesService.getPublishedServices().then(function (res) {
-        angular.copy(res, $scope.publishedAmnt);
-    });
+	$scope.searchedServices = [];
 	
 	PartyServicesService.getServiceGenres()
 	.then(function(response){
@@ -48,7 +37,23 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	})
 	.catch(function(error){
 		console.log(error);
-	});	
+	});
+	
+	$scope.publishedDJ = function() {
+		return PartyServicesService.getPublishedServices();
+	}	
+	
+	$scope.search = function() {
+		PartyServicesService.getSearchedServices('dj')
+		.then(function(response){
+			console.log(response);
+			$scope.searchedServices = response;
+		});
+	}
+	
+	$scope.showService = function() {
+		alert("Acá te muestro el detalle del servicio");
+	};
 	
 	$scope.save = function() {
 		$scope.showErrorsCheckValidity = true;
@@ -60,6 +65,7 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 			alert("Complete los campos faltantes.");
 		}
 	};
+	
 	$scope.reset = function() {
 		$scope.service = {
 			name : '',

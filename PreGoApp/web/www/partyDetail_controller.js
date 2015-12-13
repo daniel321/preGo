@@ -106,8 +106,8 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
             if ($scope.party.types) {
                 $scope.selectedItems = getTypes($scope.party.types, $scope.partyTypes);
             }
-            if ($scope.party.generos) {
-                $scope.selectedMusicGenres = getTypes($scope.party.generos, $scope.musicGenres);
+            if ($scope.party.musicGenres) {
+                $scope.selectedMusicGenres = getTypes($scope.party.musicGenres, $scope.musicGenres);
             }
             $scope.cuando = calcularCuando($scope.party.inicio);
 

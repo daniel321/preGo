@@ -199,6 +199,7 @@ function FiestasService(store, services) {
 		
 		party.userRates = asegurarArray(party.userRates);
 		party.types = asegurarArray(party.types);
+		party.musicGenres = asegurarArray(party.musicGenres);		
 		party.fotos = asegurarArray(party.fotos);
 		party.userRates = asegurarArray(party.userRates);
 		party.comentarios = asegurarArray(party.comentarios);
@@ -207,6 +208,7 @@ function FiestasService(store, services) {
 		copy.nombre=party.nombre;
 		copy.esSugerida=party.esSugerida;
 		copy.types=party.types.slice();
+		copy.musicGenres=party.musicGenres.slice();		
 		copy.imagenDeFondo=party.imagenDeFondo;
 		copy.imagenBanner=party.imagenBanner;
 		copy.fotos = party.fotos.slice();

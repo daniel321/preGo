@@ -4,9 +4,17 @@ app.directive('preGoSelector', function(){
 		restrict:'E',
 		scope:{			
 		    availableItems : '=',
-		    selectedItems : '='
+		    selectedItems: '=',
+            readOnly: '@'
 		},	
-		controller: ['$scope', function($scope) {			
+		controller: ['$scope', function ($scope) {
+		    $scope.selectItem = function (item) {
+		        if ($scope.readOnly != "true") {
+		            item.selected = !item.selected;
+		            updateSelectedItems();
+		        }
+		    }
+
 			$scope.updateSelectedItems = function(){
 				$scope.selectedItems=[];
 				for(var i=0;i<$scope.availableItems.length;i++){

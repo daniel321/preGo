@@ -90,11 +90,19 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 		var start = $scope.datePicker.date.startDate;
 		var end = $scope.datePicker.date.endDate;
 
-		partySearchService.getCommonPartysByDate($scope.position[0],$scope.position[1],start.toISOString(),end.toISOString()).then(function (res) {
+		if((start == null)||(end == null)){
+			start = "1800-12-18T09:30:00";
+			end = "1800-12-18T09:30:00";
+		}else{
+			start = start.toISOString();
+			end = end.toISOString();
+		}
+
+		partySearchService.getCommonPartysByDate($scope.position[0],$scope.position[1],start,end).then(function (res) {
         		angular.copy(res, $scope.common_partys);
     		});
 
-		partySearchService.getPromotedPartysByDate($scope.position[0],$scope.position[1],start.toISOString(),end.toISOString()).then(function (res) {
+		partySearchService.getPromotedPartysByDate($scope.position[0],$scope.position[1],start,end).then(function (res) {
         		angular.copy(res, $scope.promoted_partys);
     		});
 	}
@@ -222,6 +230,22 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 // ---------------------------------------------------------------------------
 	reset();
 	getPos();
+
+
+    	var f = function(){
+		getPos();
+		var tolerance = 10;
+
+		partySearchService.getCommonPartysCloseBy($scope.position[0],$scope.position[1],tolerance).then(function (res) {
+        		angular.copy(res, $scope.common_partys);
+    		});
+
+		partySearchService.getPromotedPartysCloseBy($scope.position[0],$scope.position[1],tolerance).then(function (res) {
+        		angular.copy(res, $scope.promoted_partys);
+    		});
+	}	
+
+	setTimeout(f,1000);
 });
 
 

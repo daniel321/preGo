@@ -21,9 +21,6 @@ app.controller('ChatController', function ($scope, $location, ChatService) {
     var f = function(){
 		ChatService.getChat($scope.email).then(
 			function (res) {
-				console.log(res.length);
-				console.log($scope.messages.length);
-
 				if(res.length > $scope.messages.length)
 					angular.copy(res, $scope.messages);
     			});

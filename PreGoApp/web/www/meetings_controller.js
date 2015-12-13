@@ -43,6 +43,7 @@ app.controller('meetingsController', function ($scope, $http,$location,$uibModal
 					$scope.suggestNext();
 				}else{
 					console.log(res.data.error);
+					$scope.suggestNext();
 				}				
 			},
 			function(res){

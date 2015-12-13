@@ -1,5 +1,6 @@
-app.controller('ChatController', function ($scope, $routeParams, ChatService) {
-    $scope.email = $routeParams.email;
+app.controller('ChatController', function ($scope, $location, ChatService) {
+    $scope.email = $location.search().email;
+	$scope.contactNickname = $location.search().contactNickname;
     
     $scope.messages = [];
 

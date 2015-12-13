@@ -1,4 +1,4 @@
-app.controller('chatListController', function ($scope, $routeParams, chatListService) {
+app.controller('chatListController', function ($scope, $location, chatListService) {
 	$scope.matches = [];
 
 	chatListService.getMatches().then(function (res) {
@@ -6,6 +6,10 @@ app.controller('chatListController', function ($scope, $routeParams, chatListSer
 	       		angular.copy(res.data, $scope.matches);
 		}	
    	});
+	
+	$scope.chatWith = function(match){
+		$location.path('chat/').search({email: match.email ,contactNickname: match.nickname});		
+	}
 });
 
 

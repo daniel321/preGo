@@ -19,7 +19,7 @@ app.controller('meetingsController', function ($scope, $http,$location, Meetings
 				if(res.data.exito){
 					if(res.data.match){
 						if(confirm('Vos y ' + $scope.suggest.nickname + ' se eligieron mutuamente, ¿ Querés comenzar a hablar ahora?')){
-							$location.path('chat/' + $scope.suggest.email);
+							$location.path('chat/').search({email: $scope.suggest.email,contactNickname: $scope.suggest.nickname});
 						} 
 					}
 					$scope.suggestNext();

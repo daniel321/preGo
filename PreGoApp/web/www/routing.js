@@ -9,7 +9,7 @@ app.config(['$routeProvider',
             templateUrl: 'www/home.partial.html',
             controller: 'HomeController'
         }).
-        when('/chat/:email', {
+        when('/chat', {
             templateUrl: 'www/chat.partial.html',
             controller: 'ChatController'
         }).

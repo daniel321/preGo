@@ -101,7 +101,7 @@
 
 			<div ng-repeat="pty in promoted_partys">
 				<div class="box box-warning" style="background: linear-gradient(to bottom, white, #FFE4C4);">
-					<a href = "#/partyDetail/{{pty.nombre}}" id="link">
+					<a ng-click = "viewParty(pty.nombre, pty.id)" id="link">
 						<div class="row">
 							<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
 								<div class="container" style="vertical-align: middle; display: table-cell;">
@@ -142,7 +142,7 @@
 
 			<div class="row">
 				<div class="col-lg-12" ng-repeat="pty in common_partys">
-					<a href = "#/partyDetail/{{pty.nombre}}" id="link">
+					<a ng-click=  "viewParty(pty.nombre, pty.id)" id="link">
 						<div class="col-lg-6"j>
 							<div class="box" style="background: linear-gradient(to bottom, white, silver);">
 								<div class="row">

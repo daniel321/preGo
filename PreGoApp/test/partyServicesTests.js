@@ -214,6 +214,43 @@ describe('PregoServices', function() {
     });
 	
 	
+	/*it('se puede obtener fiestas cercanas a sunset', function () {
+	    var servicios = createServicios();
+		
+		var newParty = {};
+	
+		newParty.nombre = 'Una fiesta';
+		newParty.descripcion = 'Re copada';
+		newParty.inicio = "2015-12-13T23:00:00";
+		newParty.fin = "2015-12-13T23:00:00";
+		newParty.types = [ "after","bar"];
+		newParty.generos = [ "after","bar"]; 
+		newParty.generos = [ "ochentoso","dance"];
+		newParty.direccion= "Calle Paunero 1650, San Miguel, Buenos Aires";
+		newParty.pos = {			
+			lat: 'a', 
+			long: ''
+		};
+
+		assert.equal(0, servicios.fiestas.getAll().length);
+		var res = servicios.fiestas.addParty(newParty);
+		
+		assert.equal(true, res.exito);
+		assert.equal(1, servicios.fiestas.getAll().length);
+    });
+	*/
+	
+	it('se puede obtener fiestas por nombre', function () {
+	    var servicios = createServicios();
+		servicios.fiestas.rellenar();	
+		
+		assert.equal("descripcion bosque",servicios.fiestas.getParty('Bosque').descripcion);
+    });
+	
+	
+	// Cerca de Sunset -34.587581, -58.476997
+	//        pos:{lat:-34.5876237,long:-58.4660913},
+	
 	
     
 	 

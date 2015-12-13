@@ -183,7 +183,7 @@ function EncuentrosService(store) {
 		}
 		if(newParty.pos){
 			//console.log(getDD2DMS(newParty.pos.lat, 'lat'));
-			console.log(newParty.nombre + '\nhttps://www.google.com.ar/maps/place/'+getDD2DMS(newParty.pos.lat, 'lat')+'+'+getDD2DMS(newParty.pos.long, 'lon'));	
+			//console.log(newParty.nombre + '\nhttps://www.google.com.ar/maps/place/'+getDD2DMS(newParty.pos.lat, 'lat')+'+'+getDD2DMS(newParty.pos.long, 'lon'));	
 		}
 		
 		newParty.id = ++ __store.fiesta_last_id;
@@ -191,10 +191,20 @@ function EncuentrosService(store) {
 		return {exito:true, id : newParty.id};
 	}
 	
-	this.getParty = function(id){
+	this.getParty = function(key){
+		var nombre=null;
+		var id=null;
+		if(isNaN(key)){
+			nombre = key;
+			console.log('nombre' + nombre);
+		}else{
+			id = key;
+			console.log('id:' + id);
+		}
+		
 		for(var i=0;i<__store.fiestas.length;i++){
 			var item = __store.fiestas[i];
-			if(item.id==id){
+			if( (nombre!=null && item.nombre == nombre) || (id!=null && item.id==id)){
 				return __store.fiestas[i];		
 			}
 		}

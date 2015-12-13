@@ -1,4 +1,4 @@
-app.controller('partySearchController', function ($scope, $routeParams, partySearchService) {
+app.controller('partySearchController', function ($scope, $location, partySearchService) {
     	// $scope.navBar.src = 'www/partySearchNavBar.html';
 	$scope.common_partys = [];
 	$scope.promoted_partys = [];
@@ -213,6 +213,10 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 			console.log("Functionality not available");
 		}
 
+	}
+	
+	$scope.viewParty = function(nombre, id){
+		$location.path('partyDetail/').search({id: id,nombre:nombre});
 	}
 
 // ---------------------------------------------------------------------------

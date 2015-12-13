@@ -1,6 +1,14 @@
 app.controller('partyDetailController', function ($scope, $http, $location, PartyDetailService) {
-    var partyKey = $location.search().id;
+    var partyId = $location.search().id;
+	var partyName = $location.search().nombre;
 
+	var partyKey = null;
+	if(partyId!=null){
+		partyKey=partyId;
+	}else{
+		partyKey=partyName;		
+	}
+	
     $scope.party = null;
 	$scope.partyTypes = [];
 	$scope.selectedItems = [];

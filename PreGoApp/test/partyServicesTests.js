@@ -336,12 +336,12 @@ describe('PregoServices', function() {
 
 		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
 		
-		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["Otro","After office"]);
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["otro","after"]);
 		assert.equal(2, fiestas.length);
 		assert.equal("PoolParty", fiestas[0].nombre);
 		assert.equal("BsAsEnFoco", fiestas[1].nombre);
 		
-		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["Bar","Boliche"]);
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["bar","disco"]);
 		assert.equal(3, fiestas.length);
 		assert.equal("Moscow", fiestas[0].nombre);
 		assert.equal("Bosque", fiestas[1].nombre);
@@ -357,10 +357,10 @@ describe('PregoServices', function() {
 
 		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
 		
-		var fiestas = servicios.fiestas.getPartysByType(true, munioz.lat, munioz.long, ["Otro","After office"]);
+		var fiestas = servicios.fiestas.getPartysByType(true, munioz.lat, munioz.long, ["otro","after"]);
 		assert.equal(0, fiestas.length);
 		
-		var fiestas = servicios.fiestas.getPartysByType(true, munioz.lat, munioz.long, ["Bar","Boliche"]);
+		var fiestas = servicios.fiestas.getPartysByType(true, munioz.lat, munioz.long, ["bar","disco"]);
 		//console.log(fiestas);
 		assert.equal(3, fiestas.length);
 		assert.equal("Sunset", fiestas[0].nombre);
@@ -376,7 +376,7 @@ describe('PregoServices', function() {
 		servicios.fiestas.rellenar();	
 
 		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 		
-		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["Otro","After office"]);
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["otro","after"]);
 		assert.equal("PoolParty", fiestas[0].nombre);
 		
 		var fiesta = servicios.fiestas.getParty(fiestas[0].id);
@@ -402,7 +402,7 @@ describe('PregoServices', function() {
 		servicios.fiestas.rellenar();	
 
 		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 		
-		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["Otro","After office"]);
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["otro","after"]);
 		assert.equal("PoolParty", fiestas[0].nombre);
 		
 		var fiesta = servicios.fiestas.getParty(fiestas[0].id);
@@ -421,6 +421,33 @@ describe('PregoServices', function() {
 		assert.equal('/dist/img/user6-128x128.jpg', fiesta.participantes[0]);
 		
     });
+	
+	
+	it('se deberia poder encontrar una fiesta recien agregada', function () {
+	   var servicios = createServicios();
+		
+		var newParty = {};
+	
+		newParty.nombre = 'Una fiesta';
+		newParty.descripcion = 'Re copada';
+		newParty.inicio = "2015-12-13T23:00:00";
+		newParty.fin = "2015-12-13T23:00:00";
+		newParty.types = [ "after","bar"];
+		newParty.musicGenres = [ "ohentoso","dance"];
+		newParty.direccion= "Calle Paunero 1650, San Miguel, Buenos Aires";
+		newParty.pos = {lat:-34.5352846, long:-58.716308};
+
+		
+		var res = servicios.fiestas.addParty(newParty);
+		assert.equal(true, res.exito);
+		assert.equal(1,res.id);
+				
+		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 	
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["otro","after"]);
+		assert.equal(1,fiestas.length);
+		assert.equal(1,fiestas[0].id);
+    });
+	
 	
 	
 	var isUndef = function(obj){

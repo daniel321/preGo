@@ -41,8 +41,6 @@ function ServiciosService(store) {
     this.getServicios = function () {
 		var res = [];
 		var arr = __store.servicios;
-		console.log('SERVICIOS:');
-		console.log(arr);
 		for (var i = 0; i < arr.length; i++) {
 			var highlighted = arr[i].highlighted;
 			var h = [];

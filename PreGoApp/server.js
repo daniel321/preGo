@@ -561,37 +561,7 @@ services =
 		Animacion: '3219'
 	};
 
-//serviceList = [ {
-//	code : "dj",
-//	text : "DJ",
-//	highlighted : [
-//			{
-//				name : "DJ Candela",
-//				icon_uri : "dist/img/tipos_servicio/dj/dj_candela.jpg",
-//				price : "$700/hora",
-//				description : "Claro que si, soy yo. El que dijo: \"¿Y la moto? ¿Y Candela?\"",
-//				detail : "Soy DJ Candela, después de pegarme un palo con la moto y quedar torulo, trato de ganar un mango pasando música!!"
-//			},
-//			{
-//				name : "DJ Tiesto",
-//				icon_uri : "dist/img/tipos_servicio/dj/dj_tiesto.jpg",
-//				price : "$1500/hora",
-//				description : "I'm DJ Tiesto. You want a DJ? You want Tiesto.",
-//				detail : "No need to explain. You wanna party, you want me: Tiesto!"
-//			}
-//
-//	],
-//	regular : [ {
-//		name : "DJ Piloto",
-//		icon_uri : "dist/img/tipos_servicio/dj/dj_piloto.jpg",
-//		price : "$150/hora",
-//		description : "El DJ morfeta que estaba en lo de Tinelli.",
-//		detail : "DJ PILOTO!! Soy un chabón que no juna nadie, aparecía en el programa de Tinelli. Ahora laburo para fiestas!! Contratame por favor!!"
-//	} ]
-//} ];
-serviceList = serviciosService.getServicios();
-
-app.get('/api/services', function (req, res) {    
+app.get('/api/services', function (req, res) {
 	res.send(services);
 })
 
@@ -613,6 +583,7 @@ app.get('/api/serviceSearch', function(req, res) {
 			error : 'revisar parametros'
 		});
 	} else {
+		serviceList = serviciosService.getServicios();
 		res.send(serviceList);
 	}
 })

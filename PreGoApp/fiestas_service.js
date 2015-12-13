@@ -232,7 +232,7 @@ function FiestasService(store, services) {
 		var ret = []; 
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  			
-			var dist = getDistance([lat,long],party);			 
+			var dist = this.getDistance([lat,long],party);			 
 			if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
 				if(  esDeAlgunoDeLosTipos(types, party.types)){
 					agregar(ret,party.nombre,party,dist);		
@@ -250,7 +250,7 @@ function FiestasService(store, services) {
 
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  
-			var dist = getDistance([lat,long],party);
+			var dist = this.getDistance([lat,long],party);
 			if((dist < tol)){
 				if(!destacadas){
 					//console.log('>Sugerida:' + party.esSugerida);
@@ -275,7 +275,7 @@ function FiestasService(store, services) {
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  
 			
-			var dist = getDistance([lat,long],party);
+			var dist = this.getDistance([lat,long],party);
 			
 			if(!destacadas){
 				//console.log('>Sugerida:' + party.esSugerida);
@@ -398,7 +398,7 @@ function FiestasService(store, services) {
 		return (party2.dist - party1.dist);
 	};
 	
-	var getDistance = function (direccion,party) {
+	this.getDistance = function (direccion,party) {
 		if(party.pos){	
 			var lat = party.pos.lat;
 			var long = party.pos.long;

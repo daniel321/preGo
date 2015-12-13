@@ -43,13 +43,13 @@
 					<div class="form-group">
 						<label>Tipo de fiesta: </label> <span ng-repeat="item in selectedItems" >{{item.text + ($last?'':', ') }}</span>
 						<div class="row">
-							<pre-go-selector available-items="partyTypes" selected-items="selectedItems"/>
+							<pre-go-selector available-items="partyTypes" selected-items="selectedItems" read-only="true" />
 						</div>					
 					</div> 
 					<div class="form-group">
 						<label>Tipo de Musica: </label> <span ng-repeat="item in selectedMusicGenres" >{{item.text + ($last?'':', ') }}</span>
 						<div class="row">
-							<pre-go-selector available-items="musicGenres" selected-items="selectedMusicGenres"/>
+                            <pre-go-selector available-items="musicGenres" selected-items="selectedMusicGenres" read-only="true" />
 						</div>					
 					</div>
 				</div><!-- /.box-body -->

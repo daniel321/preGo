@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json 
 app.use(bodyParser.json())
-
+   
 app.use(cookieParser());
 
 app.post("/api/login", function (req, res) {
@@ -40,7 +40,7 @@ app.post("/api/login", function (req, res) {
     }else{
 		res.send(false);	
 	}
-});
+}); 
 
 app.get("/api/logout", function (req, res) {
     res.clearCookie("email");

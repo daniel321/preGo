@@ -6,7 +6,10 @@
     "AngularUI"
   ],
   "description": "AngularJS ui-select",
-  "main": ["dist/select.js", "dist/select.css"],
+  "main": [
+    "dist/select.js",
+    "dist/select.css"
+  ],
   "license": "MIT",
   "ignore": [
     "**/.*",

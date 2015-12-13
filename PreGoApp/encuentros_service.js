@@ -38,6 +38,10 @@ function EncuentrosService(store) {
 		}
 	}
 
+	this.rellenarDemo = function () {
+		
+	}
+	
     this.addMatch = function (user1Email, user2Email) {
 		var usr = __buscarUsuario(user1Email);
 		var usr2 = __buscarUsuario(user2Email);

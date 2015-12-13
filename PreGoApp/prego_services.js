@@ -25,6 +25,13 @@ function PregoServices() {
 		__fiestasService.rellenar();
     }
 
+    this.rellenarDemo = function () {
+        __usuariosService.rellenarDemo();
+        __encuentrosService.rellenarDemo();
+        __serviciosService.rellenarDemo();
+		__fiestasService.rellenarDemo();
+    }
+
     this.getUsuariosService = function () {
         return __usuariosService;
     }

@@ -4,6 +4,10 @@ function ServiciosService(store) {
         __store.servicios = [];
     }
 
+	this.rellenarDemo = function () {
+		
+	}
+	
 	this.agregarServicio = function (groupCode, groupText, s_name, s_type, s_icon_uri, s_price, s_description, s_detail) {
 		var group = null;
 		var arr = __store.servicios;

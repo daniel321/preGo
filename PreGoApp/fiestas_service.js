@@ -11,6 +11,76 @@ function FiestasService(store, services) {
 	};
 	 
 	
+	this.rellenarDemo = function () {
+		var participantes_fill = [
+			"nahuel@prego.com",
+			"china@prego.com",
+			"daniel@prego.com",
+			"facundo@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"damian@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"nahuel@prego.com",
+			"ursula@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"damian@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"damian@prego.com",
+			"malena@prego.com",
+			"facundo@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"nahuel@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"china@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
+			"guido@prego.com",
+			"damian@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com"
+		];
+		
+		
+		var f=0;
+		for(var i=0; i<participantes_fill.length; i++){
+			if(f>=__store.fiestas.length){
+				f=0;
+			}
+			//console.log(__store.fiestas[f]);
+			this.participar(__store.fiestas[f].id,participantes_fill[i]);
+			f++;
+		}
+		
+		
+	}
+	
     this.rellenar = function () {
 		 
 		var partys = {};

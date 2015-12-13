@@ -1,6 +1,7 @@
 <style>
 .profile-user-img{
 	width:60px;
+	display:inline;
 }
 </style>
 <div class="row">
@@ -108,8 +109,9 @@
 						<label ng-if="party.participantes && party.participantes.length>0">Participantes: </label>
 						<p ng-if="party.participantes.length==0">Aún no hay participantes registrados</p>
 						<div class="row">
-							
-							<img class="profile-user-img img-responsive img-circle" ng-src="{{p}}" ng-repeat="p in party.participantes" ></img>
+							<div class="col-xs-12">
+								<img class="profile-user-img img-responsive img-circle" ng-src="{{p}}" ng-repeat="p in party.participantes" ></img>
+							</div>
 						</div>					
 					</div>
 					

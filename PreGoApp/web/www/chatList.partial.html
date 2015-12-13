@@ -3,18 +3,18 @@
 
 <div id="all">
 		<div class="list-group" ng-repeat="match in matches">
-			<a id="match" ng-href="#/chat/{{match[0]}}" class="list-group-item">	
+			<a id="match" ng-href="#/chat/{{match.email}}" class="list-group-item">	
 				<div class="row">			
 					<div class="col-xs-4" id="other">
-						<img id="img" src="{{match[1]}}" class="img-responsive">
+						<img id="img" src="{{match.avatar_url}}" class="img-responsive">
 						</img>
 						<div id="name">
-							{{match[0]}}
+							{{match.nickname}}
 						</div>
 					</div>
 
 					<div class="col-xs-8">
-						<ul class="list-group" ng-repeat="message in match[2]">
+						<ul class="list-group" ng-repeat="message in match.lastChats">
 								<li class="list-group-item">
 									<div class="row">
 										<div id="postAuthor" class="col-xs-5">
@@ -26,6 +26,9 @@
 									</div>
 							</li>
 						</ul>
+						
+						<h2 ng-if="match.lastChats== null || match.lastChats.length==0">¿No hablaron aún? </h2>
+						<p ng-if="match.lastChats== null || match.lastChats.length==0">Dá el primer paso... escribile un mensaje</p>
 					</div>
 				</div>
 			</a>

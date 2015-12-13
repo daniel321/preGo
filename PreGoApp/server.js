@@ -6,8 +6,10 @@ var app = express()
 
 var PregoServices = require('./prego_services.js');
 var pregoServices = new PregoServices();
-var usuariosService = pregoServices.getUsuariosService();
 pregoServices.rellenar();
+var usuariosService = pregoServices.getUsuariosService();
+var encuentrosService = pregoServices.getEncuentrosService();
+
 
 
 
@@ -55,78 +57,40 @@ app.put("/api/user", function (req, res) {
     res.send(usuariosService.agregarUsuario(req.body.email, req.body.pass, req.body.nickname, req.body.avatar_url).exito);
 });
 
-usuariosService.addMatch("Daniel","Damian");
 
-usuariosService.addChat("Daniel","Damian","No estoy en casa ahora, iré en un rato y a las 20 me voy");
-usuariosService.addChat("Damian","Daniel","Avisame cuando llegues");
-usuariosService.addChat("Daniel","Damian","Llego en 15");
-usuariosService.addChat("Daniel","Damian","ya llego");
-
-usuariosService.addMatch("Facundo","Damian");
-
-usuariosService.addChat("Damian","Facundo","Estas ahi??");
-usuariosService.addChat("Facundo","Damian","no :p");
-usuariosService.addChat("Damian","Facundo","...");
-
-usuariosService.addMatch("Ezequiel","Nahuel");
-usuariosService.addChat("Ezequiel","Nahuel","todo en orden?");
-usuariosService.addChat("Nahuel","Ezequiel","sip");
-
-
-app.get('/api/chat/:nickname', function (req, res) {
+app.get('/api/chat/:email', function (req, res) {
     var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
-    if (myUser != null){
-	    var me = myUser.nickname;
-	    var msgs = usuariosService.getChat(me,req.params.nickname);
-
+    if (myUser != null){ 
+	    var msgs = encuentrosService.getChat(myUser.email,req.params.email);
+		// console.log(msgs);
 	    for(key in msgs){
-		var msg = msgs[key];
-		if(msg.nickname == me){
-			msg.is_yours = true;
-		}else{
-			msg.is_yours = false;
-		}
+			var msg = msgs[key];
+			if(msg.email == myUser.email){
+				msg.is_you = true;
+			}else{
+				msg.is_you = false;
+			}
 	    }
 
-   	 res.send(msgs);
+		res.send(msgs);
    }else{
-	   var ret = [];
-   	res.send(ret);
+		console.log('usuario no encontrado:' + res.cookies.email);
+		res.send([]);
    }
 })
 
-app.post('/api/chat/:nickname', function (req, res) {
+app.post('/api/chat/:email', function (req, res) {
     var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
     if (myUser != null){
-    	var me = myUser.nickname;
-
-    	var msgs = usuariosService.addChat(me,req.params.nickname,req.body.message);
+    	var msgs = encuentrosService.addChat(myUser.email,req.params.email,req.body.message);
     }
     res.send(true);
 })
 
-app.get('/api/matches', function (req, res) {    
-    var myUser = usuariosService.getUsuarioByEmail(req.cookies.email);
-
-    if (myUser != null){
-    	var me = myUser.nickname;
-    	var matches = myUser.matches;
-
-	var ret = [];
-	for(key in matches){
-		var mach = matches[key];
-		var other = usuariosService.getUsuarioByName(mach);
-
-		var otherPic = other.avatar_url;
-
-		var lastChats = usuariosService.getChat(me,mach).slice(-3);
-		ret.push([mach,otherPic,lastChats]);
-	}
-
-	res.send(ret);
-    }else{
-	res.send(null);
-    }
+app.get('/api/matches', function (req, res) {
+	var matches = encuentrosService.getMatches(req.cookies.email);
+	console.log(matches);
+	res.send(matches);
 })
 
 var partys = {};
@@ -624,3 +588,30 @@ var server = app.listen(3000, function () {
 app.get('/api/party/:key', function (req, res) {
     res.send(partys[req.params.key]);
 })
+
+
+//ENCUENTROS
+
+app.get("/api/meetingSuggests", function (req, res) {
+	//var email = req.body.email || req.query['email'];
+    res.send(encuentrosService.sugerir(  req.cookies.email ));
+});
+
+
+app.post("/api/meetingQualify", function (req, res) {
+	var userQualifiedEmail = req.body.email;
+	
+	var like = req.body.like;
+	if(typeof(userQualifiedEmail)=='undefined' || typeof(like)=='undefined'){
+		//console.log(like);
+		res.send({exito:false, error:'revisar parametros'});
+	}else{
+		if(typeof(req.cookies.email)=='undefined'){
+			res.send({exito:false, error:'revisar cookies'});	
+		}else{
+			res.send(encuentrosService.calificar( req.cookies.email, userQualifiedEmail, like ));		
+		}		
+	}
+    
+});
+

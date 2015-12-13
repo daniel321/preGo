@@ -20,44 +20,74 @@
 
         </div>
     </div>
-</div>-->
+</div>--> 
+<style>
+  .example-modal .modal {
+	position: relative;
+	top: auto;
+	bottom: auto;
+	right: auto;
+	left: auto;
+	display: block;
+	z-index: 1;
+  }
+  .example-modal .modal {
+	background: transparent !important;
+  }
+</style>
+
 <div class="row">
     <div class="col-xs-1 col-sm-3 col-md-3">
         &nbsp;
     </div>
-    <div class="col-xs-10 col-sm-6 col-md-6">
-        <form name="mainForm" >
-            <div class="box-body">
+    <div class="col-xs-10 col-sm-6 col-md-6"> 
+		<div class="box-body">
+			<div class="box" ng-if="suggest!=null">
+				<div class="box-body box-profile">
+					<img class="profile-user-img img-responsive img-circle" ng-src="{{suggest.avatar_url}}" alt="User profile picture">
+					<h3 class="profile-username text-center">{{suggest.nickname}}</h3>
+					<!--<p class="text-muted text-center">Software Engineer</p>-->
 
-                <div class="box" ng-if="sugerencia!=null">
-                    <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" ng-src="{{sugerencia.avatar_url}}" alt="User profile picture">
-                        <h3 class="profile-username text-center">{{sugerencia.nickname}}</h3>
-                        <!--<p class="text-muted text-center">Software Engineer</p>-->
+					<div class="row">
+						<div class="col-sm-12 botones-encuentro">
+							<a class="btn btn-app" title="En otro momento..." ng-click="qualify(false)" >
+								<i class="fa fa-remove rechazo"></i>
+							</a>
+							<a class="btn btn-app" title="Elegir" ng-click="qualify(true)">
+								<i class="fa fa-heart-o eleccion"></i>
+							</a>
+						</div>
+					</div>
+				</div><!-- /.box-body -->
+			</div>
+			<div class="box" ng-if="suggest==null">
+				<div class="box-body box-profile">
+					<img class="profile-user-img img-responsive img-circle buscando" ng-if="searching" src="/dist/img/ajaxSpinner.gif" alt="User profile picture">
+					<h3 class="profile-username text-center" ng-if="sinResultados">En este momento no hay usuarios nuevos por conocer. Te esperamos pronto!</h3>
+				</div><!-- /.box-body -->
+			</div>
+		</div> 
+		<div class="example-modal">
+            <div class="modal modal-success">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal Success</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline">Save changes</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+          </div><!-- /.example-modal -->
 
-                        <div class="row">
-                            <div class="col-sm-12 botones-encuentro">
-                                <a class="btn btn-app" title="En otro momento..." >
-                                    <i class="fa fa-remove rechazo"></i>
-                                </a>
-                                <a class="btn btn-app" title="Elegir">
-                                    <i class="fa fa-heart-o eleccion"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div><!-- /.box-body -->
-                </div>
-				
-				<div class="box" ng-if="sugerencia==null">
-                    <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="/dist/img/ajaxSpinner.gif" alt="User profile picture">
-                        <h3 class="profile-username text-center" ng-if="sugerencia==null && exitoso">En este momento no hay usuarios nuevos por conocer. Te esperamos pronto!</h3>
-                    </div><!-- /.box-body -->
-                </div>
-				
-				
-            </div>
-        </form>
+
     </div>
     <div class="col-xs-1 col-sm-3 col-md-3">
         &nbsp;

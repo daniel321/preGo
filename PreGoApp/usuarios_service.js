@@ -82,69 +82,6 @@ function UsuariosService(store) {
 		return null;
     }
 
-    this.addMatch = function (user, user2, msg) {
-		var usr = __getUsuarioByName(user);
-		var usr2 = __getUsuarioByName(user2);
-
-		if ((usr != null) && (usr2 != null)) {
-			if (usr.matches == null) {
-				usr.matches = [];
-			}
-
-			if (usr2.matches == null) {
-				usr2.matches = [];
-			}
-
-			usr.matches.push(user2);
-			usr2.matches.push(user);
-		}
-    }
-
-    this.addChat = function (author, user2, msg) {
-		var auth = __getUsuarioByName(author);
-		var usr2 = __getUsuarioByName(user2);
-
-		if ((auth != null) && (usr2 != null)) {
-			if ((auth.matches.indexOf(user2) > -1) && (usr2.matches.indexOf(author) > -1)) {
-
-				if (auth.chats == null) {
-					auth.chats = {};
-				}
-
-				if (usr2.chats == null) {
-					usr2.chats = {};
-				}
-
-				var chat = auth.chats[user2];
-				if (chat == null) {
-					chat = [];
-					auth.chats[user2] = chat;
-					usr2.chats[author] = chat;
-				}
-
-				chat.push({
-					avatar_url: auth.avatar_url,
-					nickname: auth.nickname,
-					message: msg,
-					time: new Date().toString("HH:mm"),
-				});
-			}
-		}
-    }
-
-    this.getChat = function (user, user2) {
-		var usr = __getUsuarioByName(user);
-
-		if (usr != null) {
-			if (usr.matches.indexOf(user2) > -1) {
-				if (usr.chats == null) {
-					return ([]);
-				}
-				return usr.chats[user2];
-			}
-		}
-    }
-
     this.rellenar = function () {
 		var relleno =
 			[
@@ -193,28 +130,28 @@ function UsuariosService(store) {
 				{
 					avatar_url: '/dist/img/user3-128x128.jpg',
 					nickname: 'Ursula',
-					email: "Ursula@prego.com",
+					email: "ursula@prego.com",
 					pass: "asd",
 					sexo: 'F',
 				},
 				{
 					avatar_url: '/dist/img/user4-128x128.jpg',
 					nickname: 'China',
-					email: "China@prego.com",
+					email: "china@prego.com",
 					pass: "asd",
 					sexo: 'F',
 				},
 				{
 					avatar_url: '/dist/img/user5-128x128.jpg',
 					nickname: 'Rosita',
-					email: "Rosita@prego.com",
+					email: "rosita@prego.com",
 					pass: "asd",
 					sexo: 'F',
 				},
 				{
 					avatar_url: '/dist/img/user7-128x128.jpg',
 					nickname: 'Malena',
-					email: "Malena@prego.com",
+					email: "malena@prego.com",
 					pass: "asd",
 					sexo: 'F',
 				}
@@ -224,6 +161,7 @@ function UsuariosService(store) {
 			var u = arr[i];
 			this.agregarUsuario(u.email, u.pass, u.nickname, u.avatar_url, u.sexo);
 		};
+		
 		return true;
     }
 }

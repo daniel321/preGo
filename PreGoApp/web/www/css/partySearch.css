@@ -62,6 +62,12 @@
 
 	}
 
+	#imagenDeFiestaRegular{
+		width: 50px;
+		height: 50px;
+	}
+
+
 	#ptys{
 		min-height:1000px;		
 	}
@@ -75,30 +81,23 @@
 		border-top-left-radius: 3px;
 		border-bottom-right-radius: 3px;
 		border-bottom-left-radius: 3px;
-		background-color:black;
-*/		
+		background-color:black;		
 
- 		/* fallback */ 
 		background-color: transparent; 
 		background-repeat: repeat-y; 
-		/* Safari 4-5, Chrome 1-9 */ 
 		background: -webkit-gradient(linear, left top, right top, from(rgba(50,50,50,0.8)), to(rgba(50,50,50,0.2))); 
-		/* Safari 5.1, Chrome 10+ */ 
 		background: -webkit-linear-gradient(left, rgba(50,50,50,0.8), rgba(50,50,50,0.2)); 
-		/* Firefox 3.6+ */ 
 		background: -moz-linear-gradient(left, rgba(50,50,50,0.8), rgba(50,50,50,0.2)); 
-		/* IE 10 */ 
 		background: -ms-linear-gradient(left, rgba(50,50,50,0.8), rgba(50,50,50,0.2)); 
-		/* Opera 11.10+ */ 
 		background: -o-linear-gradient(left, rgba(50,50,50,0.8), rgba(50,50,50,0.2));
-
+*/
 		margin-right:10px;
 	}
 
 	#icon{
 		float:left;
-		min-height:20px;
-		min-width:20px;		
+		height:20px;
+		width:30px;		
 
 		max-height:25px;
 		max-width:25px;		

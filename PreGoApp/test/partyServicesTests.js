@@ -379,7 +379,8 @@ describe('PregoServices', function() {
 		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["other","after"]);
 		assert.equal("PoolParty", fiestas[0].nombre);
 		
-		var fiesta = servicios.fiestas.getParty(fiestas[0].id);
+		var fiesta = servicios.fiestas.getParty(fiestas[0].id,'nahuel@prego.com');
+		assert.equal(false, fiesta.soyAsistente);
 		
 		var asistentesPrevios = 0;
 		if(!isUndef(fiesta.participantes)){
@@ -388,7 +389,8 @@ describe('PregoServices', function() {
 		
 		assert.equal(true, servicios.fiestas.participar(fiesta.id, 'nahuel@prego.com').exito);
 		
-		fiesta = servicios.fiestas.getParty(fiesta.id);
+		fiesta = servicios.fiestas.getParty(fiesta.id,'nahuel@prego.com');
+		assert.equal(true, fiesta.soyAsistente);
 		
 		assert.equal(asistentesPrevios+1, fiesta.participantes.length);
 		assert.equal('/dist/img/user6-128x128.jpg', fiesta.participantes[0]);

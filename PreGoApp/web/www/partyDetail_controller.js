@@ -1,4 +1,32 @@
 app.controller('partyDetailController', function ($scope, $http, $location, PartyDetailService) {
+    $scope.position = [];
+
+    function success_callback(p) {
+        $scope.position[0] = p.coords.latitude;
+        $scope.position[1] = p.coords.longitude;
+        getPartyDistance();
+    }
+
+    function error_callback(p) {
+        $scope.position[0] = -34.617568;
+        $scope.position[1] = -58.368352;
+        getPartyDistance();
+        console.log('error=' + p.message);
+    }
+
+    function getPos() {
+        if ($scope.initialized || geo_position_js.init()) {
+            geo_position_js.getCurrentPosition(success_callback, error_callback, { enableHighAccuracy: true });
+            $scope.initialized = true;
+        } else {
+            $scope.position[0] = -34.617568;
+            $scope.position[1] = -58.368352;
+
+            console.log("Functionality not available");
+        }
+    }
+    getPos();
+
     var partyId = $location.search().id;
 	var partyName = $location.search().nombre;
 
@@ -72,6 +100,7 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
     var getPartyTypesFinished = false;
     var getMusicGenresFinished = false;
     var getPartyFinished = false;
+
     function joinCallback() {
         if (getPartyTypesFinished && getMusicGenresFinished && getPartyFinished) {
             if ($scope.party.types) {
@@ -93,25 +122,42 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
         PartyDetailService.getParty(partyKey)
             .then(function (response) {
                 $scope.party = response.data;
-                //TODO: En la página de búsqueda de fiestas se usa un objeto con estructura diferente al que se usa en partyCreate. Unificar.
-                // Correcciones de compatibilidad del objeto::
-                //if (!$scope.party.fechaHoraDesde) {
-                //    $scope.party.fechaHoraDesde = $scope.party.inicio
-                //}
-                //if (!$scope.party.fechaHoraHasta) {
-                //    $scope.party.fechaHoraHasta = $scope.party.fin
-                //}
-                //if (!$scope.party.location) {
-                //    $scope.party.location = $scope.party.pos
-                //}
                 getPartyFinished = true;
                 callback();
-
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
+
+    function getPartyDistance(callback) {
+        PartyDetailService.getPartyDistance(partyKey, { lat: $scope.position[0], long: $scope.position[1] })
+            .then(function (response) {
+                $scope.party.distancia = response.data;
+                if (callback) { callback(); }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+	
+	$scope.asistir = function(){
+		if($scope.party && $scope.party.id){
+			$http.put(
+                '/api/partyParticipation',
+                {partyId: $scope.party.id}
+            ).then(
+				function(res){
+					console.log(res.data);
+					if(res.data.exito){
+						getParty(joinCallback); //recarga para tomar las imagenes de los participantes
+					}
+				}
+			);
+		}else{
+			console.log('No se cargo la fiesta correctamente');
+		}
+	}
 
     function getPartyTypes(callback) {
         PartyDetailService.getPartyTypes()

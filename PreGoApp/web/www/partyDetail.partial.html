@@ -1,3 +1,8 @@
+<style>
+.profile-user-img{
+	width:60px;
+}
+</style>
 <div class="row">
     <div class="col-md-12">
         <!-- Default box -->
@@ -17,7 +22,7 @@
 
                         </div>
                         <div class="col-md-2 col-sm-3 col-xs-6">
-                            <div style="margin-top: -34px;" class="btn btn-block btn-primary btn-flat">Asistiré <i class="fa fa-fw fa-check"></i></div>
+                            <div style="margin-top: -34px;" ng-click="asistir()" class="btn btn-block btn-primary btn-flat">Asistiré <i class="fa fa-fw fa-check"></i></div>
                         </div>
                     </div>
                     <div class="row">
@@ -32,14 +37,14 @@
                             <div style="text-align: center;">
                                 <img style="height: 40px;" src="dist/img/icons/pplIconBlack.png" />
                                 <br />
-                                <span>x</span>
+                                <span>{{party.cantidadDeGente}}</span>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div style="text-align: center;">
                                 <img style="height: 40px;" src="dist/img/icons/mpIcon.png" />
                                 <br />
-                                <span>x</span>
+                                <span>{{party.distancia}} km</span>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -98,6 +103,14 @@
                             <pre-go-selector available-items="selectedMusicGenres" selected-items="[]" read-only="true" />
 						</div>					
 					</div>
+					
+					<div class="form-group">
+						<label>Participantes: </label>
+						<div class="row">
+							<img class="profile-user-img img-responsive img-circle" ng-src="{{p}}" ng-repeat="p in party.participantes" ></img>                            
+						</div>					
+					</div>
+					
 				</div><!-- /.box-body -->
 				<div class="box-footer">
 					<button type="submit" class="btn btn-primary pull-right">Guardar</button>

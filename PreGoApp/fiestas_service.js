@@ -1,5 +1,6 @@
-function FiestasService(store) {
+function FiestasService(store, services) {
     var __store = store;
+	var services = services;
     if (typeof (__store.fiestas) === 'undefined') {
         __store.fiestas = [];
 		__store.fiesta_last_id = 0;
@@ -187,17 +188,51 @@ function FiestasService(store) {
 		for(var i=0;i<__store.fiestas.length;i++){
 			var item = __store.fiestas[i];
 			if( (nombre!=null && item.nombre == nombre) || (id!=null && item.id==id)){
-				return __store.fiestas[i];		
+				return copyParty(__store.fiestas[i]);
 			}
 		}
 		return null;
 	};
 	
+	var copyParty = function(party){
+		var copy = {};
+		
+		party.userRates = asegurarArray(party.userRates);
+		party.types = asegurarArray(party.types);
+		party.fotos = asegurarArray(party.fotos);
+		party.userRates = asegurarArray(party.userRates);
+		party.comentarios = asegurarArray(party.comentarios);
+		
+		copy.id=party.id;
+		copy.nombre=party.nombre;
+		copy.esSugerida=party.esSugerida;
+		copy.types=party.types.slice();
+		copy.imagenDeFondo=party.imagenDeFondo;
+		copy.imagenBanner=party.imagenBanner;
+		copy.fotos = party.fotos.slice();
+		copy.descripcion=party.descripcion;
+		copy.pos = party.pos;
+		copy.inicio=party.inicio;
+		copy.fin=party.fin;
+		copy.cantidadDeGente=party.cantidadDeGente;
+		copy.userRates=party.userRates.slice();
+		copy.comentarios=party.comentarios.slice();
+		
+		party.participantes = asegurarArray(party.participantes);
+		copy.participantes = [];
+		for(var i=0;i<party.participantes.length;i++){
+			var participante = party.participantes[i];  			
+			copy.participantes.push(participante.avatar_url);
+		}
+		
+		return copy;
+	}
+	
 	this.getPartysByType = function(destacadas, lat, long, types){
 		var ret = []; 
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  			
-			var dist = getDistance([lat,long],party);			 
+			var dist = this.getDistance([lat,long],party);			 
 			if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
 				if(  esDeAlgunoDeLosTipos(types, party.types)){
 					agregar(ret,party.nombre,party,dist);		
@@ -215,7 +250,7 @@ function FiestasService(store) {
 
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  
-			var dist = getDistance([lat,long],party);
+			var dist = this.getDistance([lat,long],party);
 			if((dist < tol)){
 				if(!destacadas){
 					//console.log('>Sugerida:' + party.esSugerida);
@@ -240,7 +275,7 @@ function FiestasService(store) {
 		for(var i=0;i<__store.fiestas.length;i++){
 			var party = __store.fiestas[i];  
 			
-			var dist = getDistance([lat,long],party);
+			var dist = this.getDistance([lat,long],party);
 			
 			if(!destacadas){
 				//console.log('>Sugerida:' + party.esSugerida);
@@ -255,6 +290,46 @@ function FiestasService(store) {
 		ret.sort(biggerAmountOfPeople);
 		return ret;
 	};
+	
+	this.participar = function(fiestaId, emailUsuario){
+		var party = __getParty(fiestaId);
+		if(party){
+			var usuario = __store.__getUsuarioByEmail(emailUsuario);
+			if(usuario){
+				party.participantes = asegurarArray(party.participantes);
+				for(var i=0;i<party.participantes.length;i++){
+					if(party.participantes[i].email==usuario.email){
+						return {exito:false, error:'Intentando participar dos veces'};
+					}
+				}
+				party.participantes.push(usuario);
+				return {exito:true};
+			}else{
+				return {exito:false};	
+			}			
+		}else{
+			return {exito:false};
+		}
+	}
+	
+	var __getParty = function(id){
+		for(var i=0;i<__store.fiestas.length;i++){
+			var item = __store.fiestas[i];
+			if( (id!=null && item.id == id)){
+				return __store.fiestas[i];		
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	var asegurarArray = function(arr){
+		if(isUndef(arr) || arr==null){
+			return [];	
+		}
+		return arr;
+	}
 	
 	var isUndef = function(obj){
 		return typeof(obj)=='undefined';
@@ -323,7 +398,7 @@ function FiestasService(store) {
 		return (party2.dist - party1.dist);
 	};
 	
-	var getDistance = function (direccion,party) {
+	this.getDistance = function (direccion,party) {
 		if(party.pos){	
 			var lat = party.pos.lat;
 			var long = party.pos.long;
@@ -396,7 +471,7 @@ function FiestasService(store) {
 	}
 	
 	var esDeAlgunoDeLosTipos = function(types,partyTypes){ //pasada
-
+		
 		for(t1 in types){
 			var type1 = types[t1];
 

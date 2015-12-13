@@ -369,28 +369,63 @@ describe('PregoServices', function() {
 		
     });
 	
-	//true 0
 	
-	//true 3 bar y boliche
-	// false 3 bar y boliche
+	it('se puede asistir a una fiesta', function () {
+	    var servicios = createServicios();	
+		servicios.usuarios.rellenar();
+		servicios.fiestas.rellenar();	
+
+		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 		
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["Otro","After office"]);
+		assert.equal("PoolParty", fiestas[0].nombre);
+		
+		var fiesta = servicios.fiestas.getParty(fiestas[0].id);
+		
+		var asistentesPrevios = 0;
+		if(!isUndef(fiesta.participantes)){
+			asistentesPrevios=fiesta.participantes.length;
+		}
+		
+		assert.equal(true, servicios.fiestas.participar(fiesta.id, 'nahuel@prego.com').exito);
+		
+		fiesta = servicios.fiestas.getParty(fiesta.id);
+		
+		assert.equal(asistentesPrevios+1, fiesta.participantes.length);
+		assert.equal('/dist/img/user6-128x128.jpg', fiesta.participantes[0]);
+		
+    });
 	
 	
-	/*
+	it('no se puede duplicar la asistencia a una fiesta', function () {
+	    var servicios = createServicios();	
+		servicios.usuarios.rellenar();
+		servicios.fiestas.rellenar();	
+
+		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 		
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["Otro","After office"]);
+		assert.equal("PoolParty", fiestas[0].nombre);
+		
+		var fiesta = servicios.fiestas.getParty(fiestas[0].id);
+		
+		var asistentesPrevios = 0;
+		if(!isUndef(fiesta.participantes)){
+			asistentesPrevios=fiesta.participantes.length;
+		}
+		
+		assert.equal(true, servicios.fiestas.participar(fiesta.id, 'nahuel@prego.com').exito);
+		assert.equal(false, servicios.fiestas.participar(fiesta.id, 'nahuel@prego.com').exito);
+		
+		fiesta = servicios.fiestas.getParty(fiesta.id);
+		
+		assert.equal(asistentesPrevios+1, fiesta.participantes.length);
+		assert.equal('/dist/img/user6-128x128.jpg', fiesta.participantes[0]);
+		
+    });
 	
-	if(!(party.esSugerida)  && esDeAlgunoDeLosTipos(types,party.types)){
-		agregar(ret,name,party,dist);
-	}
 	
-	*/
-	
-	
-	
-	// Cerca de Sunset -34.587581, -58.476997
-	//        pos:{lat:-34.5876237,long:-58.4660913},
-	
-	
-    
-	 
+	var isUndef = function(obj){
+		return typeof(obj)=='undefined';
+	}; 
 	
   });
 });

@@ -267,6 +267,7 @@ function FiestasService(store, services) {
 		
 		newParty.id = ++ __store.fiesta_last_id;
 		__store.fiestas.push(newParty);
+		console.log(newParty);
 		return {exito:true, id : newParty.id};
 	};
 	
@@ -328,7 +329,7 @@ function FiestasService(store, services) {
 		copy.cantidadDeGente=party.cantidadDeGente;
 		copy.userRates=party.userRates.slice();
 		copy.comentarios=party.comentarios.slice();
-		
+
 		party.participantes = asegurarArray(party.participantes);
 		copy.participantes = [];
 		for(var i=0;i<party.participantes.length;i++){

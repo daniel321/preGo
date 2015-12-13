@@ -205,6 +205,7 @@ app.post('/api/party', function (req, res) {
 				
 	newParty.userRates = [];
 	newParty.comentarios = [];
+	newParty.esSugerida = req.body.esSugerida;
 	var addPartyResult = fiestasService.addParty(newParty);
 	res.send(addPartyResult);
     

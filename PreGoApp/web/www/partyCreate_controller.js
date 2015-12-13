@@ -1,5 +1,5 @@
 app.controller('partyCreateController', function ($scope, $http,$location, PartyCreateService ) {
-	
+    $scope.esSugerida = false;
 	$scope.partyTypes = [];
 	$scope.selectedItems = [];
 	
@@ -24,6 +24,10 @@ app.controller('partyCreateController', function ($scope, $http,$location, Party
 		date : {startDate: null, endDate: null},
 		options : getCommonDatePickerOptions()
 	};
+
+	$scope.toggleEsSugerida = function () {
+	    $scope.esSugerida = !$scope.esSugerida;
+	}
 	
 	PartyCreateService.getPartyTypes()
 		.then(function(response){
@@ -48,7 +52,7 @@ app.controller('partyCreateController', function ($scope, $http,$location, Party
 		}
 		return res;
 	}
-	
+
 	$scope.sendForm = function(){
 		var party = {};
 		party.name = $scope.name;
@@ -58,7 +62,9 @@ app.controller('partyCreateController', function ($scope, $http,$location, Party
 		party.location = $scope.location;
 		
 		party.types = $scope.getTypeCodes($scope.selectedItems);
-		party.musicGenres = $scope.getTypeCodes($scope.selectedMusicGenres);	
+		party.musicGenres = $scope.getTypeCodes($scope.selectedMusicGenres);
+
+		party.esSugerida = $scope.esSugerida;
 		
 		
 		

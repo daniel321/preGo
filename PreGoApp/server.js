@@ -509,15 +509,16 @@ app.get('/api/musicGenres', function (req,res) {
 
 app.post('/api/party', function (req, res) {
 	var newParty = {};
-	
+	console.log(req.body.from);
+	console.log(req.body.to);
 	newParty.nombre = req.body.name;
 	newParty.descripcion = req.body.description;
-	newParty.inicio = new Date(req.body.from);
-	newParty.fin = new Date(req.body.to);
+	newParty.inicio = req.body.from;
+	newParty.fin = req.body.to;
 	newParty.types = req.body.types;
 	newParty.generos = req.body.musicGenres;
-	newParty.location = {
-					direccion: req.body.location.name,
+	newParty.direccion = req.body.location.name;
+	newParty.pos = {
 					lat: req.body.location.lat, 
 					long: req.body.location.long
 				};

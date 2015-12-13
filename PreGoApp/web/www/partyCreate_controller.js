@@ -53,8 +53,8 @@ app.controller('partyCreateController', function ($scope, $http,$location, Party
 		var party = {};
 		party.name = $scope.name;
 		party.description = $scope.description;
-		party.from = $scope.datePicker.date.startDate;
-		party.to = $scope.datePicker.date.endDate;
+		party.from = $scope.datePicker.date.startDate.toISOString();
+		party.to = $scope.datePicker.date.endDate.toISOString();
 		party.location = $scope.location;
 		
 		party.types = $scope.getTypeCodes($scope.selectedItems);

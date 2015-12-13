@@ -13,27 +13,40 @@ function EncuentrosService(store) {
     this.rellenar = function () {
 		 
 		var partys = {};
-		
-		partys["Ink"] = {
-			nombre:"Ink",
+		/*
+		newParty.nombre = 'Una fiesta';
+		newParty.descripcion = 'Re copada';
+		newParty.inicio = moment([2015, 12, 12,23,0,0]).toDate();
+		newParty.fin = moment([2015, 12, 13,6,0,0]).toDate();
+		newParty.types = [ "after","bar"];
+		newParty.generos = [ "after","bar"]; 
+		newParty.direccion: "Calle Paunero 1650, San Miguel, Buenos Aires",
+		newParty.pos = {
+			lat: '-34.5410156', 
+			long: '-58.7140899'
+		};
+
 			esSugerida:true,
-			types:["Bar","Boliche"],
 			imagenDeFondo:"/dist/img/clubs/ink.jpg",
 			imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
+			fotos:["otras imagenes"],
+			cantidadDeGente:325,
+			userRates:[10,7,9,9,6],
+			comentarios: [ {autor:"Daniel",comentario:"muy buen lugar!"} , 
+			{autor:"Facundo",comentario:"esto esta que explota!!"} ]
+		*/
+	 	this.addParty({
+			nombre:"Ink",			
+			types:["Bar","Boliche"],
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Ink",
 			pos:{lat:-34.5865587,long:-58.4395189},
 
 			inicio: "2015-12-18T09:30:00",
 			fin:    "2015-12-19T04:30:00",
+		});
 
-			cantidadDeGente:325,
-			userRates:[10,7,9,9,6],
-			comentarios: [ {autor:"Daniel",comentario:"muy buen lugar!"} , 
-						{autor:"Facundo",comentario:"esto esta que explota!!"} ]
-		};
-
-		partys["Hiio"] = {
+		this.addParty({
 			nombre: "Hiio",
 			esSugerida:false,
 			types:["Bar","Boliche"],
@@ -50,9 +63,9 @@ function EncuentrosService(store) {
 			cantidadDeGente:202,
 			userRates:[8,9,7,9,6,4,7],
 			comentarios: [ {autor:"Damian",comentario:"festejando en este gran lugar!!"}]
-		};
+		});
 
-		partys["Moscow"] = {
+		this.addParty({
 			nombre: "Moscow",
 			esSugerida:false,
 			types:["Bar","Boliche"],
@@ -69,9 +82,9 @@ function EncuentrosService(store) {
 			cantidadDeGente:235,
 			userRates:[6,8,10,7,4],
 			comentarios: [ {autor:"Guido",comentario:"que buena fiesta !!!"}]
-		};
+		});
 
-		partys["Bosque"] = {
+		this.addParty({
 			nombre:"Bosque",
 			esSugerida:false,
 			types:["Bar","Boliche"],
@@ -87,9 +100,9 @@ function EncuentrosService(store) {
 			cantidadDeGente:135,
 			userRates:[8,10,7],
 			comentarios: [ {autor:"Ezequiel",comentario:"aca hay de todo !!!"}]
-		};
+		});
 
-		partys["Sunset"] = {
+		this.addParty({
 			nombre: "Sunset",
 			esSugerida:true,
 			types:["Bar","Boliche"],
@@ -107,9 +120,9 @@ function EncuentrosService(store) {
 			comentarios: [ {autor:"Ezequiel",comentario:"esta genial!"},
 				{autor:"Guido",comentario:"festejando como loco!!"},
 				{autor:"Nahuel",comentario:"fiestaaaaa!"}]
-		};
+		});
 
-		partys["BsAsEnFoco"] = {
+		this.addParty({
 			nombre: "BsAsEnFoco",
 			esSugerida:false,
 			types:["After office","Bar","Boliche"],
@@ -126,9 +139,9 @@ function EncuentrosService(store) {
 			userRates:[8,10,7],
 
 			comentarios: [ {autor:"Facundo",comentario:"muy bueno, pero no hay nadie..."}]
-		};
+		});
 
-		partys["PoolParty"] = {
+		this.addParty({
 			nombre: "PoolParty",
 			esSugerida:false,
 			types:["Privada","Otro"],
@@ -144,7 +157,7 @@ function EncuentrosService(store) {
 			cantidadDeGente:302,
 			userRates:[8,8,8,5,7,10],
 			comentarios: [ {autor:"Nahuel",comentario:"chicas lindas x todos lados !!!"}]
-		};
+		});
 
 
 
@@ -158,10 +171,12 @@ function EncuentrosService(store) {
 		
 		for(var i=0;i<__store.fiestas.length;i++){
 			var item = __store.fiestas[i];
+			var inicio = new Date(item.inicio); 
+			var newPartyinicio = new Date(newParty.inicio);
 			if(item.nombre==newParty.nombre 
-				&& item.inicio.getFullYear()==newParty.inicio.getFullYear()
-				&& item.inicio.getMonth()==newParty.inicio.getMonth()
-				&& item.inicio.getDate()==newParty.inicio.getDate()
+				&& inicio.getFullYear()==newPartyinicio.getFullYear()
+				&& inicio.getMonth()==newPartyinicio.getMonth()
+				&& inicio.getDate()==newPartyinicio.getDate()
 				){
 				return {exito:false,error:'Ya existe una fiesta con el mismo nombre'};		
 			}

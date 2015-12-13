@@ -63,8 +63,8 @@ describe('PregoServices', function() {
 	
 		newParty.nombre = 'Una fiesta';
 		newParty.descripcion = 'Re copada';
-		newParty.inicio = moment([2015, 12, 12,23,0,0]).toDate();
-		newParty.fin = moment([2015, 12, 13,6,0,0]).toDate();
+		newParty.inicio =  "2015-12-12T23:00:00";
+		newParty.fin = "2015-12-13T06:00:00";
 		newParty.types = [ "after","bar"];
 		newParty.generos = [ "after","bar"]; 
 		newParty.generos = [ "ochentoso","dance"];
@@ -80,8 +80,8 @@ describe('PregoServices', function() {
 		var newParty2 = {};	
 		newParty2.nombre = 'Una fiesta';
 		newParty2.descripcion = 'Re copada';
-		newParty2.inicio = moment([2015, 12, 12,22,0,0]).toDate();
-		newParty2.fin = moment([2015, 12, 13,6,0,0]).toDate();
+		newParty2.inicio =  "2015-12-12T22:00:00";
+		newParty2.fin = "2015-12-13T06:00:00";
 		newParty2.types = [ "after","bar"];
 		newParty2.generos = [ "after","bar"]; 
 		newParty2.generos = [ "ochentoso","dance"];
@@ -98,8 +98,8 @@ describe('PregoServices', function() {
 		var newParty3 = {};	
 		newParty3.nombre = 'Una fiesta';
 		newParty3.descripcion = 'Re copada';
-		newParty3.inicio = moment([2015, 12, 13,23,0,0]).toDate();
-		newParty3.fin = moment([2015, 12, 13,6,0,0]).toDate();
+		newParty3.inicio = "2015-12-13T23:00:00";
+		newParty3.fin = "2015-12-13T06:00:00";
 		newParty3.types = [ "after","bar"];
 		newParty3.generos = [ "after","bar"]; 
 		newParty3.generos = [ "ochentoso","dance"];
@@ -123,8 +123,8 @@ describe('PregoServices', function() {
 	
 		newParty.nombre = '';
 		newParty.descripcion = 'Re copada';
-		newParty.inicio = moment([2015, 12, 12,23,0,0]).toDate();
-		newParty.fin = moment([2015, 12, 13,6,0,0]).toDate();
+		newParty.inicio = "2015-12-13T23:00:00";
+		newParty.fin = "2015-12-13T23:00:00";
 		newParty.types = [ "after","bar"];
 		newParty.generos = [ "after","bar"]; 
 		newParty.generos = [ "ochentoso","dance"];
@@ -158,8 +158,8 @@ describe('PregoServices', function() {
 	
 		newParty.nombre = 'Una fiesta';
 		newParty.descripcion = 'Re copada';
-		newParty.inicio = moment([2015, 12, 12,23,0,0]).toDate();
-		newParty.fin = moment([2015, 12, 13,6,0,0]).toDate();
+		newParty.inicio = "2015-12-13T23:00:00";
+		newParty.fin = "2015-12-13T23:00:00";
 		newParty.types = [ "after","bar"];
 		newParty.generos = [ "after","bar"]; 
 		newParty.generos = [ "ochentoso","dance"];
@@ -176,6 +176,20 @@ describe('PregoServices', function() {
 		assert.equal(fiestaGuardada.nombre , newParty.nombre);
 			
 	});
+	
+	
+	it('se puede rellenar el servicio', function () {
+	    var servicios = createServicios();
+		
+		servicios.fiestas.rellenar();
+		
+		assert.equal(true, servicios.fiestas.getAll().length>6, 'se esperaban mas de 6 fistas');
+    });
+	
+	
+	
+	
+	
     
 	 
 	

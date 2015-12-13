@@ -336,7 +336,7 @@ describe('PregoServices', function() {
 
 		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
 		
-		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["otro","after"]);
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["other","after"]);
 		assert.equal(2, fiestas.length);
 		assert.equal("PoolParty", fiestas[0].nombre);
 		assert.equal("BsAsEnFoco", fiestas[1].nombre);
@@ -357,7 +357,7 @@ describe('PregoServices', function() {
 
 		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
 		
-		var fiestas = servicios.fiestas.getPartysByType(true, munioz.lat, munioz.long, ["otro","after"]);
+		var fiestas = servicios.fiestas.getPartysByType(true, munioz.lat, munioz.long, ["other","after"]);
 		assert.equal(0, fiestas.length);
 		
 		var fiestas = servicios.fiestas.getPartysByType(true, munioz.lat, munioz.long, ["bar","disco"]);
@@ -376,7 +376,7 @@ describe('PregoServices', function() {
 		servicios.fiestas.rellenar();	
 
 		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 		
-		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["otro","after"]);
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["other","after"]);
 		assert.equal("PoolParty", fiestas[0].nombre);
 		
 		var fiesta = servicios.fiestas.getParty(fiestas[0].id);
@@ -402,7 +402,7 @@ describe('PregoServices', function() {
 		servicios.fiestas.rellenar();	
 
 		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 		
-		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["otro","after"]);
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["other","after"]);
 		assert.equal("PoolParty", fiestas[0].nombre);
 		
 		var fiesta = servicios.fiestas.getParty(fiestas[0].id);
@@ -443,7 +443,7 @@ describe('PregoServices', function() {
 		assert.equal(1,res.id);
 				
 		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 	
-		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["otro","after"]);
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["other","after"]);
 		assert.equal(1,fiestas.length);
 		assert.equal(1,fiestas[0].id);
     });

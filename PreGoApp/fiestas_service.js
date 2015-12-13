@@ -93,7 +93,7 @@ function FiestasService(store, services) {
 			nombre: "Sunset",
 			esSugerida:true,
 			types:["bar","disco"],
-			musicGenres:["dance","otro"],
+			musicGenres:["dance","other"],
 			imagenDeFondo:"/dist/img/clubs/sunset.jpg",
 			imagenBanner:"/dist/img/clubs/sunset_BAR.jpg",
 			fotos:["otras imagenes"],

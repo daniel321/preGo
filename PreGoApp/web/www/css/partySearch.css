@@ -144,8 +144,6 @@
 		height:400px;
 		width:100%;
 
-		color:white;
-
 		border:0px;
 		border-top-right-radius: 0px;
 		border-top-left-radius: 0px;
@@ -157,10 +155,6 @@
 		border-color:#C0C0C0;
 	}
 
-	#current{
-		color:white;
-	}
-
 	#typeSelection{
     		display: table;
     		margin: 0 auto;
@@ -169,7 +163,7 @@
 	}
 
 	#closeBySelection{
-		color:white;
+		color:black;
 
     		display: table;
     		margin: 0 auto;

@@ -89,7 +89,7 @@ app.post('/api/chat/:email', function (req, res) {
 
 app.get('/api/matches', function (req, res) {
 	var matches = encuentrosService.getMatches(req.cookies.email);
-	console.log(matches);
+	// console.log(matches);
 	res.send(matches);
 })
 
@@ -509,8 +509,8 @@ app.get('/api/musicGenres', function (req,res) {
 
 app.post('/api/party', function (req, res) {
 	var newParty = {};
-	console.log(req.body.from);
-	console.log(req.body.to);
+//	console.log(req.body.from);
+//	console.log(req.body.to);
 	newParty.nombre = req.body.name;
 	newParty.descripcion = req.body.description;
 	newParty.inicio = req.body.from;

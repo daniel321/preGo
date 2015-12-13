@@ -117,7 +117,7 @@ partys["Ink"] = {
 
 partys["Hiio"] = {
          nombre: "Hiio",
-		 esSugerida:false,
+		 esSugerida:true,
 		 types:["Bar","Boliche"],
 
 		 imagenDeFondo:"/dist/img/clubs/Hiio.jpg",

@@ -1,3 +1,15 @@
+
+<style>
+	#serveceType{
+		height : 35px;
+	}
+
+	#publishButton{
+		text-align : center;
+		min-width : 130px;
+	}
+</style>
+
 <!-- Main row -->
 <div class="row">
 	<!-- Left col -->
@@ -78,14 +90,14 @@
 										<img class="profile-user-img img-responsive img-circle"
 											src="dist/img/tipos_servicio/dj.png" alt="DJ">
 										<h3 class="profile-username text-center">DJ</h3>
-										<p class="text-muted text-center">Servicio de DJ</p>
+										<p class="text-muted text-center" id="serveceType">Servicio de DJ</p>
 
 										<ul class="list-group list-group-unbordered">
 											<li class="list-group-item"><b>Publicados</b> <a
 												class="pull-right">{{publishedAmnt.DJ}}</a></li>
 										</ul>
 										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()">
+											ng-click="save()" id="publishButton">
 											<b>Publicar Servicio</b>
 										</button>
 									</div>
@@ -100,14 +112,14 @@
 										<img class="profile-user-img img-responsive img-circle"
 											src="dist/img/tipos_servicio/drinks.png" alt="Drinks">
 										<h3 class="profile-username text-center">Bebidas</h3>
-										<p class="text-muted text-center">Servicio de Barman</p>
+										<p class="text-muted text-center" id="serveceType">Servicio de Barman</p>
 
 										<ul class="list-group list-group-unbordered">
 											<li class="list-group-item"><b>Publicados</b> <a
 												class="pull-right">{{publishedAmnt.Bebidas}}</a></li>
 										</ul>
 										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()">
+											ng-click="save()" id="publishButton">
 											<b>Publicar Servicio</b>
 										</button>
 									</div>
@@ -120,14 +132,14 @@
 										<img class="profile-user-img img-responsive img-circle"
 											src="dist/img/tipos_servicio/salon.png" alt="Salon">
 										<h3 class="profile-username text-center">Salon</h3>
-										<p class="text-muted text-center">Reserva de salon</p>
+										<p class="text-muted text-center" id="serveceType" >Reserva de salon</p>
 
 										<ul class="list-group list-group-unbordered">
 											<li class="list-group-item"><b>Publicados</b> <a
 												class="pull-right">{{publishedAmnt.Salon}}</a></li>
 										</ul>
 										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()">
+											ng-click="save()" id="publishButton">
 											<b>Publicar Servicio</b>
 										</button>
 									</div>
@@ -140,14 +152,14 @@
 										<img class="profile-user-img img-responsive img-circle"
 											src="dist/img/tipos_servicio/sound.png" alt="Sound">
 										<h3 class="profile-username text-center">Sonido</h3>
-										<p class="text-muted text-center">Equipos de sonido</p>
+										<p class="text-muted text-center" id="serveceType" >Equipos de sonido</p>
 
 										<ul class="list-group list-group-unbordered">
 											<li class="list-group-item"><b>Publicados</b> <a
 												class="pull-right">{{publishedAmnt.Sonido}}</a></li>
 										</ul>
 										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()">
+											ng-click="save()" id="publishButton" >
 											<b>Publicar Servicio</b>
 										</button>
 									</div>
@@ -162,14 +174,14 @@
 										<img class="profile-user-img img-responsive img-circle"
 											src="dist/img/tipos_servicio/animacion.png" alt="Animacion">
 										<h3 class="profile-username text-center">Animacion</h3>
-										<p class="text-muted text-center">Animador de fiestas</p>
+										<p class="text-muted text-center" id="serveceType" >Animador de fiestas</p>
 
 										<ul class="list-group list-group-unbordered">
 											<li class="list-group-item"><b>Publicados</b> <a
 												class="pull-right">{{publishedAmnt.Animacion}}</a></li>
 										</ul>
 										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()">
+											ng-click="save()" id="publishButton">
 											<b>Publicar Servicio</b>
 										</button>
 									</div>

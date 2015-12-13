@@ -45,7 +45,9 @@
 			<h4>Servicios destacados:</h4>
 
 			<div ng-repeat="serviceGroup in searchedServices">
-				<label>{{serviceGroup.text }}</label>
+				<div class="col-lg-12">
+					<label>{{serviceGroup.text }}</label>
+				</div>
 				<div ng-repeat="service in serviceGroup.highlighted">
 					<div class="box box-warning"
 						style="background: linear-gradient(to bottom, white, #FFE4C4);"

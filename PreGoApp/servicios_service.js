@@ -38,6 +38,39 @@ function ServiciosService(store) {
 		return { exito: false };
     }
 
+	this.getServiciosByTypes = function (types) {
+		var res = [];
+		var aux = __store.servicios;
+		var arr = [];
+		for(i = 0; i < aux.length; i++) {
+			for(j = 0; j < types.length; j++) {
+				if(aux[i].code == types[j]) {
+					arr.push(aux[i]);
+				}
+			}
+		}
+		
+		for (var i = 0; i < arr.length; i++) {
+			var highlighted = arr[i].highlighted;
+			var h = [];
+			for (var j = 0; j < highlighted.length; j++) {
+				h.push(__copyService(highlighted[j]));
+			}
+			var regular = arr[i].regular;
+			var r = [];
+			for (var k = 0; k < regular.length; k++) {
+				r.push(__copyService(regular[k]));
+			}
+			res.push({
+				code: arr[i].code,
+				text: arr[i].text,
+				highlighted: h,
+				regular: r
+			});
+		}
+		return res;
+	}
+	
     this.getServicios = function () {
 		var res = [];
 		var arr = __store.servicios;

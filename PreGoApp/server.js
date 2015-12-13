@@ -576,14 +576,14 @@ app.get('/api/serviceGenres', function (req,res) {
 })
 
 app.get('/api/serviceSearch', function(req, res) {
-	var types = req.query['types'];
+	var types = req.query['types'];	
 	if (typeof (types) == 'undefined') {
 		res.send({
 			exito : false,
 			error : 'revisar parametros'
 		});
 	} else {
-		serviceList = serviciosService.getServicios();
+		serviceList = serviciosService.getServiciosByTypes(types);
 		res.send(serviceList);
 	}
 })

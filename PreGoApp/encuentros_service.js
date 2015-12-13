@@ -141,17 +141,40 @@ function EncuentrosService(store) {
     }
 	
 
+	
+	
+	var extraerParticipante = function(arrFiestas){
+		var users = [];
+		for (var i = 0; i < arrFiestas.length; i++) {				
+			for(var j=0; arrFiestas[i].participantes  && j<arrFiestas[i].participantes.length;j++){
+				users.push(arrFiestas[i].participantes[j]);
+			}
+		}
+		return users;
+	}
+	
+	
+	var concatenarArrays = function(arr1,arr2){
+		var res = [];
+		for (var i = 0; i < arr1.length; i++) {				
+			res.push(arr1[i]);
+		}		
+		for (var j = 0; j < arr2.length; j++) {				
+			res.push(arr2[j]);
+		}
+		return res;
+	}
+	
+	
 	this.sugerir = function (emailUsuarioBuscador) {
-		
-		var usuarioBuscador = null;
-		usuarioBuscador = __buscarUsuario(emailUsuarioBuscador);
+		var usuarioBuscador = __buscarUsuario(emailUsuarioBuscador);
 		var res = { exito: true, error:'', usuarioAConocer:null};
 		if(usuarioBuscador){
-			var arr = __store.usuarios;
+			//busco los usuarios de las fiestas donde participa el buscador, y los agrego adelante de todo en la lista de usuarios a sugerir
+			var usuariosParticipantes = extraerParticipante(__store.getFiestasDondeParticipa(usuarioBuscador));
+			var arr = concatenarArrays(usuariosParticipantes,__store.usuarios);
 			var usuarioEncontrado = null;
-			//console.log('Recorriendo usuarios');
-			for (var i = 0; i < arr.length && usuarioEncontrado==null; i++) {
-				
+			for (var i = 0; i < arr.length && usuarioEncontrado==null; i++) {				
 				if ( __getUsuarioCalificado(usuarioBuscador, arr[i])==null && arr[i].sexo != usuarioBuscador.sexo ) {
 					usuarioEncontrado = arr[i];
 				}
@@ -234,7 +257,7 @@ function EncuentrosService(store) {
 		this.calificar('ursula@prego.com','nahuel@prego.com', true);
 		this.calificar('china@prego.com','nahuel@prego.com', true);
 		
-		this.addMatch("nahuel@prego.com","china@prego.com");
+		//this.addMatch("nahuel@prego.com","china@prego.com");
 	}
  
 }

@@ -11,10 +11,12 @@ describe('PregoServices', function() {
 		
 		var usuariosService =  pregoServices.getUsuariosService();
 		var encuentrosService =  pregoServices.getEncuentrosService();
+		var fiestasService =  pregoServices.getFiestasService();
 		
 		var res = {};
 		res.usuarios = usuariosService;
 		res.encuentros = encuentrosService;
+		res.fiestas = fiestasService;
 		return res;
 	}
 
@@ -178,6 +180,60 @@ describe('PregoServices', function() {
 		assert.equal(2,servicios.encuentros.getCalificadosPor('nahuel@prego.com'));
     });
 	 
+	 
+	 
+	it('deberia traer primero los usuarios que coparto asistencia', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		servicios.fiestas.rellenar();
+		
+		
+		assert.equal(7,servicios.fiestas.getAll().length);
+		
+		
+		//fiesta 1 con china, damian, usrula, ezequiel
+		assert.equal(true,servicios.fiestas.participar(1,'china@prego.com').exito);
+		assert.equal(true,servicios.fiestas.participar(1,'damian@prego.com').exito);
+		assert.equal(true,servicios.fiestas.participar(1,'ursula@prego.com').exito);
+		assert.equal(true,servicios.fiestas.participar(1,'ezequiel@prego.com').exito);		
+		
+		//fiesta 2 con china sola
+		assert.equal(true,servicios.fiestas.participar(2,'china@prego.com').exito);
+		
+		//fiesta 3 solo guido
+		assert.equal(true,servicios.fiestas.participar(3,'guido@prego.com').exito);
+		
+		//fiesta 4 solo china con nahuel
+		assert.equal(true,servicios.fiestas.participar(4,'china@prego.com').exito);
+		assert.equal(true,servicios.fiestas.participar(4,'nahuel@prego.com').exito);
+		
+		
+		//Se espera que sugiera en este orden: damian, ezequiel, nahuel		
+		
+		assert.equal(4,servicios.fiestas.getParty(1).participantes.length);
+		assert.equal(1,servicios.fiestas.getParty(2).participantes.length);
+		assert.equal(1,servicios.fiestas.getParty(3).participantes.length);
+		assert.equal(2,servicios.fiestas.getParty(4).participantes.length);
+		
+		assert.equal(true,servicios.fiestas.getParty(1,'china@prego.com').soyAsistente);
+		assert.equal(true,servicios.fiestas.getParty(2,'china@prego.com').soyAsistente);
+		assert.equal(false,servicios.fiestas.getParty(3,'china@prego.com').soyAsistente);
+		assert.equal(true,servicios.fiestas.getParty(4,'china@prego.com').soyAsistente);
+		
+		assert.equal('damian@prego.com',servicios.encuentros.sugerir('china@prego.com').usuarioAConocer.email);
+		servicios.encuentros.calificar('china@prego.com', 'damian@prego.com', true);
+		assert.equal('ezequiel@prego.com',servicios.encuentros.sugerir('china@prego.com').usuarioAConocer.email);
+		servicios.encuentros.calificar('china@prego.com', 'ezequiel@prego.com', true);
+		assert.equal('nahuel@prego.com',servicios.encuentros.sugerir('china@prego.com').usuarioAConocer.email);
+		servicios.encuentros.calificar('china@prego.com', 'nahuel@prego.com', true);
+		
+		assert.notEqual('china@prego.com',servicios.encuentros.sugerir('china@prego.com').usuarioAConocer.email);
+		assert.notEqual('ursula@prego.com',servicios.encuentros.sugerir('china@prego.com').usuarioAConocer.email);
+		
+    });
+	 
+	
 	
 	
 	

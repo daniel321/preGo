@@ -1,13 +1,32 @@
 function FiestasService(store, services) {
     var __store = store;
 	var services = services;
+	
+	var _getFiestasDondeParticipa = function(usuarioDom){
+		var res = [];
+		for(var i=0;i<__store.fiestas.length;i++){
+			var item = __store.fiestas[i];
+			if(item.participantes.indexOf(usuarioDom)>-1){
+				res.push(item);	
+			}			
+		}
+		return res;
+	}
+	
     if (typeof (__store.fiestas) === 'undefined') {
         __store.fiestas = [];
 		__store.fiesta_last_id = 0;
+		__store.getFiestasDondeParticipa = _getFiestasDondeParticipa;
     };
 	
+	
 	this.getAll = function(){
-		return __store.fiestas;
+		var res = [];
+		for(var i=0;i<__store.fiestas.length;i++){
+			var item = __store.fiestas[i];
+			res.push(copyParty(item));
+		}
+		return res;
 	};
 	 
 	
@@ -66,7 +85,9 @@ function FiestasService(store, services) {
 			"guido@prego.com",
 			"rosita@prego.com"
 		];
-		
+		 
+		this.participar(1,"nahuel@prego.com");
+		this.participar(1,"rosita@prego.com");
 		
 		var f=0;
 		for(var i=0; i<participantes_fill.length; i++){
@@ -397,10 +418,10 @@ function FiestasService(store, services) {
 				party.participantes.push(usuario);
 				return {exito:true};
 			}else{
-				return {exito:false};	
+				return {exito:false,error:'Usuario inexistente'};	
 			}			
 		}else{
-			return {exito:false};
+			return {exito:false,error:'Fiesta inexistente'};	
 		}
 	}
 	

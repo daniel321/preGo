@@ -163,8 +163,8 @@ describe('PregoServices', function() {
 		newParty.types = [ "after","bar"];
 		newParty.generos = [ "after","bar"]; 
 		newParty.generos = [ "ochentoso","dance"];
-		newParty.location = {
-			direccion: "Calle Paunero 1650, San Miguel, Buenos Aires",
+		newParty.direccion= "Calle Paunero 1650, San Miguel, Buenos Aires";
+		newParty.pos = {			
 			lat: '-34.5410156', 
 			long: '-58.7140899'
 		};

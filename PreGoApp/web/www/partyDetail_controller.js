@@ -112,6 +112,24 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
                 console.log(error);
             });
     }
+	
+	$scope.asistir = function(){
+		if($scope.party && $scope.party.id){
+			$http.put(
+                '/api/partyParticipation',
+                {partyId: $scope.party.id}
+            ).then(
+				function(res){
+					console.log(res.data);
+					if(res.data.exito){
+						getParty(joinCallback); //recarga para tomar las imagenes de los participantes
+					}
+				}
+			);
+		}else{
+			console.log('No se cargo la fiesta correctamente');
+		}
+	}
 
     function getPartyTypes(callback) {
         PartyDetailService.getPartyTypes()

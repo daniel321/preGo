@@ -208,6 +208,17 @@ app.post('/api/party', function (req, res) {
     
 });
 
+
+app.put('/api/partyParticipation', function (req, res) {
+	if(req.body.partyId && req.cookies.email){
+		var partyParticipationResult = fiestasService.participar(req.body.partyId,req.cookies.email);
+		res.send(partyParticipationResult);    	
+	}else{
+		res.send({exito:false, error:'problema con los parametros o desconexion'});
+	}
+	
+});
+
 app.get('/api/party/:id', function (req, res) {
 	var resultado = fiestasService.getParty(req.params.id);
 	if(resultado){

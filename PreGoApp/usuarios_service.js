@@ -1,7 +1,21 @@
 function UsuariosService(store) {
     var __store = store;
+	
+	
+    var __getUsuarioByEmail = function (email) {
+		var arr = __store.usuarios;
+		for (var i = 0; i < arr.length; i++) {
+			if (arr[i].email == email) {
+				return arr[i];
+			}
+		}
+		return null;
+    }
+
+	
     if (typeof (__store.usuarios) === 'undefined') {
         __store.usuarios = [];
+		__store.__getUsuarioByEmail = __getUsuarioByEmail;
     }
 
 	this.agregarUsuario = function (email, pass, nickname, avatar_url, sexo) {
@@ -33,16 +47,6 @@ function UsuariosService(store) {
 			return user.pass == pass;
 		}
 		return false;
-    }
-
-    var __getUsuarioByEmail = function (email) {
-		var arr = __store.usuarios;
-		for (var i = 0; i < arr.length; i++) {
-			if (arr[i].email == email) {
-				return arr[i];
-			}
-		}
-		return null;
     }
 
     var __getUsuarioByName = function (name) {

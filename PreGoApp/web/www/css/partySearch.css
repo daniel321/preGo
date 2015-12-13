@@ -25,6 +25,11 @@
 
 	}
 
+	#link{
+		color:black;
+		text-decoration:none;
+	}
+
 	#promParty{
 		height:175px;
 		margin-top:0px;

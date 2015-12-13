@@ -101,38 +101,39 @@
 
 			<div ng-repeat="pty in promoted_partys">
 				<div class="box box-warning" style="background: linear-gradient(to bottom, white, #FFE4C4);">
-					<div class="row">
-						<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-							<div class="container" style="vertical-align: middle; display: table-cell;">
-								<img class="img-responsive" src={{pty.imagenDeFondo}} alt="">
+					<a href = "#/partyDetail/{{pty.nombre}}" id="link">
+						<div class="row">
+							<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+								<div class="container" style="vertical-align: middle; display: table-cell;">
+									<img class="img-responsive" src={{pty.imagenDeFondo}} alt="">
+								</div>
 							</div>
-						</div>
-						<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
-							<h4>
-								<b>{{pty.nombre}}</b>
+							<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+								<h4>
+									<b>{{pty.nombre}}</b>
 
-								<div id="partyStuff" class="row">
-									<div id="dist" class="col-xs-4">
-										<img id="icon" src="/dist/img/icons/mpIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
-										<div id="text"> {{pty.dist}}km</div>
-									</div>				
+									<div id="partyStuff" class="row">
+										<div id="dist" class="col-xs-4">
+											<img id="icon" src="/dist/img/icons/mpIcon.png" class="img-responsive" alt="Cinque Terre"></img>	
+											<div id="text"> {{pty.dist}}km</div>
+										</div>				
 
-									<div id="people" class="col-xs-4">
-										<img id="icon" src="/dist/img/icons/pplIconBlack.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
-										<div id="text"> {{pty.cantidadDeGente}} </div>
+										<div id="people" class="col-xs-4">
+											<img id="icon" src="/dist/img/icons/pplIconBlack.png" class="img-responsive" alt="Cinque Terre"></img>	
+											<div id="text"> {{pty.cantidadDeGente}} </div>
+										</div>
+
+										<div id="fireIcon" class="col-xs-4" ng-style="{'background-image':'url({{pty.flama}})'}"></div>
 									</div>
 
-									<div id="fireIcon" class="col-xs-4" ng-style="{'background-image':'url({{pty.flama}})'}"></div>
-								</div>
-
-							</h4>
-							<hr>
-<!--							<p>{{pty.descripcion}}</p>
-/!-->
+								</h4>
+								<hr>
+	<!--							<p>{{pty.descripcion}}</p>
+	/!-->
+							</div>
 						</div>
-					</div>
+					</a>
 				</div>
-
 			</div>
 
 			<div ng-show="common_partys.length > 0">
@@ -141,36 +142,38 @@
 
 			<div class="row">
 				<div class="col-lg-12" ng-repeat="pty in common_partys">
-					<div class="col-lg-6">
-						<div class="box" style="background: linear-gradient(to bottom, white, silver);">
-							<div class="row">
-								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-									<div class="container" style="vertical-align: middle; display: table-cell;">
-										<img id="imagenDeFiestaRegular" class="img" src={{pty.imagenDeFondo}} alt="">
+					<a href = "#/partyDetail/{{pty.nombre}}" id="link">
+						<div class="col-lg-6"j>
+							<div class="box" style="background: linear-gradient(to bottom, white, silver);">
+								<div class="row">
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+										<div class="container" style="vertical-align: middle; display: table-cell;">
+											<img id="imagenDeFiestaRegular" class="img" src={{pty.imagenDeFondo}} alt="">
+										</div>
 									</div>
-								</div>
-								<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10" style="padding-top: 15px">
-									<b>{{pty.nombre}}</b>
+									<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10" style="padding-top: 15px">
+										<b>{{pty.nombre}}</b>
 
-									<div id="partyStuff" class="row">
-										<div id="dist" class="col-xs-4">
-											<img id="icon" src="/dist/img/icons/mpIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
-											<div id="text"> {{pty.dist}}km</div>
-										</div>				
+										<div id="partyStuff" class="row">
+											<div id="dist" class="col-xs-4">
+												<img id="icon" src="/dist/img/icons/mpIcon.png" class="img-responsive" alt="Cinque Terre"></img>	
+												<div id="text"> {{pty.dist}}km</div>
+											</div>				
 
-										<div id="people" class="col-xs-4">
-											<img id="icon" src="/dist/img/icons/pplIcon.png" href="#" class="img-responsive" alt="Cinque Terre"></img>	
-											<div id="text"> {{pty.cantidadDeGente}} </div>
+											<div id="people" class="col-xs-4">
+												<img id="icon" src="/dist/img/icons/pplIcon.png" class="img-responsive" alt="Cinque Terre"></img>	
+												<div id="text"> {{pty.cantidadDeGente}} </div>
+											</div>
+
+											<div id="fireIcon" class="col-xs-4" ng-style="{'background-image':'url({{pty.flama}})'}"></div>
 										</div>
 
-										<div id="fireIcon" class="col-xs-4" ng-style="{'background-image':'url({{pty.flama}})'}"></div>
 									</div>
 
 								</div>
-
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			</div>
 

@@ -1,4 +1,4 @@
-app.controller('meetingsController', function ($scope, $http, MeetingsService ) {
+app.controller('meetingsController', function ($scope, $http,$location, MeetingsService ) {
 	
 	$scope.partyTypes = [];
 	$scope.success = null;
@@ -17,6 +17,11 @@ app.controller('meetingsController', function ($scope, $http, MeetingsService ) 
 		MeetingsService.qualify($scope.suggest.email, like).then(
 			function(res){
 				if(res.data.exito){
+					if(res.data.match){
+						if(confirm('Vos y ' + $scope.suggest.nickname + ' se eligieron mutuamente, ¿ Querés comenzar a hablar ahora?')){
+							$location.path('chat/' + $scope.suggest.email);
+						} 
+					}
 					$scope.suggestNext();
 				}else{
 					console.log(res.data.error);

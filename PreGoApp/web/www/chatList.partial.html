@@ -26,6 +26,9 @@
 									</div>
 							</li>
 						</ul>
+						
+						<h2 ng-if="match.lastChats== null || match.lastChats.length==0">¿No hablaron aún? </h2>
+						<p ng-if="match.lastChats== null || match.lastChats.length==0">Dá el primer paso... escribile un mensaje</p>
 					</div>
 				</div>
 			</a>

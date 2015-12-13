@@ -168,6 +168,17 @@ describe('PregoServices', function() {
     });
 	
 	
+	it('getMatches deberia devolver algo aunque no haya mensajes aun', function () {
+		var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		servicios.encuentros.addMatch('nahuel@prego.com','china@prego.com');
+		console.log(servicios.encuentros.getMatches('nahuel@prego.com')[0]);
+		assert.equal(1, servicios.encuentros.getMatches('nahuel@prego.com').length);
+		
+    });
+	
+	
 	it('cuando ambos se califican mutuamente deberia haber una coincidencia', function () {
 	    var servicios = createServicios();
 		servicios.usuarios.rellenar();
@@ -191,8 +202,6 @@ describe('PregoServices', function() {
 		assert.equal(true,resCalifVuelta2.match,'Se esperaba match 4');
 		
 		assert.equal(1,servicios.encuentros.getMatches('china@prego.com','nahuel@prego.com').length)
-		
-		
 		
     });
 	

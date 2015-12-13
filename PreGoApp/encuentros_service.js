@@ -111,11 +111,14 @@ function EncuentrosService(store) {
 				for(var i=0; i< user.matches.length;i++){
 					var matchEmail = user.matches[i];					
 					var other = __buscarUsuario(matchEmail);  
-					var lastChats = this.getChat(user.email,matchEmail).slice(-3);			
+					var chats = this.getChat(user.email,matchEmail);
+					if(chats && chats.length>0){
+						chats = chats.slice(-3);				
+					}					
 					ret.push( {
 						nickname: other.nickname,
 						avatar_url: other.avatar_url,
-						lastChats: lastChats,						
+						lastChats: chats,						
 						email: other.email,
 					});
 				} 
@@ -203,6 +206,11 @@ function EncuentrosService(store) {
 		this.addMatch("ezequiel@prego.com","nahuel@prego.com");
 		this.addChat("ezequiel@prego.com","nahuel@prego.com","todo en orden?");
 		this.addChat("nahuel@prego.com","ezequiel@prego.com","sip");
+		
+		this.calificar('ursula@prego.com','nahuel@prego.com', true);
+		this.calificar('china@prego.com','nahuel@prego.com', true);
+		
+		this.addMatch("nahuel@prego.com","china@prego.com");
 	}
  
 }

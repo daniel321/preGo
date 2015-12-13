@@ -2,6 +2,48 @@
 <link rel="stylesheet" type="text/css" href="/www/css/chatList.css">
 
 <div id="all">
+
+			<div ng-show="matches.length > 0">
+				<h4>Matches:</h4>
+			</div>
+
+			<div ng-repeat="match in matches">
+				<div class="box box-success" style="background: linear-gradient(to bottom, white, #ccffcc);">
+					<a ng-click = "chatWith(match)" id="link">
+						<div class="row" id="author">
+							<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+								<div class="container" style="vertical-align: middle; display: table-cell;">
+									<img id="img" class="img-responsive" src={{match.avatar_url}} alt="">
+								</div>
+								<b>{{match.nickname}}</b>
+							</div>
+							<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+								<h4>
+									<ul class="list-group" ng-repeat="message in match.lastChats">
+											<li class="list-group-item" id="message">
+												<div class="row">
+													<div id="postAuthor" class="col-xs-5">
+														{{message.nickname}}: 
+													</div> 
+													<div id="postMsg" class="col-xs-7">
+														{{message.message}}
+													</div> 
+												</div>
+										</li>
+									</ul>
+						
+									<h2 ng-if="match.lastChats== null || match.lastChats.length==0">¿No hablaron aún? </h2>
+									<p ng-if="match.lastChats== null || match.lastChats.length==0">Dá el primer paso... escribile un mensaje</p>
+								</h4>
+								<hr>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+
+<!--
 		<div class="list-group" ng-repeat="match in matches">
 			<a id="match" ng-click="chatWith(match)" class="list-group-item">	
 				<div class="row">			
@@ -33,6 +75,7 @@
 				</div>
 			</a>
 		</div>
+	/!-->
 
 </div>	
 

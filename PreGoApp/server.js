@@ -10,8 +10,7 @@ pregoServices.rellenar();
 var usuariosService = pregoServices.getUsuariosService();
 var encuentrosService = pregoServices.getEncuentrosService();
 var serviciosService = pregoServices.getServiciosService();
-
-
+var fiestasService =  pregoServices.getFiestasService();
 
 
 app.use(express.static('web'));
@@ -513,8 +512,8 @@ app.post('/api/party', function (req, res) {
 	
 	newParty.nombre = req.body.name;
 	newParty.descripcion = req.body.description;
-	newParty.inicio = req.body.from;
-	newParty.fin = req.body.to;
+	newParty.inicio = new Date(req.body.from);
+	newParty.fin = new Date(req.body.to);
 	newParty.types = req.body.types;
 	newParty.generos = req.body.musicGenres;
 	newParty.location = {
@@ -525,25 +524,20 @@ app.post('/api/party', function (req, res) {
 				
 	newParty.userRates = [];
 	newParty.comentarios = [];
-	
-	// console.log(newParty.nombre);
-	// console.log(partys[newParty.nombre]);
-	
-	if(typeof(partys[newParty.nombre]) == 'undefined' ){
-		partys[newParty.nombre] = newParty;
-		res.send(true);
-	}else{
-		res.append('Error', 'Fiesta duplicada con nombre:' + newParty.name);
-		res.send(false);
-	}
-	
-	/*
-	TODO:
-	Cambiar los atributos de fechas y horas por separado por atributos fechaHora como fechaHoraDesde y fechaHoraHasta
-	Agregar una forma de subir "imagenDeFondo" e "imagenBanner"
-	*/
+	var addPartyResult = fiestasService.addParty(newParty);
+	res.send(addPartyResult);
     
 });
+
+app.get('/api/party/:id', function (req, res) {
+	var resultado = fiestasService.getParty(req.params.id);
+	if(resultado){
+		res.send(resultado);	
+	}else{
+		res.send({nombre:'No se encontró'});	
+	}
+    
+})
 
 app.get('/api/allPartys', function (req, res) {
 	res.send(partys);
@@ -595,10 +589,6 @@ var server = app.listen(3000, function () {
 
     console.log('Example app listening at http://%s:%s', host, port)
 
-})
-
-app.get('/api/party/:key', function (req, res) {
-    res.send(partys[req.params.key]);
 })
 
 

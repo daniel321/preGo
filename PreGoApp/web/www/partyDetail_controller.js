@@ -1,5 +1,5 @@
-app.controller('partyDetailController', function ($scope, $http, $routeParams, PartyDetailService) {
-    var partyKey = $routeParams.partyKey;
+app.controller('partyDetailController', function ($scope, $http, $location, PartyDetailService) {
+    var partyKey = $location.search().id;
 
     $scope.party = null;
 	$scope.partyTypes = [];
@@ -49,7 +49,7 @@ app.controller('partyDetailController', function ($scope, $http, $routeParams, P
 	    PartyDetailService.getParty(partyKey)
             .then(function (response) {
                 $scope.party = response.data;
-                //TODO: En la página de búsqueda de fiestas se usa un objeto con estructura diferente al que se usa en partyCreate. Unificar.
+                //TODO: En la pÃ¡gina de bÃºsqueda de fiestas se usa un objeto con estructura diferente al que se usa en partyCreate. Unificar.
                 // Correcciones de compatibilidad del objeto::
                 if (!$scope.party.fechaHoraDesde) {
                     $scope.party.fechaHoraDesde = $scope.party.inicio

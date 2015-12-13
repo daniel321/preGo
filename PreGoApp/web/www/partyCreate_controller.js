@@ -1,4 +1,4 @@
-app.controller('partyCreateController', function ($scope, $http, PartyCreateService ) {
+app.controller('partyCreateController', function ($scope, $http,$location, PartyCreateService ) {
 	
 	$scope.partyTypes = [];
 	$scope.selectedItems = [];
@@ -64,7 +64,11 @@ app.controller('partyCreateController', function ($scope, $http, PartyCreateServ
 		
 		PartyCreateService.createParty(party).then(function(response) {
 		    console.log(response);
-		    location.href = "#partyDetail/" + encodeURIComponent(party.name);
+			if(response.data.exito){
+				$location.path('partyDetail/').search({id: response.data.id});
+			}else{
+				console.log(response.data.error);
+			}
         });
 	}
 });

@@ -42,7 +42,7 @@
 			</div>
 
 
-			<h4>Servicios destacados:</h4>
+			<h4 ng-hide="!searchedServices.length">Servicios destacados:</h4>
 
 			<div ng-repeat="serviceGroup in searchedServices">
 				<div class="row" ng-hide="!serviceGroup.highlighted.length">
@@ -75,46 +75,46 @@
 			</div>
 
 			<hr>
-			<h4>Servicios regulares:</h4>
+			<h4 ng-hide="!searchedServices.length">Servicios regulares:</h4>
 
 			<div class="row">
-			<div class="col-lg-12" ng-repeat="serviceGroup in searchedServices">
-				<div class="row" ng-hide="!serviceGroup.regular.length">
-					<div class="col-lg-12">
-						<label>{{serviceGroup.text}}</label>
+				<div class="col-lg-12" ng-repeat="serviceGroup in searchedServices">
+					<div class="row" ng-hide="!serviceGroup.regular.length">
+						<div class="col-lg-12">
+							<label>{{serviceGroup.text}}</label>
+						</div>
 					</div>
-				</div>
-				<div ng-repeat="service in serviceGroup.regular">
-					<div class="col-lg-6">
-						<div class="box"
-							style="background: linear-gradient(to bottom, white, silver);"
-							ng-click="showService()">
-							<div class="row">
-								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-									<div class="container"
-										style="vertical-align: middle; display: table-cell;">
-										<img class="img-responsive" src={{service.icon_uri}} alt="">
+					<div ng-repeat="service in serviceGroup.regular">
+						<div class="col-lg-6">
+							<div class="box"
+								style="background: linear-gradient(to bottom, white, silver);"
+								ng-click="showService()">
+								<div class="row">
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+										<div class="container"
+											style="vertical-align: middle; display: table-cell;">
+											<img class="img-responsive" src={{service.icon_uri}} alt="">
+										</div>
 									</div>
-								</div>
-								<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10" style="padding-top: 15px">
-									<b>{{service.name}} ({{service.price}})</b>
-								</div>
+									<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10"
+										style="padding-top: 15px">
+										<b>{{service.name}} ({{service.price}})</b>
+									</div>
 
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			</div>
 		</div>
-</div>
 
 
-<!-- /.box (chat box) -->
-<!-- TO DO List -->
+		<!-- /.box (chat box) -->
+		<!-- TO DO List -->
 
-</section>
-<!-- /.Left col -->
+	</section>
+	<!-- /.Left col -->
 
 </div>
 <!-- /.row (main row) -->

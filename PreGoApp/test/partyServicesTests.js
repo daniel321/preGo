@@ -328,6 +328,61 @@ describe('PregoServices', function() {
 	
 	
 	
+	it('se puede obtener fiestas comunes por tipo', function () {
+	    var servicios = createServicios();
+		
+		 
+		servicios.fiestas.rellenar();	
+
+		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
+		
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["Otro","After office"]);
+		assert.equal(2, fiestas.length);
+		assert.equal("PoolParty", fiestas[0].nombre);
+		assert.equal("BsAsEnFoco", fiestas[1].nombre);
+		
+		var fiestas = servicios.fiestas.getPartysByType(false, munioz.lat, munioz.long, ["Bar","Boliche"]);
+		assert.equal(3, fiestas.length);
+		assert.equal("Moscow", fiestas[0].nombre);
+		assert.equal("Bosque", fiestas[1].nombre);
+		assert.equal("BsAsEnFoco", fiestas[2].nombre);
+		
+    });
+	
+	it('se puede obtener fiestas promocionadas por tipo', function () {
+	    var servicios = createServicios();
+		
+		 
+		servicios.fiestas.rellenar();	
+
+		var munioz = {lat:-34.5352846, long:-58.716308};//san miguel 
+		
+		var fiestas = servicios.fiestas.getPartysByType(true, munioz.lat, munioz.long, ["Otro","After office"]);
+		assert.equal(0, fiestas.length);
+		
+		var fiestas = servicios.fiestas.getPartysByType(true, munioz.lat, munioz.long, ["Bar","Boliche"]);
+		//console.log(fiestas);
+		assert.equal(3, fiestas.length);
+		assert.equal("Sunset", fiestas[0].nombre);
+		assert.equal("Ink", fiestas[1].nombre);
+		assert.equal("Hiio", fiestas[2].nombre);
+		
+    });
+	
+	//true 0
+	
+	//true 3 bar y boliche
+	// false 3 bar y boliche
+	
+	
+	/*
+	
+	if(!(party.esSugerida)  && esDeAlgunoDeLosTipos(types,party.types)){
+		agregar(ret,name,party,dist);
+	}
+	
+	*/
+	
 	
 	
 	// Cerca de Sunset -34.587581, -58.476997

@@ -93,294 +93,23 @@ app.get('/api/matches', function (req, res) {
 	res.send(matches);
 })
 
-var partys = {};
-
-partys["Ink"] = {
-         nombre:"Ink",
-		 esSugerida:true,
-		 types:["Bar","Boliche"],
-		 imagenDeFondo:"/dist/img/clubs/ink.jpg",
-		 imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Ink",
-		 pos:{lat:-34.5865587,long:-58.4395189},
-
-		 inicio: "2015-12-18T09:30:00",
-		 fin:    "2015-12-19T04:30:00",
-
-		 cantidadDeGente:325,
-		 userRates:[10,7,9,9,6],
-		 comentarios: [ {autor:"Daniel",comentario:"muy buen lugar!"} , 
-                   		{autor:"Facundo",comentario:"esto esta que explota!!"} ]
-		};
-
-partys["Hiio"] = {
-         nombre: "Hiio",
-		 esSugerida:true,
-		 types:["Bar","Boliche"],
-
-		 imagenDeFondo:"/dist/img/clubs/Hiio.jpg",
-		 imagenBanner:"/dist/img/clubs/Hiio_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Hiio",
-		 pos:{lat:-34.4961641,long:-58.5549297},
-
-		 inicio: "2015-12-17T13:30:00",
-		 fin:    "2015-12-19T21:30:00",
-
-		 cantidadDeGente:202,
-		 userRates:[8,9,7,9,6,4,7],
-		 comentarios: [ {autor:"Damian",comentario:"festejando en este gran lugar!!"}]
-		};
-
-partys["Moscow"] = {
-         nombre: "Moscow",
-		 esSugerida:false,
-		 types:["Bar","Boliche"],
-
-		 imagenDeFondo:"/dist/img/clubs/Moscow.jpg",
-		 imagenBanner:"/dist/img/clubs/Moscow_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Moscow",
-		 pos:{lat:-34.4513129,long:-58.5561985},
-
-		 inicio: "2015-12-16T06:30:00",
-		 fin:    "2015-12-20T21:30:00",
-
-		 cantidadDeGente:235,
-		 userRates:[6,8,10,7,4],
-		 comentarios: [ {autor:"Guido",comentario:"que buena fiesta !!!"}]
-		};
-
-partys["Bosque"] = {
-         nombre:"Bosque",
-		 esSugerida:false,
-		 types:["Bar","Boliche"],
-		 imagenDeFondo:"/dist/img/clubs/bosque.jpg",
-		 imagenBanner:"/dist/img/clubs/bosque_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion bosque",
-		 pos:{lat:-34.8304372,long:-58.5712683},
-
-		 inicio: "2015-12-23T07:30:00",
-		 fin:    "2015-12-24T21:30:00",
-
-		 cantidadDeGente:135,
-		 userRates:[8,10,7],
-		 comentarios: [ {autor:"Ezequiel",comentario:"aca hay de todo !!!"}]
-		};
-
-partys["Sunset"] = {
-         nombre: "Sunset",
-		 esSugerida:true,
-		 types:["Bar","Boliche"],
-		 imagenDeFondo:"/dist/img/clubs/sunset.jpg",
-		 imagenBanner:"/dist/img/clubs/sunset_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion sunset",
-		 pos:{lat:-34.5876237,long:-58.4660913},
-
-		 inicio: "2015-12-14T03:00:00",
-		 fin:    "2015-12-16T03:30:00",
-
-		 cantidadDeGente:1632,
-		 userRates:[9,10,8,10,7,9],
-		 comentarios: [ {autor:"Ezequiel",comentario:"esta genial!"},
-				{autor:"Guido",comentario:"festejando como loco!!"},
-				{autor:"Nahuel",comentario:"fiestaaaaa!"}]
-		};
-
-partys["BsAsEnFoco"] = {
-         nombre: "BsAsEnFoco",
-		 esSugerida:false,
-		 types:["After office","Bar","Boliche"],
-		 imagenDeFondo:"/dist/img/clubs/Buenos-Aires-En-Foco.jpg",
-		 imagenBanner:"/dist/img/clubs/Buenos-Aires-En-Foco_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Buenos-Aires-En-Foco",
-		 pos:{lat:-34.6324812,long:-58.4184982},
-
-		 inicio: "2015-12-10T06:30:00",
-		 fin:    "2015-12-12T21:30:00",
-
-		 cantidadDeGente:6,
-		 userRates:[8,10,7],
-
-		 comentarios: [ {autor:"Facundo",comentario:"muy bueno, pero no hay nadie..."}]
-		};
-
-partys["PoolParty"] = {
-         nombre: "PoolParty",
-		 esSugerida:false,
-		 types:["Privada","Otro"],
-		 imagenDeFondo:"/dist/img/clubs/Pool-Party.jpg",
-		 imagenBanner:"/dist/img/clubs/Pool-Party_BAR.jpg",
-		 fotos:["otras imagenes"],
-		 descripcion:"descripcion Pool-Party",
-		 pos:{lat:-34.5739245,long:-58.3923359},
-
-		 inicio: "2015-12-14T10:30:00",
-		 fin:    "2015-12-15T21:30:00",
-
-		 cantidadDeGente:302,
-		 userRates:[8,8,8,5,7,10],
-		 comentarios: [ {autor:"Nahuel",comentario:"chicas lindas x todos lados !!!"}]
-		};
-
-
-var getFlame = function(party){ //pasada
-	var rates = party.userRates;
-	var people = party.cantidadDeGente;
-
-	var count = 0;
-
-	for (var i=0;i<rates.length;i++)
-		count += rates[i];
-
-	var avg = count/rates.length;
-
-	if((people > 1000)&&(avg > 9)){
-		return "/dist/img/icons/fire/fireIconPurple.png";
-	}else{
-		if((people > 500)&&(avg > 8)){
-			return "/dist/img/icons/fire/fireIconBlue.png";
-		}else{
-			if((people > 400)&&(avg > 7)){
-				return "/dist/img/icons/fire/fireIconRed.png";
-			}else{
-				if((people > 300)&&(avg > 6)){
-					return "/dist/img/icons/fire/fireIconOrange.png";
-				}else{
-					if((people > 200)&&(avg > 5)){
-						return "/dist/img/icons/fire/fireIconYellow.png";
-					}else{
-						return "/dist/img/icons/fire/fireIconWhite.png";
-					}
-				}	
-			}
-		}
-	}
-}
-
-var biggerAmountOfPeople = function(party1,party2){ //pasada
-	return (party2.cantidadDeGente - party1.cantidadDeGente);
-}
-
-var closest = function(party1,party2){ //pasada
-	return (party2.dist - party1.dist);
-}
-
-var printDate = function(date){
-	console.log(date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
-}
-
-var comesBetween = function(party,start,end){
-
-	var rangeStart = new Date(start.split(".")[0]);
-	var rangeEnd = new Date(end.split(".")[0]);
-
-	var partyStart = new Date(party.inicio.split(".")[0]);
-	var partyEnd = new Date(party.fin.split(".")[0]);
-
-	var res = ( ((partyStart > rangeStart)&&(partyStart < rangeEnd)) || ((rangeStart > partyStart)&&(rangeStart < partyEnd)) ); 
-	return res;
-}
-
-var agregar = function(ret,name,party,dist){ //pasada
-	var flame = getFlame(party);
-
-	party.nombre = name;
-	party.flama = flame;
-	party.dist = dist;
-	
-	ret.push(party);
-}
-
-var enRadianes = function(valor){//pasada
-	return (Math.PI/180)*valor;
-}
-
-var getDistance = function (direccion,party) { //pasada
-	if(party.pos){	
-		var lat = party.pos.lat;
-		var long = party.pos.long;
-
-		var lat2 = direccion[0];
-		var long2 = direccion[1];
-
-		var dlat = enRadianes(lat2-lat);
-		var dlong = enRadianes(long2-long);
-
-		var a = Math.pow( Math.sin( dlat/2 ), 2) + Math.cos(enRadianes(lat)) * Math.cos(enRadianes(lat2)) * Math.pow( Math.sin( dlong/2 ), 2);
-
-		var c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));		
-		
-		var RadioTierra = 6378.0;
-		return Math.round(RadioTierra*c);	
-	}else{
-		console.log('Party sin pos:');
-		console.log(party);
-	}
-	
-}
-
-var esDeAlgunoDeLosTipos = function(types,partyTypes){
-
-	for(t1 in types){
-		var type1 = types[t1];
-
-		for(t2 in partyTypes){
-			var type2 = partyTypes[t2];
-			if(type1 == type2){
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-
 app.get('/api/promotedPartys', function (req,res) {
-    var ret = [];
-    var size = Object.keys(partys).length;
-
-    var lat = req.query['lat'];
+	var lat = req.query['lat'];
     var long = req.query['long'];
-
     var types = req.query['types'].split(",");	
-
-    for (name in partys){
-		var party = partys[name];
-    	var dist = getDistance([lat,long],party);
-
-		if(party.esSugerida && esDeAlgunoDeLosTipos(types,party.types))
-			agregar(ret,name,party,dist);
-    }
-
-    ret.sort(biggerAmountOfPeople);
-    res.send(ret);
+	
+	var ret = fiestasService.getPartysByType(true, lat, long, types);
+	res.send(ret);
 })
 
 app.get('/api/commonPartys', function (req,res) {
-    var ret = [];
-    var size = Object.keys(partys).length;
-
-    var lat = req.query['lat'];
+	var lat = req.query['lat'];
     var long = req.query['long'];
-
     var types = req.query['types'].split(",");	
-
-    for (name in partys){
-	var party = partys[name];
-    	var dist = getDistance([lat,long],party);
-
-	if(!(party.esSugerida)  && esDeAlgunoDeLosTipos(types,party.types)){
-		agregar(ret,name,party,dist);
-	}
-    }
-
-    ret.sort(biggerAmountOfPeople);
-    res.send(ret);
+	
+	var ret = fiestasService.getPartysByType(false, lat, long, types);
+	res.send(ret);
+	
 })
 
 app.get('/api/promotedPartysByDate', function (req,res) {
@@ -428,14 +157,6 @@ app.get('/api/promotedPartysCloseBy', function (req,res) {
 	var ret = fiestasService.getPartysCloseBy(true,lat, long, tolerance)
     res.send(ret);
 })
-
-app.post('/api/partys', function (req, res) {
-    var msg = req.body.message;
-    partys[msg[0]] = msg[1];
-
-    res.send(true);
-})
-
 
 app.get('/api/partyTypes', function (req,res) {   
 
@@ -497,9 +218,6 @@ app.get('/api/party/:id', function (req, res) {
     
 })
 
-app.get('/api/allPartys', function (req, res) {
-	res.send(partys);
-})
 
 // SERVICIOS
 

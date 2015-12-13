@@ -22,6 +22,7 @@ function FiestasService(store) {
 			descripcion:"descripcion Ink",
 			pos:{lat:-34.5865587,long:-58.4395189},
 			
+			cantidadDeGente:325,
 			imagenDeFondo:"/dist/img/clubs/ink.jpg",
 			imagenBanner:"/dist/img/clubs/ink_BAR.jpg",
 
@@ -190,6 +191,21 @@ function FiestasService(store) {
 			}
 		}
 		return null;
+	};
+	
+	this.getPartysByType = function(destacadas, lat, long, types){
+		var ret = []; 
+		for(var i=0;i<__store.fiestas.length;i++){
+			var party = __store.fiestas[i];  			
+			var dist = getDistance([lat,long],party);			 
+			if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
+				if(  esDeAlgunoDeLosTipos(types, party.types)){
+					agregar(ret,party.nombre,party,dist);		
+				}
+			}
+		}
+		ret.sort(biggerAmountOfPeople);
+		return ret;
 	};
 	
 	
@@ -377,6 +393,21 @@ function FiestasService(store) {
 
 		var res = ( ((partyStart > rangeStart)&&(partyStart < rangeEnd)) || ((rangeStart > partyStart)&&(rangeStart < partyEnd)) ); 
 		return res;
+	}
+	
+	var esDeAlgunoDeLosTipos = function(types,partyTypes){ //pasada
+
+		for(t1 in types){
+			var type1 = types[t1];
+
+			for(t2 in partyTypes){
+				var type2 = partyTypes[t2];
+				if(type1 == type2){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
  

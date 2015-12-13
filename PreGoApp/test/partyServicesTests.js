@@ -188,6 +188,31 @@ describe('PregoServices', function() {
 	
 	
 	
+	it('se le puede dar una ubicacion vacia y no se cuelga', function () {
+	    var servicios = createServicios();
+		
+		var newParty = {};
+	
+		newParty.nombre = 'Una fiesta';
+		newParty.descripcion = 'Re copada';
+		newParty.inicio = "2015-12-13T23:00:00";
+		newParty.fin = "2015-12-13T23:00:00";
+		newParty.types = [ "after","bar"];
+		newParty.generos = [ "after","bar"]; 
+		newParty.generos = [ "ochentoso","dance"];
+		newParty.direccion= "Calle Paunero 1650, San Miguel, Buenos Aires";
+		newParty.pos = {			
+			lat: 'a', 
+			long: ''
+		};
+
+		assert.equal(0, servicios.fiestas.getAll().length);
+		var res = servicios.fiestas.addParty(newParty);
+		
+		assert.equal(true, res.exito);
+		assert.equal(1, servicios.fiestas.getAll().length);
+    });
+	
 	
 	
     

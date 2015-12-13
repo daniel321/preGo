@@ -512,8 +512,8 @@ app.post('/api/party', function (req, res) {
 	
 	newParty.nombre = req.body.name;
 	newParty.descripcion = req.body.description;
-	newParty.fechaHoraDesde = req.body.from;
-	newParty.fechaHoraHasta = req.body.to;
+	newParty.inicio = req.body.from;
+	newParty.fin = req.body.to;
 	newParty.types = req.body.types;
 	newParty.generos = req.body.musicGenres;
 	newParty.location = {

@@ -173,7 +173,7 @@ describe('PregoServices', function() {
 		servicios.usuarios.rellenar();
 		
 		servicios.encuentros.addMatch('nahuel@prego.com','china@prego.com');
-		console.log(servicios.encuentros.getMatches('nahuel@prego.com')[0]);
+		//console.log(servicios.encuentros.getMatches('nahuel@prego.com')[0]);
 		assert.equal(1, servicios.encuentros.getMatches('nahuel@prego.com').length);
 		
     });
@@ -186,7 +186,7 @@ describe('PregoServices', function() {
 		assert.equal(0,servicios.encuentros.getMatches('china@prego.com','nahuel@prego.com').length)
 		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'china@prego.com', true);		
 		assert.equal(true,resCalifIda1.exito);		
-		assert.equal(false,resCalifIda1.match,'No se esperaba match 1');		
+		assert.equal(false,resCalifIda1.match,'No se esperaba match 1');
 		
 		//console.log(servicios.encuentros.calificar('nahuel@prego.com', 'ursula@prego.com', false));
 		var resCalifIda2 = servicios.encuentros.calificar('nahuel@prego.com', 'ursula@prego.com', false);
@@ -201,7 +201,25 @@ describe('PregoServices', function() {
 		assert.equal(true,resCalifVuelta2.exito);		
 		assert.equal(true,resCalifVuelta2.match,'Se esperaba match 4');
 		
-		assert.equal(1,servicios.encuentros.getMatches('china@prego.com','nahuel@prego.com').length)
+		assert.equal(1,servicios.encuentros.getMatches('china@prego.com','nahuel@prego.com').length);
+		
+    });
+	
+	
+	
+	it('cuando hay coincidencia se devuelve informacion del match', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'china@prego.com', true);
+		assert.equal(null,resCalifIda1.matchInfo,'No se esperaba match 1');
+		
+		var resCalifVuelta2 = servicios.encuentros.calificar('china@prego.com','nahuel@prego.com', true);
+		assert.equal(true,resCalifVuelta2.match,'Se esperaba match 4');
+		assert.equal('nahuel@prego.com',resCalifVuelta2.matchInfo.other.email,'Deberia venir el email');
+		assert.equal('china@prego.com',resCalifVuelta2.matchInfo.you.email,'Deberia venir el email');
+		
+		assert.equal(1,servicios.encuentros.getMatches('china@prego.com','nahuel@prego.com').length);
 		
     });
 	

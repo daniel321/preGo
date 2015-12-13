@@ -1,4 +1,20 @@
-app.controller('meetingsController', function ($scope, $http,$location, MeetingsService ) {
+app.controller('ModalInstanceCtrl', function ($scope, $location, $uibModalInstance, you, other) {
+
+  $scope.you = you;
+  $scope.other = other;
+  
+  $scope.chatNow = function () {
+    $location.path('chat/').search({email: $scope.other.email,contactNickname: $scope.other.nickname});
+	$uibModalInstance.dismiss('cancel');
+  };
+
+  $scope.close = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
+
+
+app.controller('meetingsController', function ($scope, $http,$location,$uibModal, MeetingsService ) {
 	
 	$scope.partyTypes = [];
 	$scope.success = null;
@@ -18,9 +34,11 @@ app.controller('meetingsController', function ($scope, $http,$location, Meetings
 			function(res){
 				if(res.data.exito){
 					if(res.data.match){
-						if(confirm('Vos y ' + $scope.suggest.nickname + ' se eligieron mutuamente, ¿ Querés comenzar a hablar ahora?')){
+						$scope.suggestNext();
+						/*if(confirm('Vos y ' + $scope.suggest.nickname + ' se eligieron mutuamente, ¿ Querés comenzar a hablar ahora?')){
 							$location.path('chat/').search({email: $scope.suggest.email,contactNickname: $scope.suggest.nickname});
-						} 
+						} */
+						$scope.openMatchModal(res.data.matchInfo.you, res.data.matchInfo.other);
 					}
 					$scope.suggestNext();
 				}else{
@@ -61,6 +79,38 @@ app.controller('meetingsController', function ($scope, $http,$location, Meetings
 	};
 	
 	$scope.suggestNext();
-	
+	$scope.animationsEnabled = true;
+
+	$scope.openMatchModal = function (pYou, pOther) {
+
+			var modalInstance = $uibModal.open(
+				{
+				animation: $scope.animationsEnabled,
+				templateUrl: 'myModalContent.html',
+				controller: 'ModalInstanceCtrl',
+				//size: undefined,
+				resolve: {
+					you: function () {
+							return pYou;
+						},
+					other: function () {
+							return pOther;
+						}
+					}
+				}
+			);
+
+			modalInstance.result.then(
+				function (selectedItem) {
+					console.log('Modal cerrado positivo');
+				}, 
+				function () {
+					console.log('Modal cancelado');
+			});
+		};
+
+		$scope.toggleAnimation = function () {
+		$scope.animationsEnabled = !$scope.animationsEnabled;
+	};
 	
 });

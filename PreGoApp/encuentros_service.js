@@ -176,7 +176,7 @@ function EncuentrosService(store) {
 				var posibleCalificacionReciproca = __getUsuarioCalificado(usuarioCalificado, usuarioCalificador);
 				if( posibleCalificacionReciproca!= null && posibleCalificacionReciproca.calificacion==true){
 					this.addMatch(emailUsuarioCalificador,emailUsuarioCalificado);
-					return { exito: true, match: true};
+					return { exito: true, match: true, matchInfo: {you:__copyUsuario(usuarioCalificador), other:__copyUsuario(usuarioCalificado)}};
 				}				
 			}			
 			return { exito: true, match: false};	

@@ -33,7 +33,7 @@
 
 			<div class="row" style="padding-bottom: 20px">
 				<div class="col-md-12">
-					<button type="button" class="btn btn-primary" ng-click="search()"
+					<button type="button" class="btn btn-primary btn-lg" ng-click="search()"
 						aria-label="Left Align">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						Buscar
@@ -53,12 +53,12 @@
 				<div ng-repeat="service in serviceGroup.highlighted">
 					<div class="box box-warning"
 						style="background: linear-gradient(to bottom, white, #FFE4C4);"
-						ng-click="showService()">
+						ng-click="showService(service)" data-toggle="modal" data-target="#myModal">
 						<div class="row">
 							<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
 								<div class="container"
 									style="vertical-align: middle; display: table-cell;">
-									<img class="img-responsive" src={{service.icon_uri}} alt="">
+									<img class="img-responsive" src={{service.icon_uri}} style="width : 150px ; height : 130px ; margin:auto " alt="">
 								</div>
 							</div>
 							<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
@@ -88,16 +88,16 @@
 						<div class="col-lg-6">
 							<div class="box"
 								style="background: linear-gradient(to bottom, white, silver);"
-								ng-click="showService()">
+								ng-click="showService(service)" data-toggle="modal" data-target="#myModal">
 								<div class="row">
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
 										<div class="container"
 											style="vertical-align: middle; display: table-cell;">
-											<img class="img" src={{service.icon_uri}} style="width : 30px ; height : 30px ; margin:auto " alt="">
+											<img class="img" src={{service.icon_uri}} style="width : 40px ; height : 40px ; margin:auto " alt="">
 										</div>
 									</div>
 									<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10"
-										style="padding-top: 15px">
+										style="padding-top: 5px">
 										<b>{{service.name}} ({{service.price}})</b>
 									</div>
 
@@ -116,5 +116,31 @@
 	</section>
 	<!-- /.Left col -->
 
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal modal-primary fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title"><b>{{chosenService.name}}</b></h3>
+      </div>
+      <div class="modal-body">
+        <h4><b>Precio: </b></h4> <p>{{chosenService.price}}</p>
+        <hr>
+        <h4><b>Descripción: </b></h4> <p>{{chosenService.description}}</p>
+        <hr>
+        <h4><b>Detalle: </b></h4> <p>{{chosenService.detail}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline btn-lg" data-dismiss="modal">
+        <span class="fa fa-times" aria-hidden="true"></span>Cerrar</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 <!-- /.row (main row) -->

@@ -31,6 +31,17 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	$scope.selectedServiceGenres = [];
 	$scope.searchedServices = [];
 	
+	$scope.chosenService = [];
+//	= {
+//			 code : ""
+//			,text : ""
+//			,name : ""
+//			,icon_uri : ""
+//			,price : ""
+//			,description : ""
+//			,detail : ""
+//	}
+	
 	PartyServicesService.getServiceGenres()
 	.then(function(response){
 		$scope.serviceGenres = response.data;
@@ -50,8 +61,8 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 		});
 	}
 	
-	$scope.showService = function() {
-		alert("Acá te muestro el detalle del servicio");
+	$scope.showService = function(service) {
+		$scope.chosenService = service;	
 	};
 	
 	$scope.save = function() {

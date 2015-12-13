@@ -7,6 +7,8 @@ var app = express()
 var PregoServices = require('./prego_services.js');
 var pregoServices = new PregoServices();
 pregoServices.rellenar();
+pregoServices.rellenarDemo();
+
 var usuariosService = pregoServices.getUsuariosService();
 var encuentrosService = pregoServices.getEncuentrosService();
 var serviciosService = pregoServices.getServiciosService();

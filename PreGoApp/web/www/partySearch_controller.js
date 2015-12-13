@@ -71,7 +71,7 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 		var types = [];
 		for (key in $scope.selectedItems){
 			var type = $scope.selectedItems[key];
-			types.push(type.text);
+			types.push(type.code);
 		}
 
 		partySearchService.getCommonPartys($scope.position[0],$scope.position[1],types).then(function (res) {
@@ -234,7 +234,7 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 
     	var f = function(){
 		getPos();
-		var tolerance = 10;
+		var tolerance = 100;
 
 		partySearchService.getCommonPartysCloseBy($scope.position[0],$scope.position[1],tolerance).then(function (res) {
         		angular.copy(res, $scope.common_partys);

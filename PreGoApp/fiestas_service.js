@@ -11,14 +11,85 @@ function FiestasService(store, services) {
 	};
 	 
 	
+	this.rellenarDemo = function () {
+		var participantes_fill = [
+			"nahuel@prego.com",
+			"china@prego.com",
+			"daniel@prego.com",
+			"facundo@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"damian@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"nahuel@prego.com",
+			"ursula@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"damian@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"damian@prego.com",
+			"malena@prego.com",
+			"facundo@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"nahuel@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"china@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
+			"guido@prego.com",
+			"damian@prego.com",
+			"guido@prego.com",
+			"rosita@prego.com"
+		];
+		
+		
+		var f=0;
+		for(var i=0; i<participantes_fill.length; i++){
+			if(f>=__store.fiestas.length){
+				f=0;
+			}
+			//console.log(__store.fiestas[f]);
+			this.participar(__store.fiestas[f].id,participantes_fill[i]);
+			f++;
+		}
+		
+		
+	}
+	
     this.rellenar = function () {
 		 
 		var partys = {};
-		
+
 	 	this.addParty({
 			nombre:"Ink",	
 			esSugerida:true,		
-			types:["Bar","Boliche"],
+			types:["bar","disco"],
+			musicGenres:["tropical","dance","pop"],
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Ink",
 			pos:{lat:-34.5865587,long:-58.4395189},
@@ -30,12 +101,12 @@ function FiestasService(store, services) {
 			inicio: "2015-12-18T09:30:00",
 			fin:    "2015-12-19T04:30:00",
 		});
-
+		
 		this.addParty({
 			nombre: "Hiio",
 			esSugerida:true,
-			types:["Bar","Boliche"],
-
+			types:["bar","disco"],
+			musicGenres:["dance"],
 			imagenDeFondo:"/dist/img/clubs/Hiio.jpg",
 			imagenBanner:"/dist/img/clubs/Hiio_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -53,8 +124,8 @@ function FiestasService(store, services) {
 		this.addParty({
 			nombre: "Moscow",
 			//esSugerida:false,//es lo mismo
-			types:["Bar","Boliche"],
-
+			types:["bar","disco"],
+			musicGenres:["tropical","reggae"],
 			imagenDeFondo:"/dist/img/clubs/Moscow.jpg",
 			imagenBanner:"/dist/img/clubs/Moscow_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -72,7 +143,8 @@ function FiestasService(store, services) {
 		this.addParty({
 			nombre:"Bosque",
 			esSugerida:false,
-			types:["Bar","Boliche"],
+			types:["bar","disco"],
+			musicGenres:["tropical","dance","pop","rock"],
 			imagenDeFondo:"/dist/img/clubs/bosque.jpg",
 			imagenBanner:"/dist/img/clubs/bosque_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -90,7 +162,8 @@ function FiestasService(store, services) {
 		this.addParty({
 			nombre: "Sunset",
 			esSugerida:true,
-			types:["Bar","Boliche"],
+			types:["bar","disco"],
+			musicGenres:["dance","other"],
 			imagenDeFondo:"/dist/img/clubs/sunset.jpg",
 			imagenBanner:"/dist/img/clubs/sunset_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -110,7 +183,8 @@ function FiestasService(store, services) {
 		this.addParty({
 			nombre: "BsAsEnFoco",
 			esSugerida:false,
-			types:["After office","Bar","Boliche"],
+			types:["after","bar","disco"],
+			musicGenres:["tropical"],
 			imagenDeFondo:"/dist/img/clubs/Buenos-Aires-En-Foco.jpg",
 			imagenBanner:"/dist/img/clubs/Buenos-Aires-En-Foco_BAR.jpg",
 			fotos:["otras imagenes"],
@@ -129,7 +203,8 @@ function FiestasService(store, services) {
 		this.addParty({
 			nombre: "PoolParty",
 			esSugerida:false,
-			types:["Privada","Otro"],
+			types:["private","other"],
+			musicGenres:["tropical","dance","pop"],
 			imagenDeFondo:"/dist/img/clubs/Pool-Party.jpg",
 			imagenBanner:"/dist/img/clubs/Pool-Party_BAR.jpg",
 			fotos:["otras imagenes"],

@@ -1,6 +1,9 @@
 function UsuariosService(store) {
     var __store = store;
 	
+	this.rellenarDemo = function () {
+		
+	}
 	
     var __getUsuarioByEmail = function (email) {
 		var arr = __store.usuarios;
@@ -111,7 +114,7 @@ function UsuariosService(store) {
 					sexo: 'M',
 				},
 				{
-					avatar_url: '/dist/img/user7-128x128.jpg',
+					avatar_url: '/dist/img/avatar5.png',
 					nickname: 'Ezequiel',
 					email: "ezequiel@prego.com",
 					pass: "asd",

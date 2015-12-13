@@ -67,14 +67,14 @@ function ServiciosService(store) {
 		for (var i = 0; i < arr.length; i++) {
 			var highlighted = arr[i].highlighted;
 			for (var j = 0; j < highlighted.length; j++) {
-				if (highlighted[i].name == name) {
-					return highlighted[i];
+				if (highlighted[j].name == name) {
+					return highlighted[j];
 				}
 			}
 			var regular = arr[i].regular;
 			for (var k = 0; k < regular.length; k++) {
-				if (regular[i].name == name) {
-					return regular[i];
+				if (regular[k].name == name) {
+					return regular[k];
 				}
 			}	
 		}
@@ -139,6 +139,14 @@ function ServiciosService(store) {
 					price : "$400/persona",
 					description : "Bebidas de calidad regular.",
 					detail : "Servicio de Barman: \"BARMAN Y ROBIN DRINKS\". Te ofrecemos bebidas toda la noche y no tanto dolor de cabeza al otro día."
+				},
+				{
+					name : "Bebidas Morfetti",
+					icon_uri : "dist/img/tipos_servicio/bebidas/bebidas_morfetti.jpg",
+					price : "$700/persona",
+					description : "Las mejores bebidas servidas por la familia Morfetti.",
+					detail : "La familia Morfetti, de larga tradición en el servicio de bebidas, deleitó con sus brebajes" +
+							"a grandes personajes de la historia como Napoleón, Beethoven y Mirtha Legrand. Hoy es tu oportunidad de probarlos."
 				} ]
 			}
 			];

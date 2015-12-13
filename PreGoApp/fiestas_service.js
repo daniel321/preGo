@@ -249,7 +249,7 @@ function FiestasService(store, services) {
 		return {exito:true, id : newParty.id};
 	};
 	
-	this.getParty = function(key){
+	this.getParty = function(key, usuarioConsulta){
 		var nombre=null;
 		var id=null;
 		if(isNaN(key)){
@@ -260,13 +260,26 @@ function FiestasService(store, services) {
 			//console.log('id:' + id);
 		}
 		
+		var fiesta=null;
+		var res = null;
 		for(var i=0;i<__store.fiestas.length;i++){
 			var item = __store.fiestas[i];
 			if( (nombre!=null && item.nombre == nombre) || (id!=null && item.id==id)){
-				return copyParty(__store.fiestas[i]);
+				fiesta = __store.fiestas[i];
+				res = copyParty(fiesta);
+				break;
 			}
 		}
-		return null;
+		if(!isUndef(usuarioConsulta) && fiesta!=null){
+			for(var i=0;i<fiesta.participantes.length;i++){
+				var item = fiesta.participantes[i];
+				if( item.email == usuarioConsulta ){
+					res.soyAsistente = true;
+					break;
+				}
+			}	
+		}
+		return res;
 	};
 	
 	var copyParty = function(party){
@@ -301,6 +314,8 @@ function FiestasService(store, services) {
 			var participante = party.participantes[i];  			
 			copy.participantes.push(participante.avatar_url);
 		}
+		
+		copy.soyAsistente = false;
 		
 		return copy;
 	}

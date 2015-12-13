@@ -222,7 +222,7 @@ app.put('/api/partyParticipation', function (req, res) {
 });
 
 app.get('/api/party/:id', function (req, res) {
-	var resultado = fiestasService.getParty(req.params.id);
+	var resultado = fiestasService.getParty(req.params.id, req.cookies.email);
 	if(resultado){
 		res.send(resultado);	
 	}else{

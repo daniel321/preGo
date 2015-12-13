@@ -222,7 +222,44 @@ describe('PregoServices', function() {
 		assert.equal(1,servicios.encuentros.getMatches('china@prego.com','nahuel@prego.com').length);
 		
     });
+		
+	it('no se deberian poder repetir los matches', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		assert.equal(0,servicios.encuentros.getMatches('nahuel@prego.com').length)
+		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'china@prego.com', true);
+		assert.equal(0,servicios.encuentros.getMatches('nahuel@prego.com').length)
+		var resCalifVuelta2 = servicios.encuentros.calificar('china@prego.com','nahuel@prego.com', true);
+		assert.equal(1,servicios.encuentros.getMatches('nahuel@prego.com').length)
+		var resCalifVuelta2 = servicios.encuentros.calificar('china@prego.com','nahuel@prego.com', true);
+		assert.equal(1,servicios.encuentros.getMatches('nahuel@prego.com').length)
+		
+		
+    });
 	
+	it('no se deberian poder calificar varias veces a la misma persona', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		assert.equal(0,servicios.encuentros.getCalificadosPor('nahuel@prego.com'));
+		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'china@prego.com', true);
+		assert.equal(1,servicios.encuentros.getCalificadosPor('nahuel@prego.com'));
+		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'china@prego.com', true);
+		assert.equal(1,servicios.encuentros.getCalificadosPor('nahuel@prego.com'));
+		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'china@prego.com', false);
+		assert.equal(1,servicios.encuentros.getCalificadosPor('nahuel@prego.com'));
+		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'ursula@prego.com', false);
+		assert.equal(2,servicios.encuentros.getCalificadosPor('nahuel@prego.com'));
+		var resCalifIda1 = servicios.encuentros.calificar('nahuel@prego.com', 'china@prego.com', false);
+		assert.equal(2,servicios.encuentros.getCalificadosPor('nahuel@prego.com'));
+    });
+	 
+	
+	
+	
+	//
+	//
 	//verificar que al haber match se cree un match en los usuarios
 	//que no se puedan agregar matches entre mismos usuarios
 	//que no se puedan agregar matches repetidos

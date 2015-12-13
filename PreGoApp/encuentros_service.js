@@ -31,15 +31,16 @@ function EncuentrosService(store) {
 				if (arr[i].usuario.email == posibleCalificado.email) {
 					return arr[i];
 				}
-			}	
+			}
+			return null;	
 		}else{
 			return null;
 		}
 	}
 
-    this.addMatch = function (user, user2, msg) {
-		var usr = __buscarUsuario(user);
-		var usr2 = __buscarUsuario(user2);
+    this.addMatch = function (user1Email, user2Email) {
+		var usr = __buscarUsuario(user1Email);
+		var usr2 = __buscarUsuario(user2Email);
 
 		if ((usr != null) && (usr2 != null)) {
 			if (usr.matches == null) {
@@ -49,9 +50,13 @@ function EncuentrosService(store) {
 			if (usr2.matches == null) {
 				usr2.matches = [];
 			}
-
-			usr.matches.push(user2);
-			usr2.matches.push(user);
+			
+			if(usr.matches.indexOf(usr2.email) < 0){
+				usr.matches.push(usr2.email);	
+			}
+			if(usr2.matches.indexOf(usr.email) < 0){
+				usr2.matches.push(usr.email);
+			}
 		}
     }
 
@@ -166,24 +171,39 @@ function EncuentrosService(store) {
 		if(usuarioCalificado != null && usuarioCalificador!=null){		
 			if(typeof (usuarioCalificador.calificados) == 'undefined'){
 				usuarioCalificador.calificados = [];
-			}			
-			usuarioCalificador.calificados.push({
+			}
+			
+			if(__getUsuarioCalificado(usuarioCalificador, usuarioCalificado)==null){
+				usuarioCalificador.calificados.push({
 					usuario:usuarioCalificado, 
 					calificacion:calificacionPositiva
 				});	
-			
-			if(calificacionPositiva){
-				var posibleCalificacionReciproca = __getUsuarioCalificado(usuarioCalificado, usuarioCalificador);
-				if( posibleCalificacionReciproca!= null && posibleCalificacionReciproca.calificacion==true){
-					this.addMatch(emailUsuarioCalificador,emailUsuarioCalificado);
-					return { exito: true, match: true, matchInfo: {you:__copyUsuario(usuarioCalificador), other:__copyUsuario(usuarioCalificado)}};
-				}				
-			}			
-			return { exito: true, match: false};	
-						
+				if(calificacionPositiva){
+					var posibleCalificacionReciproca = __getUsuarioCalificado(usuarioCalificado, usuarioCalificador);
+					if( posibleCalificacionReciproca!= null && posibleCalificacionReciproca.calificacion==true){
+						this.addMatch(emailUsuarioCalificador,emailUsuarioCalificado);
+						return { exito: true, match: true, matchInfo: {you:__copyUsuario(usuarioCalificador), other:__copyUsuario(usuarioCalificado)}};
+					}				
+				}
+				return { exito: true, match: false};						
+			}else{
+				return { exito: false, error:'Usuario ya calificado.'};	
+			}		
 		}else{
 			return { exito: false, error:'No se encuentra uno de los usuarios. usuarioCalificador:' + (usuarioCalificador?'Ok':'Null') + ',usuarioCalificado:'+ (usuarioCalificado?'Ok':'Null')};
 		}
+	}
+	
+	this.getCalificadosPor = function(userEmail){
+		var usuario = __buscarUsuario(userEmail);
+		if(usuario){
+			if(usuario.calificados){
+				return usuario.calificados.length;
+			}else{
+				return 0;
+			}
+		}
+		return null;
 	}
 	
 	

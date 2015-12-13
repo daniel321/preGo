@@ -68,12 +68,12 @@
 							</div>
 							<input date-range-picker class="form-control pull-right  date-picker" type="text" ng-model="datePicker.date" options="datePicker.options" />
 						</div>--><!-- /.input group -->
-                        <div>-{{fechaHoraActual}}-{{fechaHoraDesde}}-{{fechaHoraHasta}} ,,{{party.fechaHoraDesde | date : 'dd/MM/yyyy HH:mm'}} - {{party.fechaHoraHasta | date : 'dd/MM/yyyy HH:mm'}}</div>
+                        <div>-{{fechaHoraActual}}-{{fechaHoraDesde}}-{{fechaHoraHasta}} ,,{{party.inicio | date : 'dd/MM/yyyy HH:mm'}} - {{party.fin | date : 'dd/MM/yyyy HH:mm'}}</div>
 					</div><!-- /.form group -->
 					<div class="form-group">
 						<label>Ubicación</label>
                         <div>
-                            {{party.location.name}} ({{party.location.lat}}, {{party.location.long}})
+                            {{party.pos.name}} ({{party.pos.lat}}, {{party.pos.long}})
                         </div>
 						<!--<div class="input-group">
 							<div class="input-group-addon">

@@ -80,7 +80,7 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
             if ($scope.party.generos) {
                 $scope.selectedMusicGenres = getTypes($scope.party.generos, $scope.musicGenres);
             }
-            $scope.cuando = calcularCuando($scope.party.fechaHoraDesde);
+            $scope.cuando = calcularCuando($scope.party.inicio);
 
         }
     }
@@ -95,15 +95,15 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
                 $scope.party = response.data;
                 //TODO: En la página de búsqueda de fiestas se usa un objeto con estructura diferente al que se usa en partyCreate. Unificar.
                 // Correcciones de compatibilidad del objeto::
-                if (!$scope.party.fechaHoraDesde) {
-                    $scope.party.fechaHoraDesde = $scope.party.inicio
-                }
-                if (!$scope.party.fechaHoraHasta) {
-                    $scope.party.fechaHoraHasta = $scope.party.fin
-                }
-                if (!$scope.party.location) {
-                    $scope.party.location = $scope.party.pos
-                }
+                //if (!$scope.party.fechaHoraDesde) {
+                //    $scope.party.fechaHoraDesde = $scope.party.inicio
+                //}
+                //if (!$scope.party.fechaHoraHasta) {
+                //    $scope.party.fechaHoraHasta = $scope.party.fin
+                //}
+                //if (!$scope.party.location) {
+                //    $scope.party.location = $scope.party.pos
+                //}
                 getPartyFinished = true;
                 callback();
 

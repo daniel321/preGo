@@ -1,4 +1,4 @@
-app.controller('partySearchController', function ($scope, $routeParams, partySearchService) {
+app.controller('partySearchController', function ($scope, $location, partySearchService) {
     	// $scope.navBar.src = 'www/partySearchNavBar.html';
 	$scope.common_partys = [];
 	$scope.promoted_partys = [];
@@ -196,6 +196,9 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 	}
 		
 	function error_callback(p){
+		$scope.position[0] = -34.617568;
+		$scope.position[1] = -58.368352;
+
 		console.log('error='+p.message);
 	}
 
@@ -204,9 +207,16 @@ app.controller('partySearchController', function ($scope, $routeParams, partySea
 			geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
 			$scope.initialized = true;
 		}else{
+			$scope.position[0] = -34.617568;
+			$scope.position[1] = -58.368352;
+
 			console.log("Functionality not available");
 		}
 
+	}
+	
+	$scope.viewParty = function(nombre, id){
+		$location.path('partyDetail/').search({id: id,nombre:nombre});
 	}
 
 // ---------------------------------------------------------------------------

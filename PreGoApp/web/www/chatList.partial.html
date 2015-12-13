@@ -6,7 +6,7 @@
 			<a id="match" ng-click="chatWith(match)" class="list-group-item">	
 				<div class="row">			
 					<div class="col-xs-4" id="other">
-						<img id="img" src="{{match.avatar_url}}" class="img-responsive">
+						<img id="img" ng-src="{{match.avatar_url}}" class="img-responsive">
 						</img>
 						<div id="name">
 							{{match.nickname}}

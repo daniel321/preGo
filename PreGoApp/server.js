@@ -106,8 +106,8 @@ partys["Ink"] = {
 		 descripcion:"descripcion Ink",
 		 pos:{lat:-34.5865587,long:-58.4395189},
 
-		 inicio: "2015-11-26T09:30:00",
-		 fin:    "2015-11-27T04:30:00",
+		 inicio: "2015-12-18T09:30:00",
+		 fin:    "2015-12-19T04:30:00",
 
 		 cantidadDeGente:325,
 		 userRates:[10,7,9,9,6],
@@ -126,8 +126,8 @@ partys["Hiio"] = {
 		 descripcion:"descripcion Hiio",
 		 pos:{lat:-34.4961641,long:-58.5549297},
 
-		 inicio: "2015-12-04T13:30:00",
-		 fin:    "2015-12-04T21:30:00",
+		 inicio: "2015-12-17T13:30:00",
+		 fin:    "2015-12-19T21:30:00",
 
 		 cantidadDeGente:202,
 		 userRates:[8,9,7,9,6,4,7],
@@ -145,8 +145,8 @@ partys["Moscow"] = {
 		 descripcion:"descripcion Moscow",
 		 pos:{lat:-34.4513129,long:-58.5561985},
 
-		 inicio: "2015-12-06T06:30:00",
-		 fin:    "2015-12-12T21:30:00",
+		 inicio: "2015-12-16T06:30:00",
+		 fin:    "2015-12-20T21:30:00",
 
 		 cantidadDeGente:235,
 		 userRates:[6,8,10,7,4],
@@ -181,8 +181,8 @@ partys["Sunset"] = {
 		 descripcion:"descripcion sunset",
 		 pos:{lat:-34.5876237,long:-58.4660913},
 
-		 inicio: "2015-12-04T03:00:00",
-		 fin:    "2015-12-06T03:30:00",
+		 inicio: "2015-12-14T03:00:00",
+		 fin:    "2015-12-16T03:30:00",
 
 		 cantidadDeGente:1632,
 		 userRates:[9,10,8,10,7,9],
@@ -220,8 +220,8 @@ partys["PoolParty"] = {
 		 descripcion:"descripcion Pool-Party",
 		 pos:{lat:-34.5739245,long:-58.3923359},
 
-		 inicio: "2015-12-06T10:30:00",
-		 fin:    "2015-12-06T21:30:00",
+		 inicio: "2015-12-14T10:30:00",
+		 fin:    "2015-12-15T21:30:00",
 
 		 cantidadDeGente:302,
 		 userRates:[8,8,8,5,7,10],
@@ -576,14 +576,14 @@ app.get('/api/serviceGenres', function (req,res) {
 })
 
 app.get('/api/serviceSearch', function(req, res) {
-	var types = req.query['types'];
+	var types = req.query['types'];	
 	if (typeof (types) == 'undefined') {
 		res.send({
 			exito : false,
 			error : 'revisar parametros'
 		});
 	} else {
-		serviceList = serviciosService.getServicios();
+		serviceList = serviciosService.getServiciosByTypes(types);
 		res.send(serviceList);
 	}
 })

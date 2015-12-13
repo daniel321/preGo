@@ -44,9 +44,8 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	}	
 	
 	$scope.search = function() {
-		PartyServicesService.getSearchedServices('dj')
+		PartyServicesService.getSearchedServices($scope.selectedServiceGenres)
 		.then(function(response){
-			console.log(response);
 			$scope.searchedServices = response;
 		});
 	}

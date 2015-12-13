@@ -12,7 +12,14 @@ app.factory('PartyServicesService', function($http, $q) {
 		},
 
 		getSearchedServices : function(types) {
-			return simpleHttpGet($http, '/api/serviceSearch?types=' + types, $q.reject);
+			url = '/api/serviceSearch';
+			if(types.length > 0) {
+				url += '?types[]=' + types[0].code;
+				for(i = 1; i < types.length; i++) {
+					url += '&types[]='+types[i].code;
+				}
+			}
+			return simpleHttpGet($http, url, $q.reject);
 		}
 	}
 });

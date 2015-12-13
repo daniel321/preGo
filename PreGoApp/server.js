@@ -9,6 +9,7 @@ var pregoServices = new PregoServices();
 pregoServices.rellenar();
 var usuariosService = pregoServices.getUsuariosService();
 var encuentrosService = pregoServices.getEncuentrosService();
+var serviciosService = pregoServices.getServiciosService();
 
 
 
@@ -512,8 +513,8 @@ app.post('/api/party', function (req, res) {
 	
 	newParty.nombre = req.body.name;
 	newParty.descripcion = req.body.description;
-	newParty.fechaHoraDesde = req.body.from;
-	newParty.fechaHoraHasta = req.body.to;
+	newParty.inicio = req.body.from;
+	newParty.fin = req.body.to;
 	newParty.types = req.body.types;
 	newParty.generos = req.body.musicGenres;
 	newParty.location = {
@@ -548,9 +549,7 @@ app.get('/api/allPartys', function (req, res) {
 	res.send(partys);
 })
 
-
-
-
+// SERVICIOS
 
 /* #publicados */
 services = 
@@ -562,7 +561,7 @@ services =
 		Animacion: '3219'
 	};
 
-app.get('/api/services', function (req, res) {    
+app.get('/api/services', function (req, res) {
 	res.send(services);
 })
 
@@ -574,7 +573,20 @@ app.get('/api/serviceGenres', function (req,res) {
 		,{	icon_uri: "dist/img/tipos_servicio/sound.png",		text: "Sonido",		code: "sonido"}
 		,{	icon_uri: "dist/img/tipos_servicio/animacion.png",	text: "Animacion",	code: "animacion"}
 	]);
-});
+})
+
+app.get('/api/serviceSearch', function(req, res) {
+	var types = req.query['types'];
+	if (typeof (types) == 'undefined') {
+		res.send({
+			exito : false,
+			error : 'revisar parametros'
+		});
+	} else {
+		serviceList = serviciosService.getServicios();
+		res.send(serviceList);
+	}
+})
 
 var server = app.listen(3000, function () {
 

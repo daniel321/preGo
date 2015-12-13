@@ -1,17 +1,25 @@
 
 	#all{
-		text-align:left;
+		text-align:left;		
+	}
+
+	#author{
+		text-align:center;
+		text-decoration:none;
+		color:black;
+	}
+
+	#message{
+		text-align:left;	
+		text-decoration:none;
+		color:black;	
+
+		font-size:small;
 	}
 
 	#img{
 		margin:auto;
-	}
-
-	#name{
-		text-align:center;
-	}
-	
-	#msg{
+		margin-top: 10px;
 	}
 	
 	#postAuthor{

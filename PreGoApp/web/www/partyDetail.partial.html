@@ -105,9 +105,11 @@
 					</div>
 					
 					<div class="form-group">
-						<label>Participantes: </label>
+						<label ng-if="party.participantes && party.participantes.length>0">Participantes: </label>
+						<p ng-if="party.participantes.length==0">Aún no hay participantes registrados</p>
 						<div class="row">
-							<img class="profile-user-img img-responsive img-circle" ng-src="{{p}}" ng-repeat="p in party.participantes" ></img>                            
+							
+							<img class="profile-user-img img-responsive img-circle" ng-src="{{p}}" ng-repeat="p in party.participantes" ></img>
 						</div>					
 					</div>
 					

@@ -7,103 +7,114 @@
 	<section class="col-lg-12 connectedSortable">
 
 		<!-- Chat box -->
-		<div class="box box-success"
-			style="padding-left: 10px; padding-right: 10px; padding-bottom: 5px; padding-top: 5px;">
+		<div class="box box-success">
 			<div class="box-header">
 				<i class="fa fa-search"></i>
 				<h3 class="box-title">Buscar un Servicio</h3>
-			</div>
 
-			<hr>
 
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<label>Tipo de Servicio: </label> <span
-							ng-repeat="item in selectedServiceGenres">{{item.text +
-							($last?'':', ') }}</span>
-						<div class="row">
-							<div class="col-md-0 col-md-1"></div>
-							<pre-go-selector available-items="serviceGenres"
-								selected-items="selectedServiceGenres" />
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="row" style="padding-bottom: 20px">
-				<div class="col-md-12">
-					<button type="button" class="btn btn-primary btn-lg"
-						ng-click="search()" aria-label="Left Align">
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-						Buscar
+				<div class="pull-right">
+					<button type="button" class="btn btn-warning"
+						ng-click="myServices()" aria-label="Left Align"
+						data-toggle="modal" data-target="#myServicesModal">
+						<span class="fa fa-bars" aria-hidden="true"
+							style="padding-right: 10px"></span> Mis Servicios
 					</button>
 				</div>
 			</div>
 
+			<hr>
 
-			<h4 ng-hide="!searchedServices.length">Servicios destacados:</h4>
 
-			<div ng-repeat="serviceGroup in searchedServices">
-				<div class="row" ng-hide="!serviceGroup.highlighted.length">
-					<div class="col-lg-12">
-						<label>{{serviceGroup.text}}</label>
-					</div>
-				</div>
-				<div ng-repeat="service in serviceGroup.highlighted">
-					<div class="box box-warning"
-						style="background: linear-gradient(to bottom, white, #FFE4C4);"
-						ng-click="showService(service)" data-toggle="modal"
-						data-target="#myModal">
-						<div class="row">
-							<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-								<div class="container"
-									style="vertical-align: middle; display: table-cell;">
-									<img class="img-responsive" src={{service.icon_uri}}
-										style="width: 150px; height: 130px; margin: auto" alt="">
-								</div>
-							</div>
-							<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
-								<h4>
-									<b>{{service.name}} ({{service.price}})</b>
-								</h4>
-								<hr>
-								<p>{{service.description}}</p>
+			<div class="box-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Tipo de Servicio: </label> <span
+								ng-repeat="item in selectedServiceGenres">{{item.text +
+								($last?'':', ') }}</span>
+							<div class="row">
+								<div class="col-md-0 col-md-1"></div>
+								<pre-go-selector available-items="serviceGenres"
+									selected-items="selectedServiceGenres" />
 							</div>
 						</div>
 					</div>
-
 				</div>
-			</div>
 
-			<hr>
-			<h4 ng-hide="!searchedServices.length">Servicios regulares:</h4>
+				<div class="row">
+					<div class="col-md-12">
+						<button type="button" class="btn btn-primary btn-lg"
+							ng-click="search()" aria-label="Left Align">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"
+								style="padding-right: 10px"> Buscar </span>
+						</button>
+					</div>
+				</div>
 
-			<div class="row">
-				<div class="col-lg-12" ng-repeat="serviceGroup in searchedServices">
-					<div class="row" ng-hide="!serviceGroup.regular.length">
+				<h4 ng-hide="!searchedServices.length">Servicios destacados:</h4>
+
+				<div ng-repeat="serviceGroup in searchedServices">
+					<div class="row" ng-hide="!serviceGroup.highlighted.length">
 						<div class="col-lg-12">
 							<label>{{serviceGroup.text}}</label>
 						</div>
 					</div>
-					<div ng-repeat="service in serviceGroup.regular">
-						<div class="col-lg-6">
-							<div class="box"
-								style="background: linear-gradient(to bottom, white, silver);"
-								ng-click="showService(service)" data-toggle="modal"
-								data-target="#myModal">
-								<div class="row">
-									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
-										<div class="container"
-											style="vertical-align: middle; display: table-cell;">
-											<img class="img" src={{service.icon_uri}}
-												style="width: 40px; height: 40px; margin: auto" alt="">
-										</div>
+					<div ng-repeat="service in serviceGroup.highlighted">
+						<div class="box box-warning"
+							style="background: linear-gradient(to bottom, white, #FFE4C4);"
+							ng-click="showService(service)" data-toggle="modal"
+							data-target="#myModal">
+							<div class="row">
+								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+									<div class="container"
+										style="vertical-align: middle; display: table-cell;">
+										<img class="img-responsive" src={{service.icon_uri}}
+											style="width: 150px; height: 130px; margin: auto" alt="">
 									</div>
-									<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+								</div>
+								<div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+									<h4>
 										<b>{{service.name}} ({{service.price}})</b>
-									</div>
+									</h4>
+									<hr>
+									<p>{{service.description}}</p>
+								</div>
+							</div>
+						</div>
 
+					</div>
+				</div>
+
+				<hr>
+				<h4 ng-hide="!searchedServices.length">Servicios regulares:</h4>
+
+				<div class="row">
+					<div class="col-lg-12" ng-repeat="serviceGroup in searchedServices">
+						<div class="row" ng-hide="!serviceGroup.regular.length">
+							<div class="col-lg-12">
+								<label>{{serviceGroup.text}}</label>
+							</div>
+						</div>
+						<div ng-repeat="service in serviceGroup.regular">
+							<div class="col-lg-6">
+								<div class="box"
+									style="background: linear-gradient(to bottom, white, silver);"
+									ng-click="showService(service)" data-toggle="modal"
+									data-target="#myModal">
+									<div class="row">
+										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
+											<div class="container"
+												style="vertical-align: middle; display: table-cell;">
+												<img class="img" src={{service.icon_uri}}
+													style="width: 40px; height: 40px; margin: auto" alt="">
+											</div>
+										</div>
+										<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+											<b>{{service.name}} ({{service.price}})</b>
+										</div>
+
+									</div>
 								</div>
 							</div>
 						</div>
@@ -163,14 +174,54 @@
 				<p>{{chosenService.detail}}</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success"
-					data-dismiss="modal"
+				<button type="button" class="btn btn-success" data-dismiss="modal"
 					ng-click="hireService()">
-					<span class="fa fa-money" aria-hidden="true" style="padding-right: 10px"></span>Contratar Servicio
+					<span class="fa fa-money" aria-hidden="true"
+						style="padding-right: 10px"></span>Contratar Servicio
 				</button>
-				<button type="button" class="btn btn-danger"
-					data-dismiss="modal">
-					<span class="fa fa-times" aria-hidden="true" style="padding-right: 10px"></span>Cerrar
+				<button type="button" class="btn btn-danger" data-dismiss="modal">
+					<span class="fa fa-times" aria-hidden="true"
+						style="padding-right: 10px"></span>Cerrar
+				</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- Modal -->
+<div id="myServicesModal" class="modal modal-primary fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<div class="modal-header">
+
+				<div class="row">
+					<div class="col-lg-12">
+						<h3 class="modal-title">
+							<b>Mis Servicios Contratados</b>
+						</h3>
+					</div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div ng-repeat="service in myHiredServices">
+					<h4>
+						<b>{{service.serviceName}}: </b>
+					</h4>
+					<b>Contacto compradores: </b>
+					<div ng-repeat="compradores in service.buyers">
+					<p>{{compradores.id}}</p>
+					</div>
+					<hr>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">
+					<span class="fa fa-times" aria-hidden="true"
+						style="padding-right: 10px"></span>Cerrar
 				</button>
 			</div>
 		</div>

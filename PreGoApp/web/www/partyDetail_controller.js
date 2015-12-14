@@ -129,7 +129,7 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
 
 	var getPos = function(){
 		if( $scope.initialized || geo_position_js.init() ){
-			geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
+		    geo_position_js.getCurrentPosition(success_callback, error_callback, { enableHighAccuracy: true });
 			$scope.initialized = true;
 		}else{
 			console.log("Functionality not available");

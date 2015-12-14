@@ -42,9 +42,15 @@
 						<br />
 					</div>
 					
-					<div class="box box-warning">
-						<h3>Seccion Fotos. Work in progress.</h3>
+					<div class="col-md-12">
+						<div class="form-group" show-errors>
+							<label class="control-label">Imagen</label>
+							</br>
+							<select id="select" onchange="{{$scope.updateSelected()}}"></select>
+						</div>
+						<img class="img img-responsive" ng-href="{{$scope.imageSelected}}" ng-show="{{$scope.imageSelected != ''}}" style="height:100px;width:150px;float:left">
 					</div>
+
 					<div class="form-group" show-errors>
 						<label class="control-label">Descripcion</label>
 						<textarea class="form-control" name="description"

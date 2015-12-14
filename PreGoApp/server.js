@@ -331,6 +331,34 @@ app.post("/api/meetingQualify", function (req, res) {
 
 
 
+var fs = require('fs');
+
+var getAllFiles = function(dir) {
+    var results = [];
+
+    fs.readdirSync(dir).forEach(function(file) {
+
+        file = dir+'/'+file;
+        var stat = fs.statSync(file);
+
+        if (stat && stat.isDirectory()) {
+            results = results.concat(getAllFiles(file))
+        } else results.push(file.split("./web")[1]);
+
+    });
+
+    return results;
+};
+
+app.get("/api/imageCandidates", function (req, res) {
+	var type = req.query['type'];	
+	var dir = "./web/dist/img/" + type;
+
+	res.send(getAllFiles(dir));
+});
+
+
+
 
 app.get('/api/hardLocations', function (req,res) {
     

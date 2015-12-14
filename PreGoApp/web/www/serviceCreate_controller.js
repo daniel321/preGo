@@ -29,7 +29,11 @@ app.controller('ServiceCreateController', function($scope, $routeParams, Service
 	$scope.publishedAmnt = [];
 	$scope.serviceGenres = [];
 	$scope.selectedServiceGenres = [];
-	
+
+	$scope.imageSelected = "";
+	$scope.imageCandidates = [];	
+
+
 	$scope.service = {
 			name : '',
 			description : '',
@@ -39,6 +43,27 @@ app.controller('ServiceCreateController', function($scope, $routeParams, Service
 			genre : '',
 			img : 'dist/img/no_img.jpg'
 		};
+
+	ServiceCreateService.getImageCandidates().then(function (res) {
+        	angular.copy(res, $scope.imageCandidates);
+
+		$scope.imageCandidates.forEach(function(element,index,array){
+			var select = document.getElementById("select");  
+	    		var el = document.createElement("option");
+	    		el.textContent = array[index].split("dist/img/tipos_servicio/")[1];
+	    		el.value = array[index];
+	    		select.appendChild(el);
+		});
+
+		$scope.imageSelected = $scope.imageCandidates[0];
+    	});
+	
+	$scope.updateSelected = function(){
+		var select = document.getElementById("select");  
+		var newVal = select.options[select.selectedIndex].value;
+		$scope.imageSelected = newVal;
+	}
+
 	
 	$scope.publishedDJ = function() {
 		return ServiceCreateService.getPublishedServices();

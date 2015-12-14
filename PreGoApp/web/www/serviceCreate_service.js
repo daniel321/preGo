@@ -4,6 +4,11 @@ app.factory('ServiceCreateService', function($http, $q) {
 //			return simpleHttpGet($http, '/api/services', $q.reject);
 //		},
 	
+		getImageCandidates : function(){
+			var folder = "tipos_servicio";
+			return simpleHttpGet($http,'/api/imageCandidates?type='+folder, $q.reject);
+		}
+
 		getServiceGenres : function() {
 			return $http({
 				url : '/api/serviceGenres',

@@ -356,7 +356,9 @@ var getAllFiles = function(dir) {
 
         if (stat && stat.isDirectory()) {
             results = results.concat(getAllFiles(file))
-        } else results.push(file.split("./web")[1]);
+        } else {
+			results.push( {url: file.replace('./web',''), text:file.split("./web")[1]} );
+		}
 
     });
 

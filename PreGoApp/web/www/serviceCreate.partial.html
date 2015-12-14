@@ -41,16 +41,21 @@
 						<br />
 						<br />
 					</div>
-					
-					<div class="col-md-12">
-						<div class="form-group" show-errors>
-							<label class="control-label">Imagen</label>
-							</br>
-							<select id="select" onchange="{{$scope.updateSelected()}}"></select>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-12">
+								<label class="control-label">Imagen</label>
+							</div>
 						</div>
-						<img class="img img-responsive" ng-href="{{$scope.imageSelected}}" ng-show="{{$scope.imageSelected != ''}}" style="height:100px;width:150px;float:left">
+						<div class="row">
+							<div class="col-md-6">
+								<select id="select" ng-options="img as img.text for img in imageCandidates track by img.url" ng-model="imageSelected" ></select>
+							</div>
+							<div class="col-md-6">
+								<img class="img img-responsive" ng-show="imageSelected!=null" ng-src="{{imageSelected.url}}"  style="height:100px;width:150px;float:left">
+							</div>
+						</div>
 					</div>
-
 					<div class="form-group" show-errors>
 						<label class="control-label">Descripcion</label>
 						<textarea class="form-control" name="description"

@@ -33,5 +33,15 @@ app.factory('PartyDetailService', function ($http, $q) {
                 method: 'GET'
             });
         },
+        sendComment: function(partyId, comment) {
+            return $http.put(
+                '/api/partyComment',
+                {
+                    partyId: partyId,
+                    comment: comment
+                }
+            );
+        }
+        
     };
 });

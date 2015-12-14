@@ -274,7 +274,7 @@ app.post('/api/serviceCreate', function (req, res) {
 })
 
 app.post('/api/hireService', function(req, res) {
-	var service = req.query['service'];	
+	var service = req.body.service;
 	if (typeof (service) == 'undefined') {
 		res.send({
 			exito : false,

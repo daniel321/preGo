@@ -26,14 +26,14 @@ app.directive('showErrors', function() {
 });
 
 app.controller('ServiceSearchController', function($scope, $routeParams,
-		PartyServicesService) {
+		ServiceSearchService) {
 	$scope.serviceGenres = [];
 	$scope.selectedServiceGenres = [];
 	$scope.searchedServices = [];
 	
 	$scope.chosenService = [];
 	
-	PartyServicesService.getServiceGenres()
+	ServiceSearchService.getServiceGenres()
 	.then(function(response){
 		$scope.serviceGenres = response.data;
 	})
@@ -42,7 +42,7 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	});
 	
 	$scope.search = function() {
-		PartyServicesService.getSearchedServices($scope.selectedServiceGenres)
+		ServiceSearchService.getSearchedServices($scope.selectedServiceGenres)
 		.then(function(response){
 			$scope.searchedServices = response;
 		});
@@ -51,4 +51,19 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	$scope.showService = function(service) {
 		$scope.chosenService = service;	
 	};
+	
+	$scope.hireService = function(){
+		var newService = {
+				service : $scope.chosenService.name
+		};
+		
+		ServiceSearchService.hireService(newService).then(function(response) {
+			if(response.data.exito){
+				alert('Servicio Contratado.');
+			}else{
+				alert('Error en la contratacion del servicio.');
+				console.log(response.data.error);
+			}
+        });
+	}
 });

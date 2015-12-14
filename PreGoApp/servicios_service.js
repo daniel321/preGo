@@ -259,7 +259,7 @@ function ServiciosService(store) {
     }
     
     this.addContratacion = function (s_serviceName, buyer) {
-    	var s_publisher = this.findPublisher(s_serviceName);
+    	var s_publisher = this.findPublisherByServiceName(s_serviceName);
 		var group = null;
 		var arr = __store.contrataciones;
 		for (var i = 0; i < arr.length; i++) {
@@ -354,7 +354,6 @@ function ServiciosService(store) {
 		
 		for (var i = 0; i < contrataciones.length; i++) {
 			this.addContratacion(
-					contrataciones[i].publisher,
 					contrataciones[i].serviceName,
 					contrataciones[i].buyer
 					);

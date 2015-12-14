@@ -58,7 +58,6 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 		ServiceSearchService.myServices()
 		.then(function(response){
 			$scope.myHiredServices = response.data;
-			console.log($scope.myHiredServices);
 		});
 	}
 	

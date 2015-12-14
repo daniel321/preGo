@@ -290,14 +290,18 @@ function FiestasService(store, services) {
 				break;
 			}
 		}
-		if(!isUndef(usuarioConsulta) && fiesta!=null){
-			for(var i=0;i<fiesta.participantes.length;i++){
-				var item = fiesta.participantes[i];
-				if( item.email == usuarioConsulta ){
-					res.soyAsistente = true;
-					break;
-				}
-			}	
+		if(fiesta){			
+			if(!isUndef(usuarioConsulta) && fiesta!=null){
+				for(var i=0;i<fiesta.participantes.length;i++){
+					var item = fiesta.participantes[i];
+					if( item.email == usuarioConsulta ){
+						res.soyAsistente = true;
+						break;
+					}
+				}	
+			}
+			res.flama = getFlame(fiesta);
+			
 		}
 		return res;
 	};
@@ -512,8 +516,17 @@ function FiestasService(store, services) {
 
 	
 	var getFlame = function(party){
-		var rates = party.userRates;
-		var people = party.cantidadDeGente;
+		if(!isUndef(party)){
+			return "/dist/img/icons/fire/fireIconWhite.png";
+		}
+		var rates = asegurarArray(party.comentarios).length;
+		
+		var personas = 1;
+		if(party.cantidadDeGente){
+			personas +=party.cantidadDeGente;
+		}
+		
+		var people =  personas + asegurarArray(party.participantes).length * 100 ;
 		
 		if(isUndef(rates)){
 			rates = [];
@@ -522,27 +535,22 @@ function FiestasService(store, services) {
 		if(isUndef(people)){
 			people = [];
 		}
-
-		var count = 0;
-
-		for (var i=0;i<rates.length;i++)
-			count += rates[i];
-
-		var avg = count/rates.length;
-
-		if((people > 1000)&&(avg > 9)){
+ 
+		//console.log(people);
+		
+		if((people >= 300)){
 			return "/dist/img/icons/fire/fireIconPurple.png";
 		}else{
-			if((people > 500)&&(avg > 8)){
+			if((people >= 200)){
 				return "/dist/img/icons/fire/fireIconBlue.png";
 			}else{
-				if((people > 400)&&(avg > 7)){
+				if( (people >= 100) && (rates > 5) ){
 					return "/dist/img/icons/fire/fireIconRed.png";
 				}else{
-					if((people > 300)&&(avg > 6)){
+					if( (people >= 100) || (rates > 3)){
 						return "/dist/img/icons/fire/fireIconOrange.png";
 					}else{
-						if((people > 200)&&(avg > 5)){
+						if(rates > 0){
 							return "/dist/img/icons/fire/fireIconYellow.png";
 						}else{
 							return "/dist/img/icons/fire/fireIconWhite.png";

@@ -140,3 +140,56 @@
         </div><!-- /.box -->
     </div> 
 </div>
+
+
+
+<!-- Main row -->
+<div class="row">
+    <!-- Left col -->
+    <section class="col-lg-12 connectedSortable">
+
+        <!-- Chat box -->
+        <div class="box box-success">
+            <div class="box-header">
+                <i class="fa fa-comments-o"></i>
+                <h3 class="box-title">Comentarios</h3>
+            </div>
+            <div class="box-body chat" id="chat-box">
+                <!-- chat item -->
+                <div class="item" ng-repeat="comentario in party.comentarios">
+                    <img ng-src="{{comentario.avatar_url}}" alt="user image" ng-class="{online: message.is_you,offline:!message.is_you}">
+                    <p class="message">
+                        <a href="#" class="name">
+                            <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{comentario.time | date:'dd/MM/yyyy HH:mm'}}</small>
+                            {{comentario.autor}}
+                        </a>
+                        {{comentario.comentario}}
+                    </p>
+                    <!--<div class="attachment">
+                        <h4>Attachments:</h4>
+                        <p class="filename">
+                            Theme-thumbnail-image.jpg
+                        </p>
+                        <div class="pull-right">
+                            <button class="btn btn-primary btn-sm btn-flat">Open</button>
+                        </div>
+                    </div>-->
+                    <!-- /.attachment -->
+                </div><!-- /.item -->
+
+
+                <div class="box-footer" style="border-top:1px ;background-color: transparent">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Escriba un cometario..." ng-model="newComment">
+                        <div class="input-group-btn">
+                            <button class="btn btn-success" ng-click="sendComment()"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.box (chat box) -->
+            <!-- TO DO List -->
+
+    </section><!-- /.Left col -->
+    <!-- right col (We are only adding the ID to make the widgets sortable)-->
+
+</div><!-- /.row (main row) -->

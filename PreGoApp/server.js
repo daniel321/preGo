@@ -222,6 +222,16 @@ app.put('/api/partyParticipation', function (req, res) {
 	
 });
 
+app.put('/api/partyComment', function (req, res) {
+    if (req.body.partyId && req.cookies.email) {
+        fiestasService.comentar(req.body.partyId, req.cookies.email, req.body.comment);
+        res.send(true);
+    } else {
+        res.send({ exito: false, error: 'problema con los parametros o desconexion' });
+    }
+
+});
+
 app.get('/api/party/:id', function (req, res) {
 	var resultado = fiestasService.getParty(req.params.id, req.cookies.email);
 	if(resultado){

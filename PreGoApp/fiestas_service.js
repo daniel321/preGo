@@ -437,6 +437,39 @@ function FiestasService(store, services) {
 			return {exito:false,error:'Fiesta inexistente'};	
 		}
 	}
+    
+	this.comentar = function (fiestaId, emailUsuario, comentario) {
+	    var party = __getParty(fiestaId);
+	    if (party) {
+	        var usuario = __store.__getUsuarioByEmail(emailUsuario);
+	        if (usuario) {
+	            var objComentario = {
+	                avatar_url: usuario.avatar_url,
+	                email: usuario.email,
+	                time: Date.now(),
+	                autor: usuario.nickname,
+                    comentario: comentario
+	            }
+	            party.comentarios = asegurarArray(party.comentarios);
+	            party.comentarios.push(objComentario);
+	            //party.participantes = asegurarArray(party.participantes);
+	            //for (var i = 0; i < party.participantes.length; i++) {
+	            //    if (party.participantes[i].email == usuario.email) {
+	            //        return { exito: false, error: 'Intentando participar dos veces' };
+	            //    }
+	            //}
+	            //party.participantes.push(usuario);
+	            return { exito: true };
+	        } else {
+	            return { exito: false, error: 'Usuario inexistente' };
+	        }
+	    } else {
+	        return { exito: false, error: 'Fiesta inexistente' };
+	    }
+	}
+
+
+
 	
 	var __getParty = function(id){
 		for(var i=0;i<__store.fiestas.length;i++){

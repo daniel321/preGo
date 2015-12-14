@@ -267,8 +267,35 @@ app.post('/api/serviceCreate', function (req, res) {
 			,req.body.price
 			,req.body.description
 			,req.body.detail
+			,req.cookies.email
 			);
 	res.send({exito:true});
+})
+
+app.post('/api/hireService', function(req, res) {
+	var service = req.query['service'];	
+	if (typeof (service) == 'undefined') {
+		res.send({
+			exito : false,
+			error : 'revisar parametros'
+		});
+	} else {
+		serviciosService.addContratacion(service, req.cookies.email);
+		res.send({exito:true});
+	}
+})
+
+app.get('/api/myServices', function(req, res) {
+	var types = req.query['types'];	
+	if (typeof (types) == 'undefined') {
+		res.send({
+			exito : false,
+			error : 'revisar parametros'
+		});
+	} else {
+		serviceList = serviciosService.getServiciosContratadosByUser(req.cookies.email);
+		res.send(serviceList);
+	}
 })
 
 app.get('/api/serviceGenres', function (req,res) {     
@@ -290,19 +317,6 @@ app.get('/api/serviceSearch', function(req, res) {
 		});
 	} else {
 		serviceList = serviciosService.getServiciosByTypes(types);
-		res.send(serviceList);
-	}
-})
-
-app.get('/api/serviceHired', function(req, res) {
-	var types = req.query['types'];	
-	if (typeof (types) == 'undefined') {
-		res.send({
-			exito : false,
-			error : 'revisar parametros'
-		});
-	} else {
-		serviceList = serviciosService.getServiciosContratadosByUser(req.cookies.email);
 		res.send(serviceList);
 	}
 })

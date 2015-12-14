@@ -113,10 +113,20 @@
                     <img ng-src="{{currentUser.avatar_url}}" class="img-circle" alt="User Image">
                     <p>
                       	{{currentUser.nickname}}
-                      </br>
-						{{currentUser.email }}
+                      <br/>
+						{{currentUser.email }} 
                     </p>
                   </li>
+				  
+				  <li class="user-body">
+					<div class="col-xs-8 text-right"> 
+						{{online?'Estas online':'Estas offline'}}
+					</div>
+                    <div class="col-xs-4 text-center"> 
+                      <a ng-if="online" href="" ng-click="goOffline()" class="btn btn-default">Cambiar</a><a ng-if="!online" href="" ng-click="goOnline()" class="btn btn-default">Cambiar</a>
+                    </div>
+                  </li>
+				  
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">

@@ -1,10 +1,30 @@
-app.controller('partyCreateController', function ($scope, $http,$location, PartyCreateService ) {
+app.controller('partyCreateController', function ($scope, $http,$location, $cookies, PartyCreateService ) {
     $scope.esSugerida = false;
 	$scope.partyTypes = [];
 	$scope.selectedItems = [];
 	
 	$scope.musicGenres = [];
 	$scope.selectedMusicGenres = [];
+	
+	$scope.online = true;
+	
+	$scope.updateOnlineMode = function(){
+		$scope.online = !($cookies.get('offline')=="true");
+	}
+	
+	$scope.updateOnlineMode();
+	
+	$scope.hardLocations = null;
+	
+	$scope.getHardLocations = function(){
+		$http({
+				url: '/api/hardLocations',
+				method: 'GET'
+			}).then(function(res){
+				$scope.hardLocations = res.data;
+			});
+	}
+
 	
 	$scope.location = {
 	   name:null,
@@ -52,14 +72,18 @@ app.controller('partyCreateController', function ($scope, $http,$location, Party
 		}
 		return res;
 	}
-
+	
 	$scope.sendForm = function(){
 		var party = {};
 		party.name = $scope.name;
 		party.description = $scope.description;
 		party.from = $scope.datePicker.date.startDate.toISOString();
 		party.to = $scope.datePicker.date.endDate.toISOString();
-		party.location = $scope.location;
+		party.location = {
+			name : $scope.location.name,
+			lat : $scope.location.lat,
+			long : $scope.location.long		
+		}
 		
 		party.types = $scope.getTypeCodes($scope.selectedItems);
 		party.musicGenres = $scope.getTypeCodes($scope.selectedMusicGenres);
@@ -77,4 +101,6 @@ app.controller('partyCreateController', function ($scope, $http,$location, Party
 			}
         });
 	}
+	
+	$scope.getHardLocations();
 });

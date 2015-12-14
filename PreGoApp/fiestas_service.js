@@ -42,7 +42,6 @@ function FiestasService(store, services) {
 			"china@prego.com",
 			"malena@prego.com",
 			"guido@prego.com",
-			"rosita@prego.com",
 			"ezequiel@prego.com",
 			"ezequiel@prego.com",
 			"facundo@prego.com",
@@ -58,8 +57,7 @@ function FiestasService(store, services) {
 			"china@prego.com",
 			"damian@prego.com",
 			"china@prego.com",
-			"guido@prego.com",
-			"rosita@prego.com"
+			"guido@prego.com"
 		];
 		 
 		// this.participar(1,"nahuel@prego.com");

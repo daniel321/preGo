@@ -82,7 +82,7 @@ app.controller('partyCreateController', function ($scope, $http,$location, $cook
 		party.location = {
 			name : $scope.location.name,
 			lat : $scope.location.lat,
-			long : $scope.location.long		
+			lng : $scope.location.lng		
 		}
 		
 		party.types = $scope.getTypeCodes($scope.selectedItems);

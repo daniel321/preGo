@@ -200,9 +200,8 @@ app.post('/api/party', function (req, res) {
 	newParty.direccion = req.body.location.name;
 	newParty.pos = {
 					lat: req.body.location.lat, 
-					long: req.body.location.long
-				};
-				
+					long: req.body.location.lng
+	};
 	newParty.userRates = [];
 	newParty.comentarios = [];
 	newParty.esSugerida = req.body.esSugerida;
@@ -236,6 +235,7 @@ app.get('/api/partyDistance/:id', function (req, res) {
     if (party) {
         var pos = [parseFloat(req.query.lat), parseFloat(req.query.long)];
         //console.log(pos);
+        //console.log(party);
         var distance = fiestasService.getDistance(pos, party);
         res.send("" + distance);
     } else {

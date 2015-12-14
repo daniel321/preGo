@@ -247,18 +247,17 @@ app.get('/api/partyDistance/:id', function (req, res) {
 
 // SERVICIOS
 
-/* #publicados */
-services = 
-	{
-		DJ: '339',
-		Bebidas: '1349',
-		Salon: '819',
-		Sonido: '529',
-		Animacion: '3219'
-	};
-
-app.get('/api/services', function (req, res) {
-	res.send(services);
+app.post('/api/serviceCreate', function (req, res) {
+	serviciosService.agregarServicio(
+			req.body.genre
+			,req.body.name
+			,req.body.highlighted?'highlighted':'regular'
+			,req.body.img
+			,req.body.price
+			,req.body.description
+			,req.body.detail
+			);
+	res.send({exito:true});
 })
 
 app.get('/api/serviceGenres', function (req,res) {     

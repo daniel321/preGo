@@ -1,8 +1,22 @@
-app.factory('PartyServicesService', function($http, $q) {
+app.factory('ServiceCreateService', function($http, $q) {
 	return {
-		getPublishedServices : function() {
-			return simpleHttpGet($http, '/api/services', $q.reject);
-		}
+//		getPublishedServices : function() {
+//			return simpleHttpGet($http, '/api/services', $q.reject);
+//		},
+	
+		getServiceGenres : function() {
+			return $http({
+				url : '/api/serviceGenres',
+				method : 'GET'
+			});
+		},
+		
+		createService : function (service) {
+	        return $http.post(
+	            '/api/serviceCreate',
+	            service
+	        );
+	    }
 	
 //		sendService: function (name, description, price, detail) {
 //	        return $http.post(

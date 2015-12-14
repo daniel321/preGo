@@ -32,15 +32,6 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	$scope.searchedServices = [];
 	
 	$scope.chosenService = [];
-//	= {
-//			 code : ""
-//			,text : ""
-//			,name : ""
-//			,icon_uri : ""
-//			,price : ""
-//			,description : ""
-//			,detail : ""
-//	}
 	
 	PartyServicesService.getServiceGenres()
 	.then(function(response){
@@ -49,10 +40,6 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	.catch(function(error){
 		console.log(error);
 	});
-	
-	$scope.publishedDJ = function() {
-		return PartyServicesService.getPublishedServices();
-	}	
 	
 	$scope.search = function() {
 		PartyServicesService.getSearchedServices($scope.selectedServiceGenres)
@@ -64,24 +51,4 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	$scope.showService = function(service) {
 		$scope.chosenService = service;	
 	};
-	
-	$scope.save = function() {
-		$scope.showErrorsCheckValidity = true;
-		if ($scope.serviceForm.$valid) {
-			alert('Servicio publicado.');
-			$scope.reset();
-			$scope.showErrorsCheckValidity = false;
-		} else {
-			alert("Complete los campos faltantes.");
-		}
-	};
-	
-	$scope.reset = function() {
-		$scope.service = {
-			name : '',
-			description : '',
-			price : '',
-			detail : ''
-		};
-	}
 });

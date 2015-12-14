@@ -5,14 +5,29 @@ app.directive('preGoSelector', function(){
 		scope:{			
 		    availableItems : '=',
 		    selectedItems: '=',
-            readOnly: '@'
+            readOnly: '@',
+            multiple: '@'
 		},	
 		controller: ['$scope', function ($scope) {
 		    $scope.selectItem = function (item) {
-		        if ($scope.readOnly != "true") {
-		            item.selected = !item.selected;
-		            $scope.updateSelectedItems();
-		        }
+		    	if($scope.multiple == "false" ) {
+		    		var selectedItem = [];
+		    		for(var i=0;i<$scope.availableItems.length;i++){
+						var availableItem = $scope.availableItems[i];
+						if(availableItem.selected) {
+							selectedItem = availableItem;
+						}
+	    			}
+		    		if($scope.selectedItems.length == 0 || item == selectedItem) {
+		    			item.selected = !item.selected;
+		    			$scope.updateSelectedItems();
+		    		}
+		    	} else {
+			        if ($scope.readOnly != "true") {
+			            item.selected = !item.selected;
+			            $scope.updateSelectedItems();
+			        }
+		    	}
 		    }
 
 			$scope.updateSelectedItems = function(){

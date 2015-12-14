@@ -1,196 +1,101 @@
 
 <style>
-	#serveceType{
-		height : 35px;
-	}
+#serveceType {
+	height: 35px;
+}
 
-	#publishButton{
-		text-align : center;
-		min-width : 130px;
-	}
+#publishButton {
+	text-align: center;
+	min-width: 130px;
+}
 </style>
 
 <!-- Main row -->
 <div class="row">
 	<!-- Left col -->
-	<section class="col-lg-12 connectedSortable">
+	<section class="col-lg-12">
 
 		<!-- Chat box -->
 		<div class="box box-success">
-			<div class="box-header">
-				<i class="fa fa-edit"></i>
-				<h3 class="box-title">Ofrecer un Servicio</h3>
-			</div>
+			<form name="serviceForm" novalidate>
 
-			<h2>Seccion Fotos. Work in progress.</h2>
+				<div class="box-header with-border">
+					<i class="fa fa-edit"></i>
+					<h3 class="box-title">Ofrecer un Servicio</h3>
+				</div>
 
-			<div class="box box-warning" style="padding-top: 20px">
-
-
-				<form name="serviceForm" novalidate>
-
-					<div class="col-md-12">
-
-						<div class="form-group" show-errors>
-							<label class="control-label">Nombre del Servicio</label> <input
-								type="text" class="form-control" name="name"
-								ng-model="service.name" required
-								placeholder="¿Como se llama tu servicio?"
-								ng-class="{ 'has-error': serviceForm.name.$invalid && serviceForm.name.$dirty }" />
-						</div>
-
+				<div class="box-body">
+					<div class="form-group" show-errors>
+						<input type="text" class="form-control input-lg" name="name"
+							ng-model="service.name" required
+							placeholder="Nombre del Servicio"
+							ng-class="{ 'has-error': serviceForm.name.$invalid && serviceForm.name.$dirty }" />
 					</div>
-					<div class="col-md-12">
-						<div class="form-group" show-errors>
-							<label class="control-label">Descripcion</label>
-							<textarea class="form-control" name="description"
-								ng-model="service.description" rows="2"
-								placeholder="¿Que tienes para ofrecer?" required
-								ng-class="{ 'has-error': serviceForm.description.$invalid && serviceForm.description.$dirty }">
+					<div>
+						<div ng-if="!service.highlighted" ng-click="toggleHighlighted()"
+							class="btn btn-default pull-right">Destacar</div>
+						<div ng-if="service.highlighted" ng-click="toggleHighlighted()"
+							class="btn btn-primary pull-right">
+							Destacado <i class="fa fa-fw fa-check"></i>
+						</div>
+						<br />
+						<br />
+					</div>
+					
+					<div class="box box-warning">
+						<h3>Seccion Fotos. Work in progress.</h3>
+					</div>
+					<div class="form-group" show-errors>
+						<label class="control-label">Descripcion</label>
+						<textarea class="form-control" name="description"
+							ng-model="service.description" rows="2"
+							placeholder="Descripción resumida de qué se trata tu servicio."
+							required
+							ng-class="{ 'has-error': serviceForm.description.$invalid && serviceForm.description.$dirty }">
 							</textarea>
+					</div>
+					<div class="form-group" show-errors>
+						<label class="control-label">Precio</label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i class="fa fa-dollar"></i></span>
+							<input type="text" class="form-control" name="price"
+								ng-model="service.price" required placeholder="Ej: $500/persona"
+								ng-class="{ 'has-error': serviceForm.price.$invalid && serviceForm.price.$dirty }" />
 						</div>
 					</div>
-
-					<div class="col-md-12">
-						<div class="form-group" show-errors>
-							<label class="control-label">Precio</label>
-							<div class="input-group">
-								<span class="input-group-addon"> <i class="fa fa-dollar"></i></span>
-								<input type="text" class="form-control" name="price"
-									ng-model="service.price" required
-									placeholder="¿Cual es el precio de tu servicio?"
-									ng-class="{ 'has-error': serviceForm.price.$invalid && serviceForm.price.$dirty }" />
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-12">
-						<div class="form-group" show-errors>
-							<label class="control-label">Detalle</label>
-							<textarea class="form-control" name="detail"
-								ng-model="service.detail" rows="4"
-								placeholder="¿Que experiencia tienes? ¿En que te diferencias?"
-								required
-								ng-class="{ 'has-error': serviceForm.detail.$invalid && serviceForm.detail.$dirty }">
+					<div class="form-group" show-errors>
+						<label class="control-label">Detalle</label>
+						<textarea class="form-control" name="detail"
+							ng-model="service.detail" rows="4"
+							placeholder="Todo lo que quieras contar sobre el servicio ofrecido."
+							required
+							ng-class="{ 'has-error': serviceForm.detail.$invalid && serviceForm.detail.$dirty }">
 							</textarea>
-						</div>
 					</div>
 
 					<button class="btn btn-link pull-right" ng-click="reset()">Borrar</button>
 
-					<div class="row">
-						<div class="col-md-12">
-							<h3>Tipo de servicio</h3>
 
-							<div class="col-md-0 col-lg-1"></div>
-
-							<div class="col-xs-12 col-md-6 col-lg-2">
-								<div class="box box-primary">
-									<div class="box-body box-profile">
-										<img class="profile-user-img img-responsive img-circle"
-											src="dist/img/tipos_servicio/dj.png" alt="DJ">
-										<h3 class="profile-username text-center">DJ</h3>
-										<p class="text-muted text-center" id="serveceType">Servicio de DJ</p>
-
-										<ul class="list-group list-group-unbordered">
-											<li class="list-group-item"><b>Publicados</b> <a
-												class="pull-right">{{publishedAmnt.DJ}}</a></li>
-										</ul>
-										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()" id="publishButton">
-											<b>Publicar Servicio</b>
-										</button>
-									</div>
-								</div>
-							</div>
-
-
-
-							<div class="col-xs-12 col-md-6 col-lg-2">
-								<div class="box box-primary">
-									<div class="box-body box-profile">
-										<img class="profile-user-img img-responsive img-circle"
-											src="dist/img/tipos_servicio/drinks.png" alt="Drinks">
-										<h3 class="profile-username text-center">Bebidas</h3>
-										<p class="text-muted text-center" id="serveceType">Servicio de Barman</p>
-
-										<ul class="list-group list-group-unbordered">
-											<li class="list-group-item"><b>Publicados</b> <a
-												class="pull-right">{{publishedAmnt.Bebidas}}</a></li>
-										</ul>
-										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()" id="publishButton">
-											<b>Publicar Servicio</b>
-										</button>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xs-12 col-md-6 col-lg-2">
-								<div class="box box-primary">
-									<div class="box-body box-profile">
-										<img class="profile-user-img img-responsive img-circle"
-											src="dist/img/tipos_servicio/salon.png" alt="Salon">
-										<h3 class="profile-username text-center">Salon</h3>
-										<p class="text-muted text-center" id="serveceType" >Reserva de salon</p>
-
-										<ul class="list-group list-group-unbordered">
-											<li class="list-group-item"><b>Publicados</b> <a
-												class="pull-right">{{publishedAmnt.Salon}}</a></li>
-										</ul>
-										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()" id="publishButton">
-											<b>Publicar Servicio</b>
-										</button>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xs-12 col-md-6 col-lg-2">
-								<div class="box box-primary">
-									<div class="box-body box-profile">
-										<img class="profile-user-img img-responsive img-circle"
-											src="dist/img/tipos_servicio/sound.png" alt="Sound">
-										<h3 class="profile-username text-center">Sonido</h3>
-										<p class="text-muted text-center" id="serveceType" >Equipos de sonido</p>
-
-										<ul class="list-group list-group-unbordered">
-											<li class="list-group-item"><b>Publicados</b> <a
-												class="pull-right">{{publishedAmnt.Sonido}}</a></li>
-										</ul>
-										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()" id="publishButton" >
-											<b>Publicar Servicio</b>
-										</button>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xs-0 col-md-3"></div>
-
-							<div class="col-xs-12 col-md-6 col-lg-2">
-								<div class="box box-primary">
-									<div class="box-body box-profile">
-										<img class="profile-user-img img-responsive img-circle"
-											src="dist/img/tipos_servicio/animacion.png" alt="Animacion">
-										<h3 class="profile-username text-center">Animacion</h3>
-										<p class="text-muted text-center" id="serveceType" >Animador de fiestas</p>
-
-										<ul class="list-group list-group-unbordered">
-											<li class="list-group-item"><b>Publicados</b> <a
-												class="pull-right">{{publishedAmnt.Animacion}}</a></li>
-										</ul>
-										<button type="submit" class="btn btn-primary btn-block"
-											ng-click="save()" id="publishButton">
-											<b>Publicar Servicio</b>
-										</button>
-									</div>
-								</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Tipo de Servicio: </label> <span
+								ng-repeat="item in selectedServiceGenres">{{item.text +
+								($last?'':', ') }}</span>
+							<div class="row">
+								<div class="col-md-0 col-md-1"></div>
+								<pre-go-selector available-items="serviceGenres"
+									selected-items="selectedServiceGenres" multiple="false" ng-click="selectGenre()" />
 							</div>
 						</div>
 					</div>
-				</form>
-			</div>
+
+				</div>
+				<div class="box-footer">
+					<button type="submit" ng-click="save()"
+						class="btn btn-primary pull-right">Guardar</button>
+				</div>
+				<!-- /.box-footer-->
+			</form>
 		</div>
 
 

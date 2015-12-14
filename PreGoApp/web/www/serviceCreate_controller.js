@@ -25,24 +25,41 @@ app.directive('showErrors', function() {
 	}
 });
 
-app.controller('ServiceCreateController', function($scope, $routeParams,
-		PartyServicesService) {
+app.controller('ServiceCreateController', function($scope, $routeParams, ServiceCreateService) {
 	$scope.publishedAmnt = [];
+	$scope.serviceGenres = [];
+	$scope.selectedServiceGenres = [];
+	
+	$scope.service = {
+			name : '',
+			description : '',
+			price : '',
+			detail : '',
+			highlighted : false,
+			genre : '',
+			img : 'dist/img/no_img.jpg'
+		};
 	
 	$scope.publishedDJ = function() {
-		return PartyServicesService.getPublishedServices();
+		return ServiceCreateService.getPublishedServices();
 	}
 	
-
+	ServiceCreateService.getServiceGenres()
+	.then(function(response){
+		$scope.serviceGenres = response.data;
+	})
+	.catch(function(error){
+		console.log(error);
+	});
 	
-	PartyServicesService.getPublishedServices().then(function (res) {
-        angular.copy(res, $scope.publishedAmnt);
-    });
+//	ServiceCreateService.getPublishedServices().then(function (res) {
+//        angular.copy(res, $scope.publishedAmnt);
+//    });
 	
 	$scope.save = function() {
 		$scope.showErrorsCheckValidity = true;
 		if ($scope.serviceForm.$valid) {
-			alert('Servicio publicado.');
+			$scope.sendForm();
 			$scope.reset();
 			$scope.showErrorsCheckValidity = false;
 		} else {
@@ -54,7 +71,40 @@ app.controller('ServiceCreateController', function($scope, $routeParams,
 			name : '',
 			description : '',
 			price : '',
-			detail : ''
+			detail : '',
+			highlighted : false,
+			genre : '',
+			img : 'dist/img/no_img.jpg'
 		};
+		$scope.selectedServiceGenres = [];
+	}
+	
+	$scope.toggleHighlighted = function () {
+	    $scope.service.highlighted = !$scope.service.highlighted;
+	}
+	
+	$scope.selectGenre = function() {
+		$scope.service.genre = $scope.selectedServiceGenres[0].code;
+	}
+	
+	$scope.sendForm = function(){
+		var newService = {
+				name : $scope.service.name,
+				description : $scope.service.description,
+				price : '$'+$scope.service.price,
+				detail : $scope.service.detail,
+				highlighted : $scope.service.highlighted,
+				genre : $scope.service.genre,
+				img : $scope.service.img
+		};	
+		
+		ServiceCreateService.createService(newService).then(function(response) {
+			if(response.data.exito){
+				alert('Servicio publicado.');
+			}else{
+				alert('Error en la publicación del servicio.');
+				console.log(response.data.error);
+			}
+        });
 	}
 });

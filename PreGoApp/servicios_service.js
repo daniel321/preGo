@@ -5,10 +5,9 @@ function ServiciosService(store) {
     }
 
 	this.rellenarDemo = function () {
-		
 	}
 	
-	this.agregarServicio = function (groupCode, groupText, s_name, s_type, s_icon_uri, s_price, s_description, s_detail) {
+	this.agregarServicio = function (groupCode, s_name, s_type, s_icon_uri, s_price, s_description, s_detail) {
 		var group = null;
 		var arr = __store.servicios;
 		var groupIndex = null;
@@ -19,7 +18,7 @@ function ServiciosService(store) {
 			}
 		}
 		if (!group) {
-			group = { code: groupCode, text: groupText, highlighted: [], regular: [] };
+			group = { code: groupCode, highlighted: [], regular: [] };
 			if (s_type == 'highlighted') {
 				group.highlighted.push({ name: s_name, icon_uri: s_icon_uri, price: s_price, description: s_description, detail: s_detail });
 			} else if (s_type == 'regular') {
@@ -67,7 +66,7 @@ function ServiciosService(store) {
 			}
 			res.push({
 				code: arr[i].code,
-				text: arr[i].text,
+				text: getTextByCode(arr[i].code),
 				highlighted: h,
 				regular: r
 			});
@@ -91,12 +90,25 @@ function ServiciosService(store) {
 			}
 			res.push({
 				code: arr[i].code,
-				text: arr[i].text,
+				text: getTextByCode(code),
 				highlighted: h,
 				regular: r
 			});
 		}
 		return res;
+    }
+    
+    var getTextByCode = function (code) {
+    	if(code == 'dj')
+    		return 'DJ';
+    	if(code == 'bebidas')
+    		return 'Bebidas';
+    	if(code == 'salon')
+    		return 'Salon';
+    	if(code == 'sonido')
+    		return 'Sonido';
+    	if(code == 'animacion')
+    		return 'Animacion';
     }
 
     var __getServiceByName = function (name) {
@@ -140,7 +152,6 @@ function ServiciosService(store) {
 		var relleno =
 			[ {
 				code : "dj",
-				text : "DJ",
 				highlighted : [
 						{
 							name : "DJ Candela",
@@ -154,7 +165,9 @@ function ServiciosService(store) {
 							icon_uri : "dist/img/tipos_servicio/dj/dj_tiesto.jpg",
 							price : "$1500/hora",
 							description : "I'm DJ Tiesto. You want a DJ? You want Tiesto.",
-							detail : "No need to explain. You wanna party, you want me: Tiesto!"
+							detail : "No need to explain. You wanna party hard, you wanna lose your mind, " +
+									"you wanna hear the music, you wanna feel the magic, you wanna waste your money. " +
+									"You want me: Tiesto!"
 						}
 
 				],
@@ -168,7 +181,6 @@ function ServiciosService(store) {
 			}
 			,{
 				code : "bebidas",
-				text : "Bebidas",
 				highlighted : [],
 				regular : [ {
 					name : "Barman & Robin Drinks",
@@ -195,12 +207,12 @@ function ServiciosService(store) {
 			
 			for (var j = 0; j < highlighted.length; j++) {
 				var s = highlighted[j];
-				this.agregarServicio(group.code, group.text, s.name, 'highlighted', s.icon_uri, s.price, s.description, s.detail);	
+				this.agregarServicio(group.code, s.name, 'highlighted', s.icon_uri, s.price, s.description, s.detail);	
 			}
 			
 			for (var j = 0; j < regular.length; j++) {
 				var s = regular[j];
-				this.agregarServicio(group.code, group.text, s.name, 'regular', s.icon_uri, s.price, s.description, s.detail);	
+				this.agregarServicio(group.code, s.name, 'regular', s.icon_uri, s.price, s.description, s.detail);	
 			}
 		};
 		return true;

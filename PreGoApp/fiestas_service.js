@@ -354,7 +354,7 @@ function FiestasService(store, services) {
 		}
 		
 		copy.cantidadDeGente=party.cantidadDeGente + party.participantes.length * 1;
-		console.log(copy.cantidadDeGente);
+		
 		copy.soyAsistente = false;
 		
 		return copy;

@@ -177,7 +177,7 @@ function ServiciosService(store) {
 				highlighted : [
 						{
 							name : "DJ Candela",
-							publisher : "damian@prego.com",
+							publisher : "ezequiel@prego.com",
 							icon_uri : "dist/img/tipos_servicio/dj/dj_candela.jpg",
 							price : "$700/hora",
 							description : "Claro que si, soy yo. El que dijo: \"¿Y la moto? ¿Y Candela?\"",
@@ -185,7 +185,7 @@ function ServiciosService(store) {
 						},
 						{
 							name : "DJ Tiesto",
-							publisher : "nahuel@prego.com",
+							publisher : "damian@prego.com",
 							icon_uri : "dist/img/tipos_servicio/dj/dj_tiesto.jpg",
 							price : "$1500/hora",
 							description : "I'm DJ Tiesto. You want a DJ? You want Tiesto.",
@@ -197,7 +197,7 @@ function ServiciosService(store) {
 				],
 				regular : [ {
 					name : "DJ Piloto",
-					publisher : "ezequiel@prego.com",
+					publisher : "nahuel@prego.com",
 					icon_uri : "dist/img/tipos_servicio/dj/dj_piloto.jpg",
 					price : "$150/hora",
 					description : "El DJ morfeta que estaba en lo de Tinelli.",

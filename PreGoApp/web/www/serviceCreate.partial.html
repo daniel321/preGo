@@ -49,7 +49,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<select id="select" ng-options="img as img.text for img in imageCandidates track by img.url" ng-model="imageSelected" ></select>
+								<select id="select" ng-options="img as img.text for img in imageCandidates track by img.url" ng-model="imageSelected" style="width: 300px"></select>
 							</div>
 							<div class="col-md-6">
 								<img class="img img-responsive" ng-show="imageSelected!=null" ng-src="{{imageSelected.url}}"  style="height:100px;width:150px;float:left">

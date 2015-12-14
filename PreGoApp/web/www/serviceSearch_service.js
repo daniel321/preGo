@@ -21,6 +21,13 @@ app.factory('ServiceSearchService', function($http, $q) {
 			}
 			return simpleHttpGet($http, url, $q.reject);
 		},
+		
+		myServices : function() {
+			return $http({
+				url : '/api/myServices',
+				method : 'GET'
+			});
+		},
 	    
 	    hireService : function (service) {
 	        return $http.post(

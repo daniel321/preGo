@@ -33,6 +33,8 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	
 	$scope.chosenService = [];
 	
+	$scope.myHiredServices = [];
+	
 	ServiceSearchService.getServiceGenres()
 	.then(function(response){
 		$scope.serviceGenres = response.data;
@@ -51,6 +53,14 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	$scope.showService = function(service) {
 		$scope.chosenService = service;	
 	};
+	
+	$scope.myServices = function() {
+		ServiceSearchService.myServices()
+		.then(function(response){
+			$scope.myHiredServices = response.data;
+			console.log($scope.myHiredServices);
+		});
+	}
 	
 	$scope.hireService = function(){
 		var newService = {

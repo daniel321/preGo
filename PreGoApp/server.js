@@ -294,6 +294,19 @@ app.get('/api/serviceSearch', function(req, res) {
 	}
 })
 
+app.get('/api/serviceHired', function(req, res) {
+	var types = req.query['types'];	
+	if (typeof (types) == 'undefined') {
+		res.send({
+			exito : false,
+			error : 'revisar parametros'
+		});
+	} else {
+		serviceList = serviciosService.getServiciosContratadosByUser(req.cookies.email);
+		res.send(serviceList);
+	}
+})
+
 var server = app.listen(3000, function () {
 
     var host = server.address().address

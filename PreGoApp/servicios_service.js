@@ -3,6 +3,10 @@ function ServiciosService(store) {
     if (typeof (__store.servicios) === 'undefined') {
         __store.servicios = [];
     }
+    
+    if (typeof (__store.contrataciones) === 'undefined') {
+        __store.contrataciones = [];
+    }
 
 	this.rellenarDemo = function () {
 	}
@@ -147,6 +151,39 @@ function ServiciosService(store) {
 		}
 		return null;
     }
+    
+    this.getServiciosContratadosByUser = function (user) {
+		var res = [];
+		var aux = __store.servicios;
+		var arr = [];
+		for(i = 0; i < aux.length; i++) {
+			for(j = 0; j < user.length; j++) {
+				if(aux[i].code == user[j]) {
+					arr.push(aux[i]);
+				}
+			}
+		}
+		
+		for (var i = 0; i < arr.length; i++) {
+			var highlighted = arr[i].highlighted;
+			var h = [];
+			for (var j = 0; j < highlighted.length; j++) {
+				h.push(__copyService(highlighted[j]));
+			}
+			var regular = arr[i].regular;
+			var r = [];
+			for (var k = 0; k < regular.length; k++) {
+				r.push(__copyService(regular[k]));
+			}
+			res.push({
+				code: arr[i].code,
+				text: getTextByCode(arr[i].code),
+				highlighted: h,
+				regular: r
+			});
+		}
+		return res;
+	}
 
     this.rellenar = function () {
 		var relleno =
@@ -215,8 +252,97 @@ function ServiciosService(store) {
 				this.agregarServicio(group.code, s.name, 'regular', s.icon_uri, s.price, s.description, s.detail);	
 			}
 		};
+		
+		this.rellenarContrataciones();
 		return true;
     }
+    
+    this.addContratacion = function (s_publisher, s_serviceName, buyer) {
+		var group = null;
+		var arr = __store.contrataciones;
+		for (var i = 0; i < arr.length; i++) {
+			if(arr[i].publisher == s_publisher) {
+				group = arr[i];
+			}
+		}
+		if (!group) {
+			group = { publisher: s_publisher, services: [] };
+			arr.push(group);
+		}
+		
+		/* Quizas al pedo, pero no se si el push hace otra copia distinta */
+		for (var i = 0; i < arr.length; i++) {
+			if(arr[i].publisher == s_publisher) {
+				group = arr[i];
+			}
+		}
+		
+		var servicio = null;
+		var serviciosOfrecidos = group.services;
+		for (var j = 0; j < serviciosOfrecidos.length; j++) {
+			if(serviciosOfrecidos[j].serviceName == s_serviceName) {
+				servicio = serviciosOfrecidos[j];
+			}
+		}
+		
+		if (!servicio) {
+			servicio = { serviceName: s_serviceName, buyers: [] };
+			serviciosOfrecidos.push(group);
+		}
+		
+		/* Quizas al pedo, pero no se si el push hace otra copia distinta */
+		for (var i = 0; i < serviciosOfrecidos.length; i++) {
+			if(serviciosOfrecidos[i].serviceName == s_serviceName) {
+				servicio = serviciosOfrecidos[i];
+			}
+		}
+		
+		var comprador = null;
+		var compradores = servicio.buyers;
+		for (var k = 0; k < compradores.length; k++) {
+			if(compradores[k].id == buyer) {
+				comprador = compradores[k];
+			}
+		}
+		
+		if (!comprador) {
+			comprador = { id: buyer };
+			compradores.push(comprador);
+		}
+		
+		console.log('Agregado Servicio:');
+		console.log(__store.contrataciones);
+    }
+    
+    this.rellenarContrataciones = function () {
+		var contrataciones = [
+		    {
+			    publisher : 'damian@prego.com',
+			    serviceName : 'Servicio de Barman: \"El Borracho\"',
+			    buyer : 'nahuel@prego.com'
+		    },
+		    {
+			    publisher : 'damian@prego.com',
+			    serviceName : 'Servicio de Barman: \"El Borracho\"',
+			    buyer : 'daniel@prego.com'
+		    },
+		    {
+			    publisher : 'ezequiel@prego.com',
+			    serviceName : 'Servicio de Catering "La Bondiola Feliz"',
+			    buyer : 'damian@prego.com'
+		    }
+		    
+		    ];
+		
+		for (var i = 0; i < contrataciones.length; i++) {
+			this.addContratacion(
+					contrataciones[i].publisher,
+					contrataciones[i].serviceName,
+					contrataciones[i].buyer
+					);
+		};
+		return true;
+	}
 }
 
 module.exports = ServiciosService;

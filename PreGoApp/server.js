@@ -199,8 +199,9 @@ app.post('/api/party', function (req, res) {
 	newParty.musicGenres = req.body.musicGenres;
 	newParty.direccion = req.body.location.name;
 	newParty.pos = {
-					lat: req.body.location.lat, 
-					long: req.body.location.lng
+		name: req.body.location.name,
+		lat: req.body.location.lat, 
+		long: req.body.location.lng
 	};
 	newParty.userRates = [];
 	newParty.comentarios = [];

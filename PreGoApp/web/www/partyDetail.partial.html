@@ -91,7 +91,7 @@
 					<div class="form-group">
 						<label>Ubicación</label>
 
-						<div id="mapAndPos" ng-show="!$scope.mapInitialized">
+						<div id="mapAndPos" ng-show="!$scope.mapInitialized && online">
 							<div id = "centrator">
 								<div id="current">Initializing...</div>
 
@@ -100,8 +100,11 @@
 							</div>
 						</div>
 
-						<div ng-show="$scope.mapInitialized">
-						    {{party.pos.name}} ({{party.pos.lat}}, {{party.pos.long}})
+						<div ng-show="$scope.mapInitialized && online">
+						{{party.pos.name}} ({{party.pos.lat}}, {{party.pos.long}})    
+						</div>
+						<div ng-show="!online">
+							{{party.pos.name}}
 						</div>
 
 

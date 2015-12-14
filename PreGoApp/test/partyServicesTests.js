@@ -268,7 +268,7 @@ describe('PregoServices', function() {
 		
 		var fiestas = servicios.fiestas.getPartysCloseBy(true, munioz.lat, munioz.long, 30);
 		//console.log(fiestas);
-		assert.equal(3, fiestas.length);
+		assert.equal(2, fiestas.length);
 		
 		for(var i=0; i<fiestas.length;i++){
 			assert.equal(true, fiestas[i].esSugerida);				
@@ -281,7 +281,7 @@ describe('PregoServices', function() {
 		var pilar = {lat:-34.4557386,long:-58.9181307};
 		
 		var fiestas = servicios.fiestas.getPartysCloseBy(true,pilar.lat, pilar.long, 50);//muevo la posicion
-		assert.equal(3, fiestas.length);
+		assert.equal(2, fiestas.length);
 		 
 		
 		var fiestas = servicios.fiestas.getPartysCloseBy(true,pilar.lat, pilar.long, 30);//muevo la posicion

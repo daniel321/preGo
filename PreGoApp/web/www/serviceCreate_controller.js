@@ -92,6 +92,7 @@ app.controller('ServiceCreateController', function($scope, $routeParams, Service
 			img : 'dist/img/no_img.jpg'
 		};
 		$scope.selectedServiceGenres = [];
+		$scope.imageSelected = null;
 	}
 	
 	$scope.toggleHighlighted = function () {

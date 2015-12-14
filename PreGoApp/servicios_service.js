@@ -7,11 +7,15 @@ function ServiciosService(store) {
     if (typeof (__store.contrataciones) === 'undefined') {
         __store.contrataciones = [];
     }
+    
+    if (typeof (__store.serviciosPorUsuario) === 'undefined') {
+        __store.serviciosPorUsuario = [];
+    }
 
 	this.rellenarDemo = function () {
 	}
 	
-	this.agregarServicio = function (groupCode, s_name, s_type, s_icon_uri, s_price, s_description, s_detail) {
+	this.agregarServicio = function (groupCode, s_name, s_type, s_icon_uri, s_price, s_description, s_detail, s_publisher) {
 		var group = null;
 		var arr = __store.servicios;
 		var groupIndex = null;
@@ -29,6 +33,7 @@ function ServiciosService(store) {
 				group.regular.push({ name: s_name, icon_uri: s_icon_uri, price: s_price, description: s_description, detail: s_detail });
 			}
 			arr.push(group);
+			this.addServicioPorUsuario(s_name, s_publisher);
 			return { exito: true };
 		} else {
 			if (!__getServiceByName(s_name)) {
@@ -39,6 +44,7 @@ function ServiciosService(store) {
 					group.regular.push({ name: s_name, icon_uri: s_icon_uri, price: s_price, description: s_description, detail: s_detail });
 				}
 				arr[groupIndex] = group;
+				this.addServicioPorUsuario(s_name, s_publisher);
 				return { exito: true };
 			}
 		}
@@ -154,33 +160,12 @@ function ServiciosService(store) {
     
     this.getServiciosContratadosByUser = function (user) {
 		var res = [];
-		var aux = __store.servicios;
+		var contrataciones = __store.contrataciones;
 		var arr = [];
-		for(i = 0; i < aux.length; i++) {
-			for(j = 0; j < user.length; j++) {
-				if(aux[i].code == user[j]) {
-					arr.push(aux[i]);
-				}
+		for(i = 0; i < contrataciones.length; i++) {
+			if(contrataciones[i].publisher == user) {
+				res = contrataciones[i].services;
 			}
-		}
-		
-		for (var i = 0; i < arr.length; i++) {
-			var highlighted = arr[i].highlighted;
-			var h = [];
-			for (var j = 0; j < highlighted.length; j++) {
-				h.push(__copyService(highlighted[j]));
-			}
-			var regular = arr[i].regular;
-			var r = [];
-			for (var k = 0; k < regular.length; k++) {
-				r.push(__copyService(regular[k]));
-			}
-			res.push({
-				code: arr[i].code,
-				text: getTextByCode(arr[i].code),
-				highlighted: h,
-				regular: r
-			});
 		}
 		return res;
 	}
@@ -192,6 +177,7 @@ function ServiciosService(store) {
 				highlighted : [
 						{
 							name : "DJ Candela",
+							publisher : "damian@prego.com",
 							icon_uri : "dist/img/tipos_servicio/dj/dj_candela.jpg",
 							price : "$700/hora",
 							description : "Claro que si, soy yo. El que dijo: \"¿Y la moto? ¿Y Candela?\"",
@@ -199,6 +185,7 @@ function ServiciosService(store) {
 						},
 						{
 							name : "DJ Tiesto",
+							publisher : "nahuel@prego.com",
 							icon_uri : "dist/img/tipos_servicio/dj/dj_tiesto.jpg",
 							price : "$1500/hora",
 							description : "I'm DJ Tiesto. You want a DJ? You want Tiesto.",
@@ -210,6 +197,7 @@ function ServiciosService(store) {
 				],
 				regular : [ {
 					name : "DJ Piloto",
+					publisher : "ezequiel@prego.com",
 					icon_uri : "dist/img/tipos_servicio/dj/dj_piloto.jpg",
 					price : "$150/hora",
 					description : "El DJ morfeta que estaba en lo de Tinelli.",
@@ -221,6 +209,7 @@ function ServiciosService(store) {
 				highlighted : [],
 				regular : [ {
 					name : "Barman & Robin Drinks",
+					publisher : "damian@prego.com",
 					icon_uri : "dist/img/tipos_servicio/bebidas/bebidas_barman&robin.jpg",
 					price : "$400/persona",
 					description : "Bebidas de calidad regular.",
@@ -228,6 +217,7 @@ function ServiciosService(store) {
 				},
 				{
 					name : "Bebidas Morfetti",
+					publisher : "facundo@prego.com",
 					icon_uri : "dist/img/tipos_servicio/bebidas/bebidas_morfetti.jpg",
 					price : "$700/persona",
 					description : "Las mejores bebidas servidas por la familia Morfetti.",
@@ -244,12 +234,12 @@ function ServiciosService(store) {
 			
 			for (var j = 0; j < highlighted.length; j++) {
 				var s = highlighted[j];
-				this.agregarServicio(group.code, s.name, 'highlighted', s.icon_uri, s.price, s.description, s.detail);	
+				this.agregarServicio(group.code, s.name, 'highlighted', s.icon_uri, s.price, s.description, s.detail, s.publisher);	
 			}
 			
 			for (var j = 0; j < regular.length; j++) {
 				var s = regular[j];
-				this.agregarServicio(group.code, s.name, 'regular', s.icon_uri, s.price, s.description, s.detail);	
+				this.agregarServicio(group.code, s.name, 'regular', s.icon_uri, s.price, s.description, s.detail, s.publisher);	
 			}
 		};
 		
@@ -257,7 +247,19 @@ function ServiciosService(store) {
 		return true;
     }
     
-    this.addContratacion = function (s_publisher, s_serviceName, buyer) {
+    this.findPublisherByServiceName = function (s_serviceName) {
+    	var entry = null;
+		var arr = __store.serviciosPorUsuario
+		for (var i = 0; i < arr.length; i++) {
+			if(arr[i].serviceName == s_serviceName) {
+				entry = arr[i];
+			}
+		}
+		return entry.publisher;
+    }
+    
+    this.addContratacion = function (s_serviceName, buyer) {
+    	var s_publisher = this.findPublisherByServiceName(s_serviceName);
 		var group = null;
 		var arr = __store.contrataciones;
 		for (var i = 0; i < arr.length; i++) {
@@ -311,26 +313,40 @@ function ServiciosService(store) {
 		}
     }
     
+    this.addServicioPorUsuario = function(s_serviceName, s_publisher) {
+    	var entry = null;
+		var arr = __store.serviciosPorUsuario
+		for (var i = 0; i < arr.length; i++) {
+			if(arr[i].serviceName == s_serviceName) {
+				entry = arr[i];
+			}
+		}
+		if (!entry) {
+			entry = { serviceName: s_serviceName, publisher: s_publisher };
+			arr.push(entry);
+		}
+    }
+    
     this.rellenarContrataciones = function () {
 		var contrataciones = [
 		    {
 			    publisher : 'damian@prego.com',
-			    serviceName : 'Servicio de Barman: \"El Borracho\"',
+			    serviceName : 'Barman & Robin Drinks',
 			    buyer : 'nahuel@prego.com'
 		    },
 		    {
 			    publisher : 'damian@prego.com',
-			    serviceName : 'El Mago Demian',
+			    serviceName : 'DJ Tiesto',
 			    buyer : 'daniel@prego.com'
 		    },
 		    {
 			    publisher : 'damian@prego.com',
-			    serviceName : 'Servicio de Barman: \"El Borracho\"',
-			    buyer : 'daniel@prego.com'
+			    serviceName : 'Barman & Robin Drinks',
+			    buyer : 'facundo@prego.com'
 		    },
 		    {
 			    publisher : 'ezequiel@prego.com',
-			    serviceName : 'Servicio de Catering "La Bondiola Feliz"',
+			    serviceName : 'DJ Candela',
 			    buyer : 'damian@prego.com'
 		    }
 		    
@@ -338,7 +354,6 @@ function ServiciosService(store) {
 		
 		for (var i = 0; i < contrataciones.length; i++) {
 			this.addContratacion(
-					contrataciones[i].publisher,
 					contrataciones[i].serviceName,
 					contrataciones[i].buyer
 					);

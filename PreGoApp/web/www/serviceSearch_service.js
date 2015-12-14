@@ -1,4 +1,4 @@
-app.factory('PartyServicesService', function($http, $q) {
+app.factory('ServiceSearchService', function($http, $q) {
 	return {
 		getPublishedServices : function() {
 			return simpleHttpGet($http, '/api/services', $q.reject);
@@ -20,6 +20,13 @@ app.factory('PartyServicesService', function($http, $q) {
 				}
 			}
 			return simpleHttpGet($http, url, $q.reject);
-		}
+		},
+	    
+	    hireService : function (service) {
+	        return $http.post(
+	            '/api/hireService',
+	            service
+	        );
+	    }
 	}
 });

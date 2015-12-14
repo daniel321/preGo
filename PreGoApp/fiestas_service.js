@@ -334,7 +334,6 @@ function FiestasService(store, services) {
 		copy.pos = party.pos;
 		copy.inicio=party.inicio;
 		copy.fin=party.fin;
-		copy.cantidadDeGente=party.cantidadDeGente;
 		copy.userRates=party.userRates.slice();
 		copy.comentarios=party.comentarios.slice();
 
@@ -350,6 +349,12 @@ function FiestasService(store, services) {
 			copy.participantes.push(participante.avatar_url);
 		}
 		
+		if(isUndef(party.cantidadDeGente)){
+			party.cantidadDeGente=0;
+		}
+		
+		copy.cantidadDeGente=party.cantidadDeGente + party.participantes.length * 1;
+		console.log(copy.cantidadDeGente);
 		copy.soyAsistente = false;
 		
 		return copy;

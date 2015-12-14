@@ -253,7 +253,7 @@ function ServiciosService(store) {
 			}
 		};
 		
-		this.rellenarContrataciones();
+		this.rellenarContrataciones();		
 		return true;
     }
     
@@ -287,7 +287,7 @@ function ServiciosService(store) {
 		
 		if (!servicio) {
 			servicio = { serviceName: s_serviceName, buyers: [] };
-			serviciosOfrecidos.push(group);
+			serviciosOfrecidos.push(servicio);
 		}
 		
 		/* Quizas al pedo, pero no se si el push hace otra copia distinta */
@@ -309,9 +309,6 @@ function ServiciosService(store) {
 			comprador = { id: buyer };
 			compradores.push(comprador);
 		}
-		
-		console.log('Agregado Servicio:');
-		console.log(__store.contrataciones);
     }
     
     this.rellenarContrataciones = function () {
@@ -320,6 +317,11 @@ function ServiciosService(store) {
 			    publisher : 'damian@prego.com',
 			    serviceName : 'Servicio de Barman: \"El Borracho\"',
 			    buyer : 'nahuel@prego.com'
+		    },
+		    {
+			    publisher : 'damian@prego.com',
+			    serviceName : 'El Mago Demian',
+			    buyer : 'daniel@prego.com'
 		    },
 		    {
 			    publisher : 'damian@prego.com',

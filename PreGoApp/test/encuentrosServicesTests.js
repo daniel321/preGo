@@ -232,11 +232,67 @@ describe('PregoServices', function() {
 		assert.notEqual('ursula@prego.com',servicios.encuentros.sugerir('china@prego.com').usuarioAConocer.email);
 		
     });
+	
+	
+	
 	 
+	it('cuando sugiere deberia indicar que fiestas comparten', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		servicios.fiestas.rellenar();
+		
+		
+		assert.equal(7,servicios.fiestas.getAll().length);
+		
+		
+		//fiesta 1 con china, damian, usrula, ezequiel
+		assert.equal(true,servicios.fiestas.participar(1,'china@prego.com').exito);
+		assert.equal(true,servicios.fiestas.participar(1,'nahuel@prego.com').exito);	
+		assert.equal(true,servicios.fiestas.participar(1,'damian@prego.com').exito);
+		assert.equal(true,servicios.fiestas.participar(1,'ursula@prego.com').exito);
+		assert.equal(true,servicios.fiestas.participar(1,'ezequiel@prego.com').exito);	
+		
+		//fiesta 2 con china sola
+		assert.equal(true,servicios.fiestas.participar(2,'china@prego.com').exito);
+		
+		//fiesta 3 solo guido
+		assert.equal(true,servicios.fiestas.participar(3,'guido@prego.com').exito);
+		
+		//fiesta 4 solo china con nahuel
+		assert.equal(true,servicios.fiestas.participar(4,'china@prego.com').exito);
+		assert.equal(true,servicios.fiestas.participar(4,'nahuel@prego.com').exito);
+		
+		 
+		assert.equal('nahuel@prego.com',servicios.encuentros.sugerir('china@prego.com').usuarioAConocer.email);
+		
+		//console.log(servicios.encuentros.sugerir('china@prego.com').fiestasCompartidas);
+		
+		assert.equal(2,servicios.encuentros.sugerir('china@prego.com').fiestasCompartidas.length);
+		assert.equal(1,servicios.encuentros.sugerir('china@prego.com').fiestasCompartidas[0].id);
+		assert.equal(4,servicios.encuentros.sugerir('china@prego.com').fiestasCompartidas[1].id);
+		servicios.encuentros.calificar('china@prego.com', 'nahuel@prego.com', true);
+		
+    });
 	
 	
-	
-	
+	 
+	it('cuando sugiere, si no coincidis en ninguna fiesta, no deberia venir nada ahi', function () {
+	    var servicios = createServicios();
+		servicios.usuarios.rellenar();
+		
+		servicios.fiestas.rellenar();
+				
+		assert.equal(7,servicios.fiestas.getAll().length);		
+		
+		assert.equal(true,servicios.fiestas.participar(1,'china@prego.com').exito);
+		
+		assert.equal(true,servicios.fiestas.participar(2,'ezequiel@prego.com').exito);	
+		assert.equal(true,servicios.fiestas.participar(2,'guido@prego.com').exito); 
+		
+		assert.equal(0,servicios.encuentros.sugerir('ezequiel@prego.com').fiestasCompartidas.length);
+		
+    });
 	//
 	//
 	//verificar que al haber match se cree un match en los usuarios

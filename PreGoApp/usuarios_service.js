@@ -10,11 +10,11 @@ function UsuariosService(store) {
 		for (var i = 0; i < arr.length; i++) {
 			if (arr[i].email == email) {
 				return arr[i];
-			}
+			} 
 		}
 		return null;
     }
-
+ 
 	
     if (typeof (__store.usuarios) === 'undefined') {
         __store.usuarios = [];

@@ -1,3 +1,9 @@
+
+<head>
+	<link rel="stylesheet" type="text/css" href="/www/css/testMap.css">
+	<meta name = "viewport" content = "width = device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">		
+</head>
+
 <style>
 .profile-user-img{
 	width:60px;
@@ -84,19 +90,21 @@
 					</div><!-- /.form group -->
 					<div class="form-group">
 						<label>Ubicación</label>
-                        <div>
-                            {{party.pos.name}} ({{party.pos.lat}}, {{party.pos.long}})
-                        </div>
-						<!--<div class="input-group">
-							<div class="input-group-addon">
-								<i class="fa fa-map-marker"></i>
+
+						<div id="mapAndPos" ng-show="!$scope.mapInitialized">
+							<div id = "centrator">
+								<div id="current">Initializing...</div>
+
+								<div id="map_canvas2" style="width:300px; height:300px"></div>
+								<meta id="mapView" name = "viewport">			
 							</div>
-							<location-picker id="location" ng-model="location" inner-class="form-control" placeholder="Dirección" ng-required="true"></location-picker>
-						</div>-->
-						<!--<br/>
-							Name: {{location.name}}
-							Lat: {{location.lat}}
-							Long: {{location.lng}}--> 
+						</div>
+
+						<div ng-show="$scope.mapInitialized">
+						    {{party.pos.name}} ({{party.pos.lat}}, {{party.pos.long}})
+						</div>
+
+
 					</div><!-- /.form group -->
 					<div class="form-group">
 						<label>Tipo de fiesta: </label> <span ng-repeat="item in selectedItems" >{{item.text + ($last?'':', ') }}</span>

@@ -25,9 +25,8 @@
 							<div class="input-group-addon">
 							<i class="fa fa-clock-o"></i>
 							</div>
-							<input date-range-picker class="form-control pull-right  date-picker" type="text" ng-model="datePicker.date" options="datePicker.options" />
+							<input date-range-picker class="form-control pull-right  date-picker" type="text" ng-model="datePicker.date" options="datePicker.options" required/>
 						</div><!-- /.input group -->
-						{{datePicker.date}}
 					</div><!-- /.form group -->
 					<div class="form-group">
 						<label>Ubicación</label>
@@ -38,10 +37,6 @@
 							<location-picker id="location" ng-model="location" inner-class="form-control" placeholder="Dirección" ng-required="true"></location-picker>
 							<!--button ng-click="clear()">Clear</button-->	
 						</div>
-						<br/>
-							Name: {{location.name}}
-							Lat: {{location.lat}}
-							Long: {{location.lng}} 
 					</div><!-- /.form group -->
 					<div class="form-group">
 						<label>Tipo de fiesta: </label> <span ng-repeat="item in selectedItems" >{{item.text + ($last?'':', ') }}</span>

@@ -1,5 +1,7 @@
-function EncuentrosService(store) {
+function EncuentrosService(store, services) {
     var __store = store;
+	var services = services;
+	
     if (typeof (__store.usuarios) === 'undefined') {
         __store.usuarios = [];
     }
@@ -165,6 +167,29 @@ function EncuentrosService(store) {
 		return res;
 	}
 	
+	var getFiestasEnComun = function(usr1, usr2){
+		var fiestas = [];
+		
+		var fiestasUsr1 = __store.getFiestasDondeParticipa(usr1);
+		var fiestasUsr2 = __store.getFiestasDondeParticipa(usr2);
+		
+		for (var i = 0; i < fiestasUsr1.length ; i++) {				
+			if(fiestasUsr2.indexOf(fiestasUsr1[i])>-1){//busca fiesta por instancia
+				if(fiestas.indexOf(fiestasUsr1[i].id)<0){
+					fiestas.push(fiestasUsr1[i].id);
+				}				
+			}
+		}
+		
+		var res = [];
+		var fiestasSrv = services.getFiestasService();
+		for (var i = 0; i < fiestas.length ; i++) {				
+			 res.push(fiestasSrv.getParty(fiestas[i]));
+		}
+		
+		return res;
+	}
+	
 	
 	this.sugerir = function (emailUsuarioBuscador) {
 		var usuarioBuscador = __buscarUsuario(emailUsuarioBuscador);
@@ -181,6 +206,7 @@ function EncuentrosService(store) {
 			}
 			if(usuarioEncontrado){
 				res.usuarioAConocer =  __copyUsuario(usuarioEncontrado);	
+				res.fiestasCompartidas = getFiestasEnComun(usuarioBuscador,usuarioEncontrado);
 			}			
 		}else{
 			res.exito = false;

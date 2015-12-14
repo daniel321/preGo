@@ -72,10 +72,17 @@
 		height: 50px;
 	}
 
-
 	#ptys{
 		min-height:1000px;		
 	}
+
+	#partyPromotedImg{
+		margin:auto;
+		width:200px;
+		height:100px;
+	}
+
+
 
 	#partyName{
 		margin-left:10px;

@@ -199,8 +199,9 @@ app.post('/api/party', function (req, res) {
 	newParty.musicGenres = req.body.musicGenres;
 	newParty.direccion = req.body.location.name;
 	newParty.pos = {
-					lat: req.body.location.lat, 
-					long: req.body.location.lng
+		name: req.body.location.name,
+		lat: req.body.location.lat, 
+		long: req.body.location.lng
 	};
 	newParty.userRates = [];
 	newParty.comentarios = [];
@@ -219,6 +220,16 @@ app.put('/api/partyParticipation', function (req, res) {
 		res.send({exito:false, error:'problema con los parametros o desconexion'});
 	}
 	
+});
+
+app.put('/api/partyComment', function (req, res) {
+    if (req.body.partyId && req.cookies.email) {
+        fiestasService.comentar(req.body.partyId, req.cookies.email, req.body.comment);
+        res.send(true);
+    } else {
+        res.send({ exito: false, error: 'problema con los parametros o desconexion' });
+    }
+
 });
 
 app.get('/api/party/:id', function (req, res) {
@@ -318,3 +329,17 @@ app.post("/api/meetingQualify", function (req, res) {
     
 });
 
+
+
+
+app.get('/api/hardLocations', function (req,res) {
+    
+	res.send([
+		 {	id:1, descripcion : "Facultad de ingenieria, San Telmo", name: "Avenida Paseo Colón 850, Ciudad Autónoma de Buenos Aires", lat:-34.617577, lng:-58.368315},
+		 {	id:2, descripcion : "Facultad de ingenieria, Recoleta", name: "Av General Las Heras 2241, C1127AAE CABA", lat:-34.588489, lng:-58.396235},
+		 {	id:3, descripcion : "Retiro", name: "Av del Libertador 136, C1001ABO CABA", lat:-34.592581, lng:-58.375360},
+		 {	id:4, descripcion : "Callao y corrientes", name: "Av Callao 500, Balvanera, C1022AAR Ciudad Autónoma de Buenos Aires, Argentina", lat:-34.604362, lng:-58.392468},
+		 {	id:5, descripcion : "San Miguel Centro", name: "Av Ricardo Balbín 1292, B1663NCM San Miguel, Buenos Aires", lat:-34.542267, lng:-58.711988},
+		 {	id:6, descripcion : "Pilar Centro", name: "San Martín 627, Pilar Centro, Buenos Aires", lat:-34.458428, lng:-58.914488},
+	]);
+})

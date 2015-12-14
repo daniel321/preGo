@@ -198,6 +198,7 @@ app.post('/api/party', function (req, res) {
 	newParty.types = req.body.types;
 	newParty.musicGenres = req.body.musicGenres;
 	newParty.direccion = req.body.location.name;
+	newParty.imagenDeFondo = req.body.image;
 	newParty.pos = {
 		name: req.body.location.name,
 		lat: req.body.location.lat, 
@@ -294,6 +295,19 @@ app.get('/api/serviceSearch', function(req, res) {
 	}
 })
 
+app.get('/api/serviceHired', function(req, res) {
+	var types = req.query['types'];	
+	if (typeof (types) == 'undefined') {
+		res.send({
+			exito : false,
+			error : 'revisar parametros'
+		});
+	} else {
+		serviceList = serviciosService.getServiciosContratadosByUser(req.cookies.email);
+		res.send(serviceList);
+	}
+})
+
 var server = app.listen(3000, function () {
 
     var host = server.address().address
@@ -343,7 +357,9 @@ var getAllFiles = function(dir) {
 
         if (stat && stat.isDirectory()) {
             results = results.concat(getAllFiles(file))
-        } else results.push(file.split("./web")[1]);
+        } else {
+			results.push( {url: file.replace('./web',''), text:file.split("./web")[1]} );
+		}
 
     });
 

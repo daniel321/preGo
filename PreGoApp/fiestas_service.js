@@ -38,8 +38,6 @@ function FiestasService(store, services) {
 			"facundo@prego.com",
 			"damian@prego.com",
 			"guido@prego.com",
-			"nahuel@prego.com",
-			"nahuel@prego.com",
 			"damian@prego.com",
 			"china@prego.com",
 			"malena@prego.com",
@@ -527,33 +525,30 @@ function FiestasService(store, services) {
 			personas +=party.cantidadDeGente;
 		}
 		
-		var people =  personas + asegurarArray(party.participantes).length * 100 ;
+		var people =  asegurarArray(party.participantes).length ;
 		
 		if(isUndef(rates)){
 			rates = [];
 		}
-		
-		if(isUndef(people)){
-			people = [];
-		}
- 
+		 
+ /*
 		console.log('people:' + people);
 		console.log('rates:' + rates);
-		
-		if((people >= 300)){
+	*/	
+		if((personas >= 500)){
 			return "/dist/img/icons/fire/fireIconPurple.png";
 		}else{
-			if((people >= 200)){
-				return "/dist/img/icons/fire/fireIconBlue.png";
-			}else{
-				if( (people >= 100) && (rates > 5) ){
+			if((personas >= 500)){
 					return "/dist/img/icons/fire/fireIconRed.png";
+			}else{
+				if( (personas >= 100)  ){
+					return "/dist/img/icons/fire/fireIconOrange.png";
 				}else{
-					if( (people >= 100) || (rates > 3)){
-						return "/dist/img/icons/fire/fireIconOrange.png";
+					if(rates > 0){
+						return "/dist/img/icons/fire/fireIconYellow.png";
 					}else{
-						if(rates > 0){
-							return "/dist/img/icons/fire/fireIconYellow.png";
+						if(people > 0){
+							return "/dist/img/icons/fire/fireIconBlue.png";
 						}else{
 							return "/dist/img/icons/fire/fireIconWhite.png";
 						}

@@ -635,7 +635,7 @@ function FiestasService(store, services) {
 		var partyStart = new Date(party.inicio.split(".")[0]);
 		var partyEnd = new Date(party.fin.split(".")[0]);
 
-		var res = ( ((partyStart > rangeStart)&&(partyStart < rangeEnd)) || ((rangeStart > partyStart)&&(rangeStart < partyEnd)) ); 
+		var res = ( ((partyStart >= rangeStart)&&(partyStart <= rangeEnd)) || ((rangeStart >= partyStart)&&(rangeStart <= partyEnd)) ); 
 		return res;
 	}
 	

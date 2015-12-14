@@ -150,13 +150,13 @@ app.get('/api/commonPartysCloseBy', function (req,res) {
 
 app.get('/api/promotedPartysCloseBy', function (req,res) {
     
-	
-	var lat = req.query['lat'];
+    var lat = req.query['lat'];
     var long = req.query['long'];
     var tolerance = req.query['tol'];
-	
-	
-	var ret = fiestasService.getPartysCloseBy(true,lat, long, tolerance)
+    var ret = fiestasService.getPartysCloseBy(true,lat, long, tolerance);
+
+    // console.log(ret);
+
     res.send(ret);
 })
 

@@ -50,7 +50,7 @@ app.directive('locationPicker', function() {
 
           scope.$applyAsync(function() {
             controller.$setViewValue({
-              name: name,
+              name: place.formatted_address,
               lat: lat,
               lng: lng
             });

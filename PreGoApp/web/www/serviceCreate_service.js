@@ -7,7 +7,7 @@ app.factory('ServiceCreateService', function($http, $q) {
 		getImageCandidates : function(){
 			var folder = "tipos_servicio";
 			return simpleHttpGet($http,'/api/imageCandidates?type='+folder, $q.reject);
-		}
+		},
 
 		getServiceGenres : function() {
 			return $http({

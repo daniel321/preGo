@@ -30,7 +30,7 @@ app.controller('ServiceCreateController', function($scope, $routeParams, Service
 	$scope.serviceGenres = [];
 	$scope.selectedServiceGenres = [];
 
-	$scope.imageSelected = "";
+	$scope.imageSelected = null;
 	$scope.imageCandidates = [];	
 
 
@@ -45,18 +45,18 @@ app.controller('ServiceCreateController', function($scope, $routeParams, Service
 		};
 
 	ServiceCreateService.getImageCandidates().then(function (res) {
-        	angular.copy(res, $scope.imageCandidates);
+        angular.copy(res, $scope.imageCandidates);
 
-		$scope.imageCandidates.forEach(function(element,index,array){
+		/*$scope.imageCandidates.forEach(function(element,index,array){
 			var select = document.getElementById("select");  
 	    		var el = document.createElement("option");
 	    		el.textContent = array[index].split("dist/img/tipos_servicio/")[1];
 	    		el.value = array[index];
 	    		select.appendChild(el);
-		});
+		});*/
 
-		$scope.imageSelected = $scope.imageCandidates[0];
-    	});
+		//$scope.imageSelected = $scope.imageCandidates[0];
+	});
 	
 	$scope.updateSelected = function(){
 		var select = document.getElementById("select");  
@@ -120,7 +120,7 @@ app.controller('ServiceCreateController', function($scope, $routeParams, Service
 				detail : $scope.service.detail,
 				highlighted : $scope.service.highlighted,
 				genre : $scope.service.genre,
-				img : $scope.service.img
+				img : $scope.imageSelected.url
 		};	
 		
 		ServiceCreateService.createService(newService).then(function(response) {

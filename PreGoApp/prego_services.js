@@ -6,7 +6,7 @@ FiestasService = require('./fiestas_service.js');
 function PregoServices() {
     var __store = {};
     var __usuariosService = new UsuariosService(__store);
-	var __encuentrosService = new EncuentrosService(__store);
+	var __encuentrosService = new EncuentrosService(__store, this);
 	var __serviciosService = new ServiciosService(__store);
 	var __fiestasService = new FiestasService(__store, this);
 

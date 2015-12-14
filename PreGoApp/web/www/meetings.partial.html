@@ -46,7 +46,7 @@
 				<div class="box-body box-profile">
 					<img class="profile-user-img img-responsive img-circle" ng-src="{{suggest.avatar_url}}" alt="User profile picture">
 					<h3 class="profile-username text-center">{{suggest.nickname}}</h3>
-					<!--<p class="text-muted text-center">Software Engineer</p>-->
+					<p ng-if="sharedPartys && sharedPartys.length>0" class="text-muted text-center">Coinciden en: <span ng-repeat="party in sharedPartys">{{party.nombre}}{{$last?'':','}}&nbsp;</span></p>
 
 					<div class="row">
 						<div class="col-sm-12 botones-encuentro">
@@ -112,6 +112,15 @@
 			<div class="col-sm-3">
 				<img class="profile-user-img img-responsive img-circle" ng-src="{{other.avatar_url}}" alt="User profile picture">
 				<h3 class="profile-username text-center ng-binding">{{other.nickname}}</h3>
+			</div>
+			<div class="col-sm-3">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+			</div>
+			<div class="col-sm-6">
+				 <p ng-if="sharedPartys2 && sharedPartys2.length>0" class="text-muted text-center">Coinciden en: <span ng-repeat="party in sharedPartys2">{{party.nombre}}{{$last?'':','}}&nbsp;</span></p>
 			</div>
 			<div class="col-sm-3">
 			</div>

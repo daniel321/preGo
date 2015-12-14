@@ -6,7 +6,7 @@ function FiestasService(store, services) {
 		var res = [];
 		for(var i=0;i<__store.fiestas.length;i++){
 			var item = __store.fiestas[i];
-			if(item.participantes.indexOf(usuarioDom)>-1){
+			if(item.participantes && item.participantes.indexOf(usuarioDom)>-1){
 				res.push(item);	
 			}			
 		}
@@ -33,61 +33,59 @@ function FiestasService(store, services) {
 	this.rellenarDemo = function () {
 		var participantes_fill = [
 			"nahuel@prego.com",
-			"china@prego.com",
 			"daniel@prego.com",
 			"facundo@prego.com",
-			"rosita@prego.com",
-			"ezequiel@prego.com",
 			"facundo@prego.com",
 			"nahuel@prego.com",
 			"nahuel@prego.com",
-			"china@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
 			"damian@prego.com",
 			"guido@prego.com",
-			"rosita@prego.com",
-			"nahuel@prego.com",
-			"ursula@prego.com",
-			"ezequiel@prego.com",
-			"facundo@prego.com",
-			"guido@prego.com",
-			"rosita@prego.com",
-			"ezequiel@prego.com",
 			"nahuel@prego.com",
 			"nahuel@prego.com",
-			"china@prego.com",
 			"damian@prego.com",
-			"guido@prego.com",
-			"rosita@prego.com",
-			"ezequiel@prego.com",
-			"facundo@prego.com",
-			"nahuel@prego.com",
-			"nahuel@prego.com",
-			"china@prego.com",
-			"nahuel@prego.com",
-			"china@prego.com",
-			"damian@prego.com",
-			"malena@prego.com",
-			"facundo@prego.com",
-			"guido@prego.com",
-			"rosita@prego.com",
-			"ezequiel@prego.com",
-			"nahuel@prego.com",
-			"guido@prego.com",
-			"rosita@prego.com",
 			"china@prego.com",
 			"guido@prego.com",
 			"rosita@prego.com",
 			"ezequiel@prego.com",
 			"facundo@prego.com",
+			"china@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"nahuel@prego.com",
+			"china@prego.com",
+			"guido@prego.com",
+			"china@prego.com",
+			"ezequiel@prego.com",
+			"facundo@prego.com",
+			"nahuel@prego.com",
 			"nahuel@prego.com",
 			"guido@prego.com",
+			"china@prego.com",
 			"damian@prego.com",
 			"guido@prego.com",
 			"rosita@prego.com"
 		];
 		 
-		this.participar(1,"nahuel@prego.com");
-		this.participar(1,"rosita@prego.com");
+		// this.participar(1,"nahuel@prego.com");
+		// this.participar(1,"rosita@prego.com");
+		
+		// this.participar(2,"nahuel@prego.com");
+		// this.participar(2,"nahuel@prego.com");
+		
+		// this.participar(3,"nahuel@prego.com");
+		// this.participar(3,"nahuel@prego.com");
+		// this.participar(3,"nahuel@prego.com");
+		
+		// this.participar(4,"nahuel@prego.com");
+		// this.participar(4,"nahuel@prego.com");
+		// this.participar(4,"nahuel@prego.com");
+			
+		// this.participar(5,"nahuel@prego.com");
+		// this.participar(5,"nahuel@prego.com");
+		// this.participar(5,"nahuel@prego.com");
 		
 		var f=0;
 		for(var i=0; i<participantes_fill.length; i++){
@@ -267,7 +265,7 @@ function FiestasService(store, services) {
 		
 		newParty.id = ++ __store.fiesta_last_id;
 		__store.fiestas.push(newParty);
-		console.log(newParty);
+		//console.log(newParty);
 		return {exito:true, id : newParty.id};
 	};
 	
@@ -276,7 +274,7 @@ function FiestasService(store, services) {
 		var id=null;
 		if(isNaN(key)){
 			nombre = key;
-			console.log('nombre' + nombre);
+			console.log('getParty con nombre:' + nombre);
 		}else{
 			id = key;
 			//console.log('id:' + id);

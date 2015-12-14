@@ -270,7 +270,7 @@ app.controller('partySearchController', function ($scope, $location,$http,$cooki
     		});
 	}	
 
-	setTimeout(f,1000);
+	setTimeout(f,3000);
 });
 
 

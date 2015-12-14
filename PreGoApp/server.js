@@ -275,13 +275,18 @@ app.post('/api/serviceCreate', function (req, res) {
 
 app.post('/api/hireService', function(req, res) {
 	var service = req.body.service;
+	var envio = req.body.envio
+	var formaEnvio = "";
+	if(envio) {
+		formaEnvio = envio.text;
+	}
 	if (typeof (service) == 'undefined') {
 		res.send({
 			exito : false,
 			error : 'revisar parametros'
 		});
 	} else {
-		serviciosService.addContratacion(service, req.cookies.email);
+		serviciosService.addContratacion(service, req.cookies.email, formaEnvio);
 		res.send({exito:true});
 	}
 })

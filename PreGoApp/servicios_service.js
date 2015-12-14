@@ -261,7 +261,7 @@ function ServiciosService(store) {
 		return entry.publisher;
     }
     
-    this.addContratacion = function (s_serviceName, buyer) {
+    this.addContratacion = function (s_serviceName, buyer, s_envio) {
     	var s_publisher = this.findPublisherByServiceName(s_serviceName);
 		var group = null;
 		var arr = __store.contrataciones;
@@ -311,7 +311,7 @@ function ServiciosService(store) {
 		}
 		
 		if (!comprador) {
-			comprador = { id: buyer };
+			comprador = { id: buyer, envio : s_envio };
 			compradores.push(comprador);
 		}
     }
@@ -335,22 +335,26 @@ function ServiciosService(store) {
 		    {
 			    publisher : 'damian@prego.com',
 			    serviceName : 'Barman & Robin Drinks',
-			    buyer : 'nahuel@prego.com'
+			    buyer : 'nahuel@prego.com',
+			    envio : 'Lo acuerdo con el vendedor'
 		    },
 		    {
 			    publisher : 'damian@prego.com',
 			    serviceName : 'DJ Tiesto',
-			    buyer : 'daniel@prego.com'
+			    buyer : 'daniel@prego.com',
+		    	envio : 'Lo acuerdo con el vendedor'
 		    },
 		    {
 			    publisher : 'damian@prego.com',
 			    serviceName : 'Barman & Robin Drinks',
-			    buyer : 'facundo@prego.com'
+			    buyer : 'facundo@prego.com',
+		    	envio : 'A domicilio'
 		    },
 		    {
 			    publisher : 'ezequiel@prego.com',
 			    serviceName : 'DJ Candela',
-			    buyer : 'damian@prego.com'
+			    buyer : 'damian@prego.com',
+		    	envio : 'Lo acuerdo con el vendedor'
 		    }
 		    
 		    ];
@@ -358,7 +362,8 @@ function ServiciosService(store) {
 		for (var i = 0; i < contrataciones.length; i++) {
 			this.addContratacion(
 					contrataciones[i].serviceName,
-					contrataciones[i].buyer
+					contrataciones[i].buyer,
+					contrataciones[i].envio
 					);
 		};
 		return true;

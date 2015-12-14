@@ -63,7 +63,7 @@
 					<div ng-repeat="service in serviceGroup.highlighted">
 						<div class="box box-warning"
 							style="background: linear-gradient(to bottom, white, #FFE4C4);"
-							ng-click="showService(service)" data-toggle="modal"
+							ng-click="showService(service, serviceGroup.code)" data-toggle="modal"
 							data-target="#myModal">
 							<div class="row">
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
@@ -100,7 +100,7 @@
 							<div class="col-lg-6">
 								<div class="box"
 									style="background: linear-gradient(to bottom, white, silver);"
-									ng-click="showService(service)" data-toggle="modal"
+									ng-click="showService(service, serviceGroup.code)" data-toggle="modal"
 									data-target="#myModal">
 									<div class="row">
 										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
@@ -182,15 +182,25 @@
 				<p>{{chosenService.detail}}</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success" data-dismiss="modal"
-					ng-click="hireService()">
-					<span class="fa fa-money" aria-hidden="true"
-						style="padding-right: 10px"></span>Contratar Servicio
-				</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">
-					<span class="fa fa-times" aria-hidden="true"
-						style="padding-right: 10px"></span>Cerrar
-				</button>
+				<div class="row"style="padding-right: 10px; padding-bottom: 10px">
+					<div class="pull-rigth">
+					<label>Forma de Entrega:</label>
+						<select id="select"
+							ng-options="envio as envio.text for envio in envioCandidates"
+							ng-model="envioSelected" style="width: 200px; color: black"></select>
+					</div>
+				</div>
+				<div class="row" style="padding-right: 10px">
+					<button type="button" class="btn btn-success" data-dismiss="modal"
+						ng-click="hireService()">
+						<span class="fa fa-money" aria-hidden="true"
+							style="padding-right: 10px"></span>Contratar Servicio
+					</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">
+						<span class="fa fa-times" aria-hidden="true"
+							style="padding-right: 10px"></span>Cerrar
+					</button>
+				</div>
 			</div>
 		</div>
 
@@ -221,7 +231,7 @@
 					</h4>
 					<b>Contacto compradores: </b>
 					<div ng-repeat="compradores in service.buyers">
-					<p>{{compradores.id}}</p>
+					<p>{{compradores.id}} (Envío: {{compradores.envio}})</p>
 					</div>
 					<hr>
 				</div>

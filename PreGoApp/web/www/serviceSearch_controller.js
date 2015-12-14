@@ -32,8 +32,17 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	$scope.searchedServices = [];
 	
 	$scope.chosenService = [];
-	
 	$scope.myHiredServices = [];
+	
+	$scope.envioSelected = null;
+	$scope.envioCandidates = [];
+	
+	$scope.envioTodos =		[
+	                          { text : "A domicilio"},
+	                          { text : "Retiro personalmente"},
+	                          { text : "Lo acuerdo con el vendedor"}
+	                          ];
+
 	
 	ServiceSearchService.getServiceGenres()
 	.then(function(response){
@@ -50,8 +59,17 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 		});
 	}
 	
-	$scope.showService = function(service) {
-		$scope.chosenService = service;	
+	$scope.showService = function(service, groupCode) {
+		$scope.chosenService = service;
+		console.log(groupCode);
+		if(groupCode == 'bebidas' || groupCode == 'sonido') {
+			$scope.envioCandidates = 
+				[ { text : "A domicilio"},
+				  { text : "Retiro personalmente"},
+				  { text : "Lo acuerdo con el vendedor"} ];
+		} else {
+			$scope.envioCandidates = [ { text : "Lo acuerdo con el vendedor"} ];
+		}
 	};
 	
 	$scope.myServices = function() {
@@ -63,7 +81,8 @@ app.controller('ServiceSearchController', function($scope, $routeParams,
 	
 	$scope.hireService = function(){
 		var newService = {
-				service : $scope.chosenService.name
+				service : $scope.chosenService.name,
+				envio : $scope.envioSelected
 		};
 		
 		ServiceSearchService.hireService(newService).then(function(response) {

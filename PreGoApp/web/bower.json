@@ -33,6 +33,9 @@
   "dependencies": {
     "bootstrap-daterangepicker": "~2.1.13",
     "angular-daterangepicker": "~0.2.2",
-    "angular-cookies": "~1.4.8"
+    "angular-cookies": "~1.4.8",
+    "Ionicons": "ionicons#~2.0.1",
+    "jquery-ui": "jquery/jquery-ui#1.11.4",
+    "raphael": "~2.1.4"
   }
 }

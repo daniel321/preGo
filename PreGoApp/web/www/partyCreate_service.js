@@ -18,6 +18,10 @@ app.factory('PartyCreateService', function ($http, $q) {
                 '/api/party',
                 party
             );
-        }
+        },
+		getImageCandidates : function(){
+			var folder = "clubs";
+			return simpleHttpGet($http,'/api/imageCandidates?type='+folder, $q.reject);
+		},
     };
 });

@@ -93,7 +93,7 @@ function EncuentrosService(store, services) {
 					nickname: auth.nickname,
 					email: auth.email,
 					message: msg,
-					time: new Date().toString("HH:mm"),
+					time: Date.now(),
 				});
 			}
 		}
@@ -101,7 +101,7 @@ function EncuentrosService(store, services) {
 
     this.getChat = function (emailUsuario, emailOtro) {
 		var usr = __buscarUsuario(emailUsuario);
-
+ 
 		if (usr != null) {
 			if (usr.matches && usr.matches.indexOf(emailOtro) > -1) {
 				if (usr.chats == null) {

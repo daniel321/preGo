@@ -22,8 +22,8 @@
                 <div class="item"  ng-repeat="message in messages">
                     <img ng-src="{{message.avatar_url}}" alt="user image" ng-class="{online: message.is_you,offline:!message.is_you}">
                     <p class="message">
-                        <a href="#" class="name">
-                            <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{message.time}}</small>
+                        <a  class="name">
+                            <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{ message.time | date:"dd/MM/yyyy HH:mm:ss"}}</small>
                             {{message.nickname}}
                         </a>
                         {{message.message}}

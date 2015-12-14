@@ -90,13 +90,8 @@
 					</div><!-- /.form group -->
 					<div class="form-group">
 						<label>Ubicación</label>
-<!--
-                        <div>
-                            {{party.pos.name}} ({{party.pos.lat}}, {{party.pos.long}})
-                        </div>
-/!-->	
 
-						<div id="mapAndPos">
+						<div id="mapAndPos" ng-show="!$scope.mapInitialized">
 							<div id = "centrator">
 								<div id="current">Initializing...</div>
 
@@ -104,6 +99,11 @@
 								<meta id="mapView" name = "viewport">			
 							</div>
 						</div>
+
+						<div ng-show="$scope.mapInitialized">
+						    {{party.pos.name}} ({{party.pos.lat}}, {{party.pos.long}})
+						</div>
+
 
 					</div><!-- /.form group -->
 					<div class="form-group">

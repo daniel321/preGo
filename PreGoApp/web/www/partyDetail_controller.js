@@ -3,6 +3,7 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
 	$scope.positionDest = [0,0];
 
 	$scope.initialized = false;
+	$scope.mapInitialized = false;
 
 	function initialize_map(id){
 		var myOptions = {

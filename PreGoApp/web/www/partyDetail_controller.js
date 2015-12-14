@@ -29,6 +29,19 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
 		}
 	}
 
+	function success_callback(p){
+		$scope.position[0] = p.coords.latitude;
+		$scope.position[1] = p.coords.longitude;
+	}
+		
+	function error_callback(p){
+		$scope.position[0] = -34.617568;
+		$scope.position[1] = -58.368352;
+
+		console.log('error='+p.message);
+	}
+
+
 	function show_position(p){
 		$scope.position[0] = p.coords.latitude;
 		$scope.position[1] = p.coords.longitude;

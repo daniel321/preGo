@@ -32,39 +32,34 @@ function FiestasService(store, services) {
 	
 	this.rellenarDemo = function () {
 		var participantes_fill = [
-			"nahuel@prego.com",
 			"daniel@prego.com",
 			"facundo@prego.com",
+			"malena@prego.com",
 			"facundo@prego.com",
-			"nahuel@prego.com",
-			"nahuel@prego.com",
-			"nahuel@prego.com",
-			"nahuel@prego.com",
 			"damian@prego.com",
 			"guido@prego.com",
 			"nahuel@prego.com",
 			"nahuel@prego.com",
 			"damian@prego.com",
 			"china@prego.com",
+			"malena@prego.com",
 			"guido@prego.com",
 			"rosita@prego.com",
 			"ezequiel@prego.com",
+			"ezequiel@prego.com",
 			"facundo@prego.com",
-			"china@prego.com",
-			"nahuel@prego.com",
-			"nahuel@prego.com",
-			"nahuel@prego.com",
-			"nahuel@prego.com",
+			"usrula@prego.com",
 			"china@prego.com",
 			"guido@prego.com",
 			"china@prego.com",
 			"ezequiel@prego.com",
 			"facundo@prego.com",
-			"nahuel@prego.com",
-			"nahuel@prego.com",
+			"usrula@prego.com",
+			"malena@prego.com",
 			"guido@prego.com",
 			"china@prego.com",
 			"damian@prego.com",
+			"china@prego.com",
 			"guido@prego.com",
 			"rosita@prego.com"
 		];
@@ -140,7 +135,7 @@ function FiestasService(store, services) {
 
 			cantidadDeGente:202,
 			userRates:[8,9,7,9,6,4,7],
-			comentarios: [ {autor:"Damian",comentario:"festejando en este gran lugar!!"}]
+			comentarios: [ {"avatar_url":"/dist/img/user2-160x160.jpg", autor:"Nahuel",comentario:"festejando en este gran lugar!!"}]
 		});
 
 		this.addParty({
@@ -158,7 +153,7 @@ function FiestasService(store, services) {
 
 			cantidadDeGente:235,
 			userRates:[6,8,10,7,4],
-			comentarios: [ {autor:"Guido",comentario:"que buena fiesta !!!"}]
+			comentarios: [ {"avatar_url":"/dist/img/user8-128x128.jpg", autor:"Guido",comentario:"que buena fiesta !!!"}]
 		});
 
 		this.addParty({
@@ -177,7 +172,7 @@ function FiestasService(store, services) {
 
 			cantidadDeGente:135,
 			userRates:[8,10,7],
-			comentarios: [ {autor:"Ezequiel",comentario:"aca hay de todo !!!"}]
+			comentarios: [ {"avatar_url":"/dist/img/avatar5.png", autor:"Ezequiel",comentario:"aca hay de todo !!!"}]
 		});
 
 		this.addParty({
@@ -196,9 +191,9 @@ function FiestasService(store, services) {
 
 			cantidadDeGente:1632,
 			userRates:[9,10,8,10,7,9],
-			comentarios: [ {autor:"Ezequiel",comentario:"esta genial!"},
-				{autor:"Guido",comentario:"festejando como loco!!"},
-				{autor:"Nahuel",comentario:"fiestaaaaa!"}]
+			comentarios: [ {"avatar_url":"/dist/img/avatar5.png", autor:"Ezequiel",comentario:"esta genial!"},
+				{"avatar_url":"/dist/img/user8-128x128.jpg", autor:"Guido",comentario:"festejando como loco!!"},
+				{"avatar_url":"/dist/img/user6-128x128.jpg", autor:"Nahuel",comentario:"fiestaaaaa!"}]
 		});
 
 		this.addParty({
@@ -217,7 +212,7 @@ function FiestasService(store, services) {
 			cantidadDeGente:6,
 			userRates:[8,10,7],
 
-			comentarios: [ {autor:"Facundo",comentario:"muy bueno, pero no hay nadie..."}]
+			comentarios: [ {"avatar_url":"/dist/img/avatar04.png", autor:"Facundo",comentario:"muy bueno, pero no hay nadie..."}]
 		});
 
 		this.addParty({
@@ -235,7 +230,8 @@ function FiestasService(store, services) {
 
 			cantidadDeGente:302,
 			userRates:[8,8,8,5,7,10],
-			comentarios: [ {autor:"Nahuel",comentario:"chicas lindas x todos lados !!!"}]
+			comentarios: [ {"avatar_url":"/dist/img/user6-128x128.jpg", autor:"Nahuel",comentario:"chicas lindas x todos lados !!!"}] 
+			
 		});
 
 	};

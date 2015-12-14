@@ -16,15 +16,17 @@ app.controller('partyDetailController', function ($scope, $http, $cookies, $loca
 	$scope.mapInitialized = false;
 
     function initialize_map(id) {
-        var myOptions = {
-            zoom: 4,
-            mapTypeControl: true,
-            mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
-            navigationControl: true,
-            navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL },
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        map = new google.maps.Map(document.getElementById(id), myOptions);
+	if(typeof(google) !== 'undefined') {
+		var myOptions = {
+		    zoom: 4,
+		    mapTypeControl: true,
+		    mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
+		    navigationControl: true,
+		    navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL },
+		    mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		map = new google.maps.Map(document.getElementById(id), myOptions);
+	}
     }
 
     function initialize() {

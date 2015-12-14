@@ -255,6 +255,9 @@ function ServiciosService(store) {
 				entry = arr[i];
 			}
 		}
+		if(!entry) {
+			return [];
+		}
 		return entry.publisher;
     }
     

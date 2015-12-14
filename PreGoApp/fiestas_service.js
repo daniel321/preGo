@@ -111,7 +111,7 @@ function FiestasService(store, services) {
 			musicGenres:["tropical","dance"],
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Ink",
-			pos:{lat:-34.5865587,long:-58.4395189},
+			pos:{ name:'Av Cnel. Niceto Vega 5635, 1414 Buenos Aires',lat:-34.5865587,long:-58.4395189},
 			
 			cantidadDeGente:325,
 			imagenDeFondo:"/dist/img/clubs/ink.jpg",
@@ -130,8 +130,11 @@ function FiestasService(store, services) {
 			imagenBanner:"/dist/img/clubs/Hiio_BAR.jpg",
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Hiio",
-			pos:{lat:-34.4961641,long:-58.5549297},
-
+			pos:{
+				name:'C1088AAB, Adolfo Alsina 940, Buenos Aires',
+				lat:-34.610724,
+				long:-58.379743
+			},
 			inicio: "2015-12-17T13:30:00",
 			fin:    "2015-12-19T21:30:00",
 
@@ -149,8 +152,7 @@ function FiestasService(store, services) {
 			imagenBanner:"/dist/img/clubs/Moscow_BAR.jpg",
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Moscow",
-			pos:{lat:-34.4513129,long:-58.5561985},
-
+			pos:{name: 'Av Juan B. Justo 1302-1400, C1414CWP CABA', lat:-34.584532,long:-58.433644},
 			inicio: "2015-12-16T06:30:00",
 			fin:    "2015-12-20T21:30:00",
 
@@ -168,7 +170,7 @@ function FiestasService(store, services) {
 			imagenBanner:"/dist/img/clubs/bosque_BAR.jpg",
 			fotos:["otras imagenes"],
 			descripcion:"descripcion bosque",
-			pos:{lat:-34.8304372,long:-58.5712683},
+			pos:{name:'Av la Plata 3749, Quilmes Oeste, Buenos Aires',lat:-34.750622,long:-58.268180},
 
 			inicio: "2015-12-23T07:30:00",
 			fin:    "2015-12-24T21:30:00",
@@ -187,7 +189,7 @@ function FiestasService(store, services) {
 			imagenBanner:"/dist/img/clubs/sunset_BAR.jpg",
 			fotos:["otras imagenes"],
 			descripcion:"descripcion sunset",
-			pos:{lat:-34.5876237,long:-58.4660913},
+			pos:{name:'Av del Libertador 2701-2799,C1425ABA CABA',lat:-34.578253,long:-58.407982},
 
 			inicio: "2015-12-14T03:00:00",
 			fin:    "2015-12-16T03:30:00",
@@ -208,8 +210,7 @@ function FiestasService(store, services) {
 			imagenBanner:"/dist/img/clubs/Buenos-Aires-En-Foco_BAR.jpg",
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Buenos-Aires-En-Foco",
-			pos:{lat:-34.6324812,long:-58.4184982},
-
+			pos:{name:'Pereyra 1672,C1237ACD CABA',lat:-34.6324812,long:-58.4184982},
 			inicio: "2015-12-10T06:30:00",
 			fin:    "2015-12-12T21:30:00",
 
@@ -228,8 +229,7 @@ function FiestasService(store, services) {
 			imagenBanner:"/dist/img/clubs/Pool-Party_BAR.jpg",
 			fotos:["otras imagenes"],
 			descripcion:"descripcion Pool-Party",
-			pos:{lat:-34.5739245,long:-58.3923359},
-
+			pos:{name:'Av Presidente Ram?n San Castillo 2500, Ciudad Aut?noma de Buenos Aires',lat:-34.5739245,long:-58.3923359},
 			inicio: "2015-12-14T10:30:00",
 			fin:    "2015-12-15T21:30:00",
 
@@ -262,7 +262,7 @@ function FiestasService(store, services) {
 			//console.log(getDD2DMS(newParty.pos.lat, 'lat'));
 			//console.log(newParty.nombre + '\nhttps://www.google.com.ar/maps/place/'+getDD2DMS(newParty.pos.lat, 'lat')+'+'+getDD2DMS(newParty.pos.long, 'lon'));	
 		}
-		console.log(newParty.pos);
+		//console.log(newParty.pos);
 		newParty.id = ++ __store.fiesta_last_id;
 		__store.fiestas.push(newParty);
 		//console.log(newParty);
@@ -274,7 +274,7 @@ function FiestasService(store, services) {
 		var id=null;
 		if(isNaN(key)){
 			nombre = key;
-			console.log('getParty con nombre:' + nombre);
+			//console.log('getParty con nombre:' + nombre);
 		}else{
 			id = key;
 			//console.log('id:' + id);

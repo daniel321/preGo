@@ -1,9 +1,18 @@
-app.controller('partyDetailController', function ($scope, $http, $location, PartyDetailService) {
+app.controller('partyDetailController', function ($scope, $http, $cookies, $location, PartyDetailService) {
     $scope.position = [0, 0];
     $scope.positionDest = [0, 0];
 
-    $scope.initialized = false;
-    $scope.mapInitialized = false;
+	
+	$scope.online = true;
+	
+	$scope.updateOnlineMode = function(){
+		$scope.online = !($cookies.get('offline')=="true");
+	}
+	
+	$scope.updateOnlineMode();
+	
+	$scope.initialized = false;
+	$scope.mapInitialized = false;
 
     function initialize_map(id) {
         var myOptions = {

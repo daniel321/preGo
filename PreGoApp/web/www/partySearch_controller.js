@@ -1,4 +1,4 @@
-app.controller('partySearchController', function ($scope, $location, partySearchService) {
+app.controller('partySearchController', function ($scope, $location,$http,$cookies, partySearchService) {
     	// $scope.navBar.src = 'www/partySearchNavBar.html';
 	$scope.common_partys = [];
 	$scope.promoted_partys = [];
@@ -11,6 +11,7 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 
 	$scope.mapInitialized = false;
 	$scope.initialized = false;
+	$scope.location = null;
 
 	$scope.datePicker = {
 		date : {startDate: null, endDate: null},
@@ -22,6 +23,23 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 		$scope.common_partys = [];
 		$scope.promoted_partys = [];
 	}
+	
+	$scope.online = true;	
+	$scope.updateOnlineMode = function(){
+		$scope.online = !($cookies.get('offline')=="true");
+	}	
+	$scope.updateOnlineMode();
+	
+	$scope.hardLocations = null;	
+	$scope.getHardLocations = function(){
+		$http({
+				url: '/api/hardLocations',
+				method: 'GET'
+			}).then(function(res){
+				$scope.hardLocations = res.data;
+			});
+	}
+	$scope.getHardLocations();
 
 	$scope.enableTodayPartysMenu = function(){
 		if($scope.showMenu != 1){
@@ -33,7 +51,7 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 
 	$scope.enableCloseByPartysMenu = function(){
 		if($scope.showMenu != 2){
-			document.getElementById("toleranceForm").value = 10;
+			//document.getElementById("toleranceForm").value = 10;
 
 			if (!($scope.mapInitialized)){
 				initialize_map("map_canvas");
@@ -199,21 +217,32 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 	}
 
 	function success_callback(p){
-		$scope.position[0] = p.coords.latitude;
-		$scope.position[1] = p.coords.longitude;
+		if($scope.online || $scope.location==null){
+			$scope.position[0] = p.coords.latitude;
+			$scope.position[1] = p.coords.longitude;
+		}else{
+			$scope.position[0] = $scope.location.lat;
+			$scope.position[1] = $scope.location.lng;
+		}
 	}
 		
-	function error_callback(p){
-		$scope.position[0] = -34.617568;
-		$scope.position[1] = -58.368352;
-
-		console.log('error='+p.message);
+	function error_callback(p){		
+		if($scope.online || $scope.location==null){
+			$scope.position[0] = -34.617568;
+			$scope.position[1] = -58.368352;
+			console.log('error='+p.message);
+		}else{
+			$scope.position[0] = $scope.location.lat;
+			$scope.position[1] = $scope.location.lng;
+		}
 	}
 
-	var getPos = function(){
+	var getPos = function(){		
 		if( $scope.initialized || geo_position_js.init() ){
+			
 			geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
 			$scope.initialized = true;
+		
 		}else{
 			console.log("Functionality not available");
 		}

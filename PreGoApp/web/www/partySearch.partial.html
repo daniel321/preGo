@@ -112,22 +112,29 @@
 
 	<div id="menuCloseByPartys" ng-show="showMenu == 2">
 
-		<div id = "closeBySelection">
+		<div id = "closeBySelection" ng-show="online">
 			<div id="current">Initializing...</div>
 
 			<div id="map_canvas" style="width:300px; height:300px"></div>
 			<meta name = "viewport" id="mapView">			
 		</div>
+		
+		<div id = "closeBySelection" ng-show="!online">
+			<select ng-options="loc as loc.descripcion for loc in hardLocations track by loc.id" ng-model="location">
+				<option value="">-- Elija la ubicacion --</option>
+			</select> 
+		</div>
 
 		<div id = "closeBySelection">
 			max: 
-			<input id="toleranceForm" class="form-control-unstyled"></input>
+			<input id="toleranceForm" class="form-control-unstyled" value="15"></input>
 			Km
 
 			<button id="okBtn" ng-click="findCloseByPartys()" class="btn btn-success-unstyled">
 				<img id="iconOk" src="/dist/img/icons/go.png" class="img-responsive" alt="Cinque Terre"></img>
 			</button>
 		</div>
+		
 	</div>
 
 	<div id="menuPartyTypes" ng-show="showMenu == 3">

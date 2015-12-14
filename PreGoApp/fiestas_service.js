@@ -564,7 +564,7 @@ function FiestasService(store, services) {
 	
 	
 	var closest = function(party1,party2){
-		return (party2.dist - party1.dist);
+		return (party1.dist - party2.dist);
 	};
 	
 	this.getDistance = function (direccion,party) {

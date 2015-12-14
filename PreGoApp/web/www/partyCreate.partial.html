@@ -2,19 +2,16 @@
     <div class="col-md-12">
         <!-- Default box -->
         <div class="box">
-			<form name="mainForm" ng-submit="sendForm()">
+			<form name="mainForm" >
 				<div class="box-header with-border">
 					<h3 class="box-title">Nueva fiesta</h3>
+					<div ng-if="!esSugerida" ng-click="toggleEsSugerida()" class="btn btn-default pull-right">Destacar</div>
+                        <div ng-if="esSugerida" ng-click="toggleEsSugerida()" class="btn btn-primary pull-right">Destacada <i class="fa fa-fw fa-check"></i></div>
 				</div>
 				<div class="box-body">
 					<div class="form-group">
 						<input class="form-control input-lg" type="text" placeholder="Nombre de la fiesta" ng-model="name" required />
 					</div>
-                    <div>
-                        <div ng-if="!esSugerida" ng-click="toggleEsSugerida()" class="btn btn-default pull-right">Destacar</div>
-                        <div ng-if="esSugerida" ng-click="toggleEsSugerida()" class="btn btn-primary pull-right">Destacado <i class="fa fa-fw fa-check"></i></div>
-                        <br /><br />
-                    </div>
 					<div class="form-group">
 						<label>Descripción</label>
 						<textarea class="form-control" rows="3" placeholder="Detalles..." ng-model="description" required ></textarea>
@@ -30,12 +27,16 @@
 					</div><!-- /.form group -->
 					<div class="form-group">
 						<label>Ubicación</label>
-						<div class="input-group">
+						<div class="input-group" ng-show="online">
 							<div class="input-group-addon">
 								<i class="fa fa-map-marker"></i>
 							</div>
 							<location-picker id="location" ng-model="location" inner-class="form-control" placeholder="Dirección" ng-required="true"></location-picker>
-							<!--button ng-click="clear()">Clear</button-->	
+						</div>
+						<div class="input-group" ng-show="!online"> 
+							<select ng-options="loc as loc.descripcion for loc in hardLocations track by loc.id" ng-model="location">
+							<option value="">-- Elija la ubicacion --</option>
+							</select>
 						</div>
 					</div><!-- /.form group -->
 					<div class="form-group">
@@ -52,7 +53,7 @@
 					</div>
 				</div><!-- /.box-body -->
 				<div class="box-footer">
-					<button type="submit" class="btn btn-primary pull-right">Guardar</button>
+					<div ng-click="sendForm()" class="btn btn-primary pull-right">Guardar</div>
 				</div><!-- /.box-footer-->
 			</form>
         </div><!-- /.box -->

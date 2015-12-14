@@ -70,12 +70,12 @@ function EncuentrosService(store, services) {
 		var auth = __buscarUsuario(author);
 		var usr2 = __buscarUsuario(user2);
 		
-		if ((auth != null) && (usr2 != null)) {
+		if ((auth != null) && (usr2 != null) && (auth.matches) && (usr2.matches)) {
 			if ((auth.matches.indexOf(user2) > -1) && (usr2.matches.indexOf(author) > -1)) {
 
 				if (auth.chats == null) {
 					auth.chats = {};
-				}
+				} 
 
 				if (usr2.chats == null) {
 					usr2.chats = {};

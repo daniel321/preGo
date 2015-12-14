@@ -262,7 +262,7 @@ function FiestasService(store, services) {
 			//console.log(getDD2DMS(newParty.pos.lat, 'lat'));
 			//console.log(newParty.nombre + '\nhttps://www.google.com.ar/maps/place/'+getDD2DMS(newParty.pos.lat, 'lat')+'+'+getDD2DMS(newParty.pos.long, 'lon'));	
 		}
-		console.log(newParty.pos);
+		//console.log(newParty.pos);
 		newParty.id = ++ __store.fiesta_last_id;
 		__store.fiestas.push(newParty);
 		//console.log(newParty);
@@ -274,7 +274,7 @@ function FiestasService(store, services) {
 		var id=null;
 		if(isNaN(key)){
 			nombre = key;
-			console.log('getParty con nombre:' + nombre);
+			//console.log('getParty con nombre:' + nombre);
 		}else{
 			id = key;
 			//console.log('id:' + id);

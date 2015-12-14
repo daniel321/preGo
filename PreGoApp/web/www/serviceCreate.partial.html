@@ -98,7 +98,8 @@
 				</div>
 				<div class="box-footer">
 					<button type="submit" ng-click="save()"
-						class="btn btn-primary pull-right">Guardar</button>
+						class="btn btn-primary pull-right"
+					        ng-disabled="serviceForm.$invalid">Guardar</button>
 				</div>
 				<!-- /.box-footer-->
 			</form>

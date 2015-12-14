@@ -301,6 +301,16 @@ function FiestasService(store, services) {
 		}
 		return res;
 	};
+
+
+	var convertAllPartys = function(partys){
+		var res = [];
+		for(var i=0; i<partys.length; i++){
+			var party = partys[i];
+			res.push(copyParty(party));
+		}
+		return res;
+	}
 	
 	var copyParty = function(party){
 		var copy = {};
@@ -352,7 +362,7 @@ function FiestasService(store, services) {
 			}
 		}
 		ret.sort(biggerAmountOfPeople);
-		return ret;
+		return convertAllPartys(ret);
 	};
 	
 	
@@ -376,7 +386,7 @@ function FiestasService(store, services) {
 		}
 
 		ret.sort(closest);
-		return ret;
+		return convertAllPartys(ret);
 	};
 	
 	
@@ -400,8 +410,9 @@ function FiestasService(store, services) {
 			}
 		}
 		ret.sort(biggerAmountOfPeople);
-		return ret;
+		return convertAllPartys(ret);
 	};
+	
 	
 	this.participar = function(fiestaId, emailUsuario){
 		var party = __getParty(fiestaId);

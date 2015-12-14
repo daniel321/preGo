@@ -23,6 +23,13 @@ function UsuariosService(store) {
 
 	this.agregarUsuario = function (email, pass, nickname, avatar_url, sexo) {
 		if (!__getUsuarioByEmail(email)) {
+			if(typeof(avatar_url)=='undefined' || avatar_url==''){
+				avatar_url='/dist/img/avatar.png';
+			}
+			if(typeof(sexo)=='undefined' || sexo==''){
+				sexo='M';
+			}
+			
 			__store.usuarios.push({ pass: pass, email: email, nickname: nickname, avatar_url: avatar_url, sexo: sexo });
 			return { exito: true };
 		}

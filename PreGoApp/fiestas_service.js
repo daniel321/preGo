@@ -517,7 +517,7 @@ function FiestasService(store, services) {
 
 	
 	var getFlame = function(party){
-		if(!isUndef(party)){
+		if(isUndef(party)){
 			return "/dist/img/icons/fire/fireIconWhite.png";
 		}
 		var rates = asegurarArray(party.comentarios).length;
@@ -537,7 +537,8 @@ function FiestasService(store, services) {
 			people = [];
 		}
  
-		//console.log(people);
+		console.log('people:' + people);
+		console.log('rates:' + rates);
 		
 		if((people >= 300)){
 			return "/dist/img/icons/fire/fireIconPurple.png";

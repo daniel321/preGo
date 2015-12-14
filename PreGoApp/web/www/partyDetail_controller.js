@@ -33,7 +33,7 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
 		$scope.position[0] = p.coords.latitude;
 		$scope.position[1] = p.coords.longitude;
 
-		document.getElementById('current').innerHTML="latitude="+$scope.position[0].toFixed(5)+" longitude="+$scope.position[1].toFixed(5);
+		document.getElementById('current').innerHTML="latitude="+$scope.position[0]+" longitude="+$scope.position[1];
 		var pos=new google.maps.LatLng($scope.position[0],$scope.position[1]);
 		var pos2=new google.maps.LatLng($scope.positionDest[0],$scope.positionDest[1]);
 
@@ -116,9 +116,14 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
 	function success_callback(p){
 		$scope.position[0] = p.coords.latitude;
 		$scope.position[1] = p.coords.longitude;
+		getPartyDistance(false);
 	}
 		
 	function error_callback(p){
+		$scope.position[0] = -34.617568;
+		$scope.position[1] = -58.368352;
+		getPartyDistance(false);
+
 		console.log('error='+p.message);
 	}
 
@@ -129,9 +134,8 @@ app.controller('partyDetailController', function ($scope, $http, $location, Part
 		}else{
 			console.log("Functionality not available");
 		}
-
 	}
-
+	
 	getPos();
 
 	if (!($scope.mapInitialized)){

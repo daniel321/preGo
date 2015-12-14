@@ -21,3 +21,7 @@
 	background-color: #F6F6F6;
 	cursor:pointer;
 }
+
+.multiselect .box-profile {
+    text-align: center;
+}

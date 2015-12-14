@@ -262,7 +262,7 @@ function FiestasService(store, services) {
 			//console.log(getDD2DMS(newParty.pos.lat, 'lat'));
 			//console.log(newParty.nombre + '\nhttps://www.google.com.ar/maps/place/'+getDD2DMS(newParty.pos.lat, 'lat')+'+'+getDD2DMS(newParty.pos.long, 'lon'));	
 		}
-		
+		console.log(newParty.pos);
 		newParty.id = ++ __store.fiesta_last_id;
 		__store.fiestas.push(newParty);
 		//console.log(newParty);
@@ -338,6 +338,11 @@ function FiestasService(store, services) {
 		copy.userRates=party.userRates.slice();
 		copy.comentarios=party.comentarios.slice();
 
+		copy.nombre = party.nombre;
+		copy.flama = party.flama;
+		copy.dist = party.dist;
+
+
 		party.participantes = asegurarArray(party.participantes);
 		copy.participantes = [];
 		for(var i=0;i<party.participantes.length;i++){
@@ -367,7 +372,6 @@ function FiestasService(store, services) {
 	
 	
 	this.getPartysCloseBy = function(destacadas, lat, long, tol){
-		
 		var ret = []; 
 
 		for(var i=0;i<__store.fiestas.length;i++){
@@ -381,7 +385,6 @@ function FiestasService(store, services) {
 				if (!destacadas && ( isUndef( party.esSugerida) || party.esSugerida ==null )  || (party.esSugerida == destacadas)){
 					agregar(ret,party.nombre,party,dist);		
 				}
-				
 			}
 		}
 
@@ -464,6 +467,7 @@ function FiestasService(store, services) {
 		party.nombre = name;
 		party.flama = flame;
 		party.dist = dist;
+
 		party.googleMapsUrl = 'https://www.google.com.ar/maps/place/'+getDD2DMS(party.pos.lat, 'lat')+'+'+getDD2DMS(party.pos.long, 'lon');
 		
 		ret.push(party);

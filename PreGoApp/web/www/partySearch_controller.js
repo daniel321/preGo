@@ -187,7 +187,7 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 
 		google.maps.event.addListener(marker, 'dragend', function() {
 			var pos = marker.position;
-			document.getElementById('current').innerHTML="latitude="+pos.lat().toFixed(5)+" longitude="+pos.lng().toFixed(5);
+			document.getElementById('current').innerHTML="latitude="+pos.lat()+" longitude="+pos.lng();
 
 			$scope.position[0] = pos.lat();
 			$scope.position[1] = pos.lng();
@@ -215,12 +215,8 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 			geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
 			$scope.initialized = true;
 		}else{
-			$scope.position[0] = -34.617568;
-			$scope.position[1] = -58.368352;
-
 			console.log("Functionality not available");
 		}
-
 	}
 	
 	$scope.viewParty = function(nombre, id){
@@ -229,8 +225,8 @@ app.controller('partySearchController', function ($scope, $location, partySearch
 
 // ---------------------------------------------------------------------------
 	reset();
-	getPos();
-
+	geo_position_js.init();
+	geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
 
     	var f = function(){
 		getPos();

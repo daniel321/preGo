@@ -6,7 +6,57 @@
 
 <div id="all">
 
-	<div id="searchBar2" class="row"> 
+<div class="box-header with-border">
+    <h3 class="box-title">Buscar fiestas</h3>
+</div>
+<div class="box-body">
+   
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>Hoy</h3>
+                    <p>Fecha</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <a href="" ng-click="enableTodayPartysMenu()" class="small-box-footer">
+                    Elegir <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>Cerca</h3>
+                    <p>Lugar</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-map"></i>
+                </div>
+                <a href="" ng-click="enableCloseByPartysMenu()" class="small-box-footer">
+                    Elegir <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>Todas</h3>
+                    <p>Tipos de fiestas</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-music"></i>
+                </div>
+                <a href="" ng-click="enablePartyTypesMenu()" class="small-box-footer">
+                    Elegir <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+	<!--<div id="searchBar2" class="row"> 
 		<div id="secc" class="col-xs-4">
 			<div id="menuOption">
 				<button id="btn" ng-click="enableTodayPartysMenu()" class="btn btn-success">
@@ -36,7 +86,7 @@
 				<div id="text"> todas </div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 
 	<div id="menuTodaysPartys" ng-show="showMenu == 1">
 		<div id="dateForm">
@@ -218,5 +268,6 @@
 /!-->
 
 	</div>
-</div>	
+
+</div>
 

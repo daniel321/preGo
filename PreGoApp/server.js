@@ -198,6 +198,7 @@ app.post('/api/party', function (req, res) {
 	newParty.types = req.body.types;
 	newParty.musicGenres = req.body.musicGenres;
 	newParty.direccion = req.body.location.name;
+	newParty.imagenDeFondo = req.body.image;
 	newParty.pos = {
 		name: req.body.location.name,
 		lat: req.body.location.lat, 

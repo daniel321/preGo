@@ -1,10 +1,18 @@
-app.controller('partyCreateController', function ($scope, $http,$location, $cookies, PartyCreateService ) {
+app.controller('partyCreateController', function ($scope, $http,$location, $cookies, PartyCreateService, ServiceCreateService ) {
     $scope.esSugerida = false;
 	$scope.partyTypes = [];
 	$scope.selectedItems = [];
 	
 	$scope.musicGenres = [];
 	$scope.selectedMusicGenres = [];
+	
+	$scope.imageSelected = null;
+	$scope.imageCandidates = [];	
+
+
+	PartyCreateService.getImageCandidates().then(function (res) {
+        angular.copy(res, $scope.imageCandidates);
+	});
 	
 	$scope.online = true;
 	
@@ -84,6 +92,7 @@ app.controller('partyCreateController', function ($scope, $http,$location, $cook
 			lat : $scope.location.lat,
 			lng : $scope.location.lng		
 		}
+		party.image = $scope.imageSelected.url;
 		
 		party.types = $scope.getTypeCodes($scope.selectedItems);
 		party.musicGenres = $scope.getTypeCodes($scope.selectedMusicGenres);
